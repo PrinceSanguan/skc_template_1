@@ -158,6 +158,26 @@ class HomeController extends Controller
     }
 
     /**
+     * Display the written reviews page.
+     *
+     * @return \Inertia\Response
+     */
+    public function writtenReviews()
+    {
+        return Inertia::render('SuccessStories/WrittenReviews');
+    }
+
+    /**
+     * Display the video testimonials page.
+     *
+     * @return \Inertia\Response
+     */
+    public function videoTestimonials()
+    {
+        return Inertia::render('SuccessStories/VideoTestimonials');
+    }
+
+    /**
      * Display the franchise info page.
      *
      * @return \Inertia\Response

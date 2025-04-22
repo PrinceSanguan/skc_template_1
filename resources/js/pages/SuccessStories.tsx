@@ -1,8 +1,11 @@
 import Template from './Programs/Template';
 import AnimatedElement from '@/components/ui/animated-element';
 import { Link } from '@inertiajs/react';
+import { useState } from 'react';
 
 export default function SuccessStories() {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   // Featured success stories
   const featuredStories = [
     {
@@ -71,6 +74,46 @@ export default function SuccessStories() {
   return (
     <Template title="Success Stories">
       <div className="container mx-auto px-4 py-16">
+        {/* Success Stories Navigation */}
+        <AnimatedElement type="fadeIn" delay={0.1}>
+          <div className="mb-12">
+            <div className="relative max-w-xs mx-auto md:mx-0">
+              <button
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="w-full flex justify-between items-center bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded"
+              >
+                <span className="text-lg">SUCCESS STORIES</span>
+                <svg
+                  className={`w-5 h-5 transition-transform ${isDropdownOpen ? 'transform rotate-180' : ''}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {isDropdownOpen && (
+                <div className="absolute z-10 w-full mt-1 bg-gray-900 rounded-md shadow-lg overflow-hidden">
+                  <Link
+                    href="/success-stories/written-reviews"
+                    className="block px-4 py-3 text-white hover:bg-red-600 transition-colors border-b border-gray-800"
+                  >
+                    Written Reviews
+                  </Link>
+                  <Link
+                    href="/success-stories/video-testimonials"
+                    className="block px-4 py-3 text-white hover:bg-red-600 transition-colors"
+                  >
+                    Video Testimonials
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
+        </AnimatedElement>
+
         {/* Hero Section */}
         <AnimatedElement type="fadeIn" delay={0.2}>
           <h1 className="text-4xl font-bold text-center mb-4">Success Stories & Testimonials</h1>

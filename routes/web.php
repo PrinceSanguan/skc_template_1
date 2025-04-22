@@ -32,6 +32,8 @@ Route::get('/programs/jiu-jitsu', [HomeController::class, 'jiuJitsu'])->name('pr
 
 // Other main menu routes
 Route::get('/success-stories', [HomeController::class, 'successStories'])->name('success-stories');
+Route::get('/success-stories/written-reviews', [HomeController::class, 'writtenReviews'])->name('success-stories.written-reviews');
+Route::get('/success-stories/video-testimonials', [HomeController::class, 'videoTestimonials'])->name('success-stories.video-testimonials');
 Route::get('/franchise', [HomeController::class, 'franchise'])->name('franchise');
 
 /*

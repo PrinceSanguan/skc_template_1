@@ -9,6 +9,7 @@ const Navbar = () => {
   const [isContactDropdownOpen, setIsContactDropdownOpen] = useState(false);
   const [isMainContactDropdownOpen, setIsMainContactDropdownOpen] = useState(false);
   const [isProgramsDropdownOpen, setIsProgramsDropdownOpen] = useState(false);
+  const [isSuccessStoriesDropdownOpen, setIsSuccessStoriesDropdownOpen] = useState(false);
   const navbarRef = useRef<HTMLElement>(null);
   const navbarBgRef = useRef<HTMLDivElement>(null);
 
@@ -66,6 +67,17 @@ const Navbar = () => {
         visibility: visible !important;
       }
       .programs-submenu {
+        display: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.2s;
+      }
+      .success-stories-dropdown:hover .success-stories-submenu {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+      }
+      .success-stories-submenu {
         display: none;
         opacity: 0;
         visibility: hidden;
@@ -231,12 +243,41 @@ const Navbar = () => {
                   </div>
                 </AnimatedElement>
                 <AnimatedElement as="div" type="fadeInDown" delay={0.5} scrollTrigger={false}>
-                  <Link
-                    href="/success-stories"
-                    className="rounded-md px-3 py-2 text-sm font-medium text-white hover:text-red-600 transition-colors"
+                  <div
+                    className="relative success-stories-dropdown"
+                    onMouseEnter={() => setIsSuccessStoriesDropdownOpen(true)}
+                    onMouseLeave={() => setIsSuccessStoriesDropdownOpen(false)}
                   >
-                    Success Stories
-                  </Link>
+                    <Link
+                      href="/success-stories"
+                      className="rounded-md px-3 py-2 text-sm font-medium text-white hover:text-red-600 transition-colors flex items-center"
+                    >
+                      Success Stories
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4 ml-1"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </Link>
+                    <div className="success-stories-submenu absolute left-0 mt-2 w-48 bg-black bg-opacity-90 rounded-md shadow-lg overflow-hidden z-10">
+                      <Link
+                        href="/success-stories/written-reviews"
+                        className="block px-4 py-2 text-sm text-white hover:bg-red-600 transition-colors"
+                      >
+                        Written Reviews
+                      </Link>
+                      <Link
+                        href="/success-stories/video-testimonials"
+                        className="block px-4 py-2 text-sm text-white hover:bg-red-600 transition-colors"
+                      >
+                        Video Testimonials
+                      </Link>
+                    </div>
+                  </div>
                 </AnimatedElement>
                 <AnimatedElement as="div" type="fadeInDown" delay={0.6} scrollTrigger={false}>
                   <Link
@@ -452,12 +493,45 @@ const Navbar = () => {
                 </div>
               )}
             </div>
-            <Link
-              href="/success-stories"
-              className="block rounded-md px-3 py-2 text-base font-medium text-white hover:text-red-600"
-            >
-              Success Stories
-            </Link>
+            <div>
+              <button
+                onClick={() => setIsSuccessStoriesDropdownOpen(!isSuccessStoriesDropdownOpen)}
+                className="flex justify-between w-full rounded-md px-3 py-2 text-base font-medium text-white hover:text-red-600"
+              >
+                <span>Success Stories</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`h-5 w-5 transition-transform ${isSuccessStoriesDropdownOpen ? 'transform rotate-180' : ''}`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {isSuccessStoriesDropdownOpen && (
+                <div className="pl-4 space-y-1 mt-1">
+                  <Link
+                    href="/success-stories"
+                    className="block rounded-md px-3 py-2 text-sm font-medium text-white hover:text-red-600"
+                  >
+                    All Success Stories
+                  </Link>
+                  <Link
+                    href="/success-stories/written-reviews"
+                    className="block rounded-md px-3 py-2 text-sm font-medium text-white hover:text-red-600"
+                  >
+                    Written Reviews
+                  </Link>
+                  <Link
+                    href="/success-stories/video-testimonials"
+                    className="block rounded-md px-3 py-2 text-sm font-medium text-white hover:text-red-600"
+                  >
+                    Video Testimonials
+                  </Link>
+                </div>
+              )}
+            </div>
             <Link
               href="/franchise"
               className="block rounded-md px-3 py-2 text-base font-medium text-white hover:text-red-600"

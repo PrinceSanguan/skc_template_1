@@ -14,6 +14,25 @@ use App\Http\Middleware\GuestMiddleware;
 use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/about', [HomeController::class, 'about'])->name('about');
+Route::get('/about/team', [HomeController::class, 'team'])->name('about.team');
+Route::get('/about/blog', [HomeController::class, 'blog'])->name('about.blog');
+Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+Route::get('/locations/evans', [HomeController::class, 'evansLocation'])->name('locations.evans');
+Route::get('/locations/grovetown', [HomeController::class, 'grovetownLocation'])->name('locations.grovetown');
+
+// Programs routes
+Route::get('/programs', [HomeController::class, 'programs'])->name('programs');
+Route::get('/programs/lil-dragons', [HomeController::class, 'lilDragons'])->name('programs.lil-dragons');
+Route::get('/programs/kids-karate', [HomeController::class, 'kidsKarate'])->name('programs.kids-karate');
+Route::get('/programs/teens-karate', [HomeController::class, 'teensKarate'])->name('programs.teens-karate');
+Route::get('/programs/adult-kempo', [HomeController::class, 'adultKempo'])->name('programs.adult-kempo');
+Route::get('/programs/kickboxing', [HomeController::class, 'kickboxing'])->name('programs.kickboxing');
+Route::get('/programs/jiu-jitsu', [HomeController::class, 'jiuJitsu'])->name('programs.jiu-jitsu');
+
+// Other main menu routes
+Route::get('/success-stories', [HomeController::class, 'successStories'])->name('success-stories');
+Route::get('/franchise', [HomeController::class, 'franchise'])->name('franchise');
 
 /*
 |--------------------------------------------------------------------------

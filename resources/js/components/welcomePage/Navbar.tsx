@@ -5,6 +5,10 @@ import AnimatedElement from '@/components/ui/animated-element';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
+  const [isContactDropdownOpen, setIsContactDropdownOpen] = useState(false);
+  const [isMainContactDropdownOpen, setIsMainContactDropdownOpen] = useState(false);
+  const [isProgramsDropdownOpen, setIsProgramsDropdownOpen] = useState(false);
   const navbarRef = useRef<HTMLElement>(null);
   const navbarBgRef = useRef<HTMLDivElement>(null);
 
@@ -41,6 +45,40 @@ const Navbar = () => {
     };
   }, []);
 
+  // Add CSS styles directly to the head for the hover behavior
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .contact-dropdown:hover .contact-submenu {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+      }
+      .contact-submenu {
+        display: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.2s;
+      }
+      .programs-dropdown:hover .programs-submenu {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+      }
+      .programs-submenu {
+        display: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.2s;
+      }
+    `;
+    document.head.appendChild(style);
+
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
   return (
     <nav ref={navbarRef} className="fixed top-0 w-full z-50">
       <div ref={navbarBgRef} className="bg-black bg-opacity-70 backdrop-blur-sm">
@@ -62,20 +100,135 @@ const Navbar = () => {
                   </Link>
                 </AnimatedElement>
                 <AnimatedElement as="div" type="fadeInDown" delay={0.3} scrollTrigger={false}>
-                  <Link
-                    href="/about"
-                    className="rounded-md px-3 py-2 text-sm font-medium text-white hover:text-red-600 transition-colors"
+                  <div
+                    className="relative"
+                    onMouseEnter={() => setIsAboutDropdownOpen(true)}
+                    onMouseLeave={() => setIsAboutDropdownOpen(false)}
                   >
-                    About Us
-                  </Link>
+                    <Link
+                      href="/about"
+                      className="rounded-md px-3 py-2 text-sm font-medium text-white hover:text-red-600 transition-colors flex items-center"
+                    >
+                      About Us
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4 ml-1"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </Link>
+                    {isAboutDropdownOpen && (
+                      <div className="absolute left-0 mt-2 w-48 bg-black bg-opacity-90 rounded-md shadow-lg overflow-hidden z-10">
+                        <Link
+                          href="/about/team"
+                          className="block px-4 py-2 text-sm text-white hover:bg-red-600 transition-colors"
+                        >
+                          Our Team
+                        </Link>
+                        <Link
+                          href="/about/blog"
+                          className="block px-4 py-2 text-sm text-white hover:bg-red-600 transition-colors"
+                        >
+                          Blog
+                        </Link>
+                        <div className="contact-dropdown">
+                          <Link
+                            href="/contact"
+                            className="flex justify-between items-center px-4 py-2 text-sm text-white hover:bg-red-600 transition-colors"
+                          >
+                            <span>Contact</span>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-4 w-4"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                          </Link>
+                          <div className="contact-submenu absolute left-full top-0 w-48 bg-black bg-opacity-90 rounded-md shadow-lg overflow-hidden">
+                            <Link
+                              href="/locations/evans"
+                              className="block px-4 py-2 text-sm text-white hover:bg-red-600 transition-colors"
+                            >
+                              Evans, GA
+                            </Link>
+                            <Link
+                              href="/locations/grovetown"
+                              className="block px-4 py-2 text-sm text-white hover:bg-red-600 transition-colors"
+                            >
+                              Grovetown, GA
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </AnimatedElement>
                 <AnimatedElement as="div" type="fadeInDown" delay={0.4} scrollTrigger={false}>
-                  <Link
-                    href="/programs"
-                    className="rounded-md px-3 py-2 text-sm font-medium text-white hover:text-red-600 transition-colors"
+                  <div
+                    className="relative programs-dropdown"
+                    onMouseEnter={() => setIsProgramsDropdownOpen(true)}
+                    onMouseLeave={() => setIsProgramsDropdownOpen(false)}
                   >
-                    Programs
-                  </Link>
+                    <Link
+                      href="/programs"
+                      className="rounded-md px-3 py-2 text-sm font-medium text-white hover:text-red-600 transition-colors flex items-center"
+                    >
+                      Programs
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4 ml-1"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </Link>
+                    <div className="programs-submenu absolute left-0 mt-2 w-60 bg-black bg-opacity-90 rounded-md shadow-lg overflow-hidden z-10">
+                      <Link
+                        href="/programs/lil-dragons"
+                        className="block px-4 py-2 text-sm text-white hover:bg-red-600 transition-colors"
+                      >
+                        Lil Dragons (4 — 5)
+                      </Link>
+                      <Link
+                        href="/programs/kids-karate"
+                        className="block px-4 py-2 text-sm text-white hover:bg-red-600 transition-colors"
+                      >
+                        Kids Karate (6 — 10)
+                      </Link>
+                      <Link
+                        href="/programs/teens-karate"
+                        className="block px-4 py-2 text-sm text-white hover:bg-red-600 transition-colors"
+                      >
+                        Teens Karate (11 — 13)
+                      </Link>
+                      <Link
+                        href="/programs/adult-kempo"
+                        className="block px-4 py-2 text-sm text-white hover:bg-red-600 transition-colors"
+                      >
+                        Adult Kempo Karate (14+)
+                      </Link>
+                      <Link
+                        href="/programs/kickboxing"
+                        className="block px-4 py-2 text-sm text-white hover:bg-red-600 transition-colors"
+                      >
+                        Kickboxing (14+)
+                      </Link>
+                      <Link
+                        href="/programs/jiu-jitsu"
+                        className="block px-4 py-2 text-sm text-white hover:bg-red-600 transition-colors"
+                      >
+                        Jiu Jitsu (14+)
+                      </Link>
+                    </div>
+                  </div>
                 </AnimatedElement>
                 <AnimatedElement as="div" type="fadeInDown" delay={0.5} scrollTrigger={false}>
                   <Link
@@ -94,12 +247,43 @@ const Navbar = () => {
                   </Link>
                 </AnimatedElement>
                 <AnimatedElement as="div" type="fadeInDown" delay={0.7} scrollTrigger={false}>
-                  <Link
-                    href="/contact"
-                    className="rounded-md bg-red-600 px-3 py-2 text-sm font-medium text-white hover:bg-red-700 transition-colors"
+                  <div
+                    className="relative"
+                    onMouseEnter={() => setIsMainContactDropdownOpen(true)}
+                    onMouseLeave={() => setIsMainContactDropdownOpen(false)}
                   >
-                    Select Location
-                  </Link>
+                    <Link
+                      href="/contact"
+                      className="rounded-md bg-red-600 px-3 py-2 text-sm font-medium text-white hover:bg-red-700 transition-colors flex items-center"
+                    >
+                      Select Location
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4 ml-1"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </Link>
+                    {isMainContactDropdownOpen && (
+                      <div className="absolute right-0 mt-2 w-48 bg-black bg-opacity-90 rounded-md shadow-lg overflow-hidden z-10">
+                        <Link
+                          href="/locations/evans"
+                          className="block px-4 py-2 text-sm text-white hover:bg-red-600 transition-colors"
+                        >
+                          Evans, GA
+                        </Link>
+                        <Link
+                          href="/locations/grovetown"
+                          className="block px-4 py-2 text-sm text-white hover:bg-red-600 transition-colors"
+                        >
+                          Grovetown, GA
+                        </Link>
+                      </div>
+                    )}
+                  </div>
                 </AnimatedElement>
               </div>
             </div>
@@ -139,18 +323,135 @@ const Navbar = () => {
             >
               Home
             </Link>
-            <Link
-              href="/about"
-              className="block rounded-md px-3 py-2 text-base font-medium text-white hover:text-red-600"
-            >
-              About Us
-            </Link>
-            <Link
-              href="/programs"
-              className="block rounded-md px-3 py-2 text-base font-medium text-white hover:text-red-600"
-            >
-              Programs
-            </Link>
+            <div>
+              <button
+                onClick={() => setIsAboutDropdownOpen(!isAboutDropdownOpen)}
+                className="flex justify-between w-full rounded-md px-3 py-2 text-base font-medium text-white hover:text-red-600"
+              >
+                <span>About Us</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`h-5 w-5 transition-transform ${isAboutDropdownOpen ? 'transform rotate-180' : ''}`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {isAboutDropdownOpen && (
+                <div className="pl-4 space-y-1 mt-1">
+                  <Link
+                    href="/about"
+                    className="block rounded-md px-3 py-2 text-sm font-medium text-white hover:text-red-600"
+                  >
+                    About Us Home
+                  </Link>
+                  <Link
+                    href="/about/team"
+                    className="block rounded-md px-3 py-2 text-sm font-medium text-white hover:text-red-600"
+                  >
+                    Our Team
+                  </Link>
+                  <Link
+                    href="/about/blog"
+                    className="block rounded-md px-3 py-2 text-sm font-medium text-white hover:text-red-600"
+                  >
+                    Blog
+                  </Link>
+                  <div>
+                    <button
+                      onClick={() => setIsContactDropdownOpen(!isContactDropdownOpen)}
+                      className="flex justify-between w-full rounded-md px-3 py-2 text-sm font-medium text-white hover:text-red-600"
+                    >
+                      <span>Contact</span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className={`h-4 w-4 transition-transform ${isContactDropdownOpen ? 'transform rotate-180' : ''}`}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                    {isContactDropdownOpen && (
+                      <div className="pl-4 space-y-1 mt-1">
+                        <Link
+                          href="/locations/evans"
+                          className="block rounded-md px-3 py-2 text-xs font-medium text-white hover:text-red-600"
+                        >
+                          Evans, GA
+                        </Link>
+                        <Link
+                          href="/locations/grovetown"
+                          className="block rounded-md px-3 py-2 text-xs font-medium text-white hover:text-red-600"
+                        >
+                          Grovetown, GA
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+            <div>
+              <button
+                onClick={() => setIsProgramsDropdownOpen(!isProgramsDropdownOpen)}
+                className="flex justify-between w-full rounded-md px-3 py-2 text-base font-medium text-white hover:text-red-600"
+              >
+                <span>Programs</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`h-5 w-5 transition-transform ${isProgramsDropdownOpen ? 'transform rotate-180' : ''}`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {isProgramsDropdownOpen && (
+                <div className="pl-4 space-y-1 mt-1">
+                  <Link
+                    href="/programs/lil-dragons"
+                    className="block rounded-md px-3 py-2 text-sm font-medium text-white hover:text-red-600"
+                  >
+                    Lil Dragons (4 — 5)
+                  </Link>
+                  <Link
+                    href="/programs/kids-karate"
+                    className="block rounded-md px-3 py-2 text-sm font-medium text-white hover:text-red-600"
+                  >
+                    Kids Karate (6 — 10)
+                  </Link>
+                  <Link
+                    href="/programs/teens-karate"
+                    className="block rounded-md px-3 py-2 text-sm font-medium text-white hover:text-red-600"
+                  >
+                    Teens Karate (11 — 13)
+                  </Link>
+                  <Link
+                    href="/programs/adult-kempo"
+                    className="block rounded-md px-3 py-2 text-sm font-medium text-white hover:text-red-600"
+                  >
+                    Adult Kempo Karate (14+)
+                  </Link>
+                  <Link
+                    href="/programs/kickboxing"
+                    className="block rounded-md px-3 py-2 text-sm font-medium text-white hover:text-red-600"
+                  >
+                    Kickboxing (14+)
+                  </Link>
+                  <Link
+                    href="/programs/jiu-jitsu"
+                    className="block rounded-md px-3 py-2 text-sm font-medium text-white hover:text-red-600"
+                  >
+                    Jiu Jitsu (14+)
+                  </Link>
+                </div>
+              )}
+            </div>
             <Link
               href="/success-stories"
               className="block rounded-md px-3 py-2 text-base font-medium text-white hover:text-red-600"
@@ -163,12 +464,39 @@ const Navbar = () => {
             >
               Franchise Info
             </Link>
-            <Link
-              href="/contact"
-              className="block rounded-md bg-red-600 px-3 py-2 text-base font-medium text-white hover:bg-red-700 mt-4"
-            >
-              Select Location
-            </Link>
+            <div>
+              <button
+                onClick={() => setIsMainContactDropdownOpen(!isMainContactDropdownOpen)}
+                className="flex justify-between w-full rounded-md px-3 py-2 text-base font-medium text-white hover:text-red-600 bg-red-600 hover:bg-red-700 mt-4"
+              >
+                <span>Select Location</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`h-5 w-5 transition-transform ${isMainContactDropdownOpen ? 'transform rotate-180' : ''}`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {isMainContactDropdownOpen && (
+                <div className="pl-4 space-y-1 mt-1">
+                  <Link
+                    href="/locations/evans"
+                    className="block rounded-md px-3 py-2 text-sm font-medium text-white hover:text-red-600"
+                  >
+                    Evans, GA
+                  </Link>
+                  <Link
+                    href="/locations/grovetown"
+                    className="block rounded-md px-3 py-2 text-sm font-medium text-white hover:text-red-600"
+                  >
+                    Grovetown, GA
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}

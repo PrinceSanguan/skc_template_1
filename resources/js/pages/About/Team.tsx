@@ -1,10 +1,12 @@
 import Template from './Template';
 import AnimatedElement from '@/components/ui/animated-element';
+import { Link } from '@inertiajs/react';
 
 interface TeamMember {
   name: string;
   position: string;
   bio?: string;
+  slug: string;
   imageUrl: string;
 }
 
@@ -23,32 +25,38 @@ export default function Team() {
     {
       name: 'Mr. Tommy Seigler',
       position: 'Founder/Owner',
-      imageUrl: '/images/team/tommy-seigler.jpg'
+      imageUrl: '/images/team/Tommy.jpg',
+      slug: 'tommy-seigler',
     },
     {
       name: 'Mrs. Jennifer Seigler Waters',
       position: 'Executive Sensei',
-      imageUrl: '/images/team/jennifer-waters.jpg'
+      imageUrl: '/images/team/Jennifer.jpg',
+      slug: 'jennifer-seigler-waters'
     },
     {
       name: 'Mrs. Lisa Corley',
       position: 'Chief of Operations',
-      imageUrl: '/images/team/lisa-corley.jpg'
+      imageUrl: '/images/team/Lisa.jpg',
+      slug: 'lisa-corley'
     },
     {
       name: 'Mr. Titus Waters',
-      position: 'Instructor',
-      imageUrl: '/images/team/titus-waters.jpg'
+      position: 'Head Sensei',
+      imageUrl: '/images/team/Titus.jpg',
+      slug: 'titus-waters'
     },
     {
       name: 'Mr. Daniel Corley',
-      position: 'Instructor',
-      imageUrl: '/images/team/daniel-corley.jpg'
+      position: 'Senior Sensei',
+      imageUrl: '/images/team/Daniel.jpg',
+      slug: 'daniel-corley'
     },
     {
       name: 'Ms. Cameron Corley',
-      position: 'Instructor',
-      imageUrl: '/images/team/cameron-corley.jpg'
+      position: 'Senior Success Coach',
+      imageUrl: '/images/team/Cameron.jpg',
+      slug: 'cameron-corley'
     }
   ];
 
@@ -113,38 +121,41 @@ export default function Team() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 mt-12">
             {teamMembers.map((member, index) => (
               <AnimatedElement key={member.name} type="fadeInUp" delay={0.2 + index * 0.1}>
-                <div className="group bg-gradient-to-br from-gray-900 to-gray-950 rounded-xl overflow-hidden shadow-xl border border-gray-800 hover:border-red-600 transition-all duration-300 flex flex-col h-full transform hover:-translate-y-2">
-                  <div className="w-full">
-                    <div className="relative pb-[100%] overflow-hidden">
-                      <img
-                        src={member.imageUrl}
-                        alt={member.name}
-                        className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.style.display = 'none';
-                          const parent = target.parentElement;
-                          if (parent) {
-                            parent.classList.add('bg-gradient-to-br', 'from-gray-800', 'to-gray-900', 'flex', 'items-center', 'justify-center');
-                            const span = document.createElement('span');
-                            span.className = 'text-6xl font-bold text-gray-500';
-                            span.textContent = member.name.charAt(0);
-                            parent.appendChild(span);
-                          }
-                        }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-0 group-hover:opacity-60 transition-opacity duration-300"></div>
+                <Link href={`/about/team/${member.slug}`} className="block">
+                  <div className="group bg-gradient-to-br from-gray-900 to-gray-950 rounded-xl overflow-hidden shadow-xl border border-gray-800 hover:border-red-600 transition-all duration-300 flex flex-col h-full transform hover:-translate-y-2 cursor-pointer">
+                    <div className="w-full">
+                      <div className="relative pb-[100%] overflow-hidden">
+                        <img
+                          src={member.imageUrl}
+                          alt={member.name}
+                          className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.style.display = 'none';
+                            const parent = target.parentElement;
+                            if (parent) {
+                              parent.classList.add('bg-gradient-to-br', 'from-gray-800', 'to-gray-900', 'flex', 'items-center', 'justify-center');
+                              const span = document.createElement('span');
+                              span.className = 'text-6xl font-bold text-gray-500';
+                              span.textContent = member.name.charAt(0);
+                              parent.appendChild(span);
+                            }
+                          }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-0 group-hover:opacity-60 transition-opacity duration-300"></div>
+                      </div>
+                    </div>
+                    <div className="p-6 flex-grow flex flex-col justify-between">
+                      <div>
+                        <h3 className="text-xl font-bold text-white mb-1 group-hover:text-red-500 transition-colors duration-300">{member.name}</h3>
+                        <div className="w-12 h-0.5 bg-red-600 mb-3"></div>
+                        <p className="text-red-500 font-semibold mb-3">{member.position}</p>
+                        {member.bio && <p className="text-gray-400">{member.bio}</p>}
+                        <p className="text-blue-400 mt-3 group-hover:text-blue-300">View full biography →</p>
+                      </div>
                     </div>
                   </div>
-                  <div className="p-6 flex-grow flex flex-col justify-between">
-                    <div>
-                      <h3 className="text-xl font-bold text-white mb-1 group-hover:text-red-500 transition-colors duration-300">{member.name}</h3>
-                      <div className="w-12 h-0.5 bg-red-600 mb-3"></div>
-                      <p className="text-red-500 font-semibold mb-3">{member.position}</p>
-                      {member.bio && <p className="text-gray-400">{member.bio}</p>}
-                    </div>
-                  </div>
-                </div>
+                </Link>
               </AnimatedElement>
             ))}
           </div>

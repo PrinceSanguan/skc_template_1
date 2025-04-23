@@ -84,7 +84,7 @@ export default function Team() {
       {/* Hero Section */}
       <div className="relative bg-black overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black z-10"></div>
-        <div className="absolute inset-0 bg-[url('/images/dojo-background.jpg')] bg-cover bg-center opacity-20"></div>
+        <div className="absolute inset-0 bg-cover bg-center opacity-20"></div>
         <div className="container relative mx-auto px-4 py-24 z-20">
           <AnimatedElement type="fadeIn" delay={0.2}>
             <h1 className="text-5xl md:text-6xl font-bold text-center mb-4 text-white tracking-tight">

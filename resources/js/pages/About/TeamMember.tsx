@@ -21,7 +21,7 @@ export default function TeamMember({ teamMember }: TeamMemberProps) {
       {/* Hero Section */}
       <div className="relative bg-black overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black z-10"></div>
-        <div className="absolute inset-0 bg-[url('/images/dojo-background.jpg')] bg-cover bg-center opacity-20"></div>
+        <div className="absolute inset-0 bg-cover bg-center opacity-20"></div>
         <div className="relative container mx-auto px-4 py-16 md:py-24 z-20 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">{teamMember.name}</h1>
           <p className="text-xl text-red-500 font-semibold mb-8">{teamMember.position}</p>

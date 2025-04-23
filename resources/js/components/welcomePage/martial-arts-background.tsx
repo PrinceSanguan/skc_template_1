@@ -65,7 +65,7 @@ const MartialArtsBackground = ({ children }: MartialArtsBackgroundProps) => {
           }
         })
       }, 300) // Less frequent particles
-      
+
       return () => {
         if (particleInterval) clearInterval(particleInterval)
       }
@@ -76,19 +76,19 @@ const MartialArtsBackground = ({ children }: MartialArtsBackgroundProps) => {
     <div className="relative min-h-screen overflow-hidden">
       {/* Dark background base */}
       <div className="fixed inset-0 bg-black z-0"></div>
-      
+
       {/* Subtle gradient overlay */}
       <div className="fixed inset-0 bg-gradient-to-t from-red-900/40 via-black/95 to-black z-0"></div>
-      
+
       {/* Very subtle side gradients */}
       <div className="fixed left-0 bottom-0 w-1/3 h-full bg-gradient-to-r from-red-800/10 to-transparent z-0"></div>
       <div className="fixed right-0 bottom-0 w-1/3 h-full bg-gradient-to-l from-red-800/10 to-transparent z-0"></div>
-      
+
       {/* Gentle glow at bottom */}
       <div className="fixed bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-red-700/15 to-transparent z-1"></div>
 
       {/* Japanese-inspired pattern overlay */}
-      <div className="fixed inset-0 bg-[url('/pattern-overlay.png')] opacity-3 mix-blend-overlay z-0"></div>
+      <div className="fixed inset-0 opacity-3 mix-blend-overlay z-0"></div>
 
       {/* Subtle particles container */}
       <div ref={particlesRef} className="fixed inset-0 pointer-events-none z-5"></div>

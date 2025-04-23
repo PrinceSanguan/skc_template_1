@@ -270,7 +270,7 @@ const Footer = () => {
         ></div>
 
         {/* Japanese pattern overlay */}
-        <div className="absolute inset-0 bg-[url('/pattern-overlay.png')] opacity-5 mix-blend-overlay z-0"></div>
+        <div className="absolute inset-0 opacity-5 mix-blend-overlay z-0"></div>
 
         {/* Footer content */}
         <div className="container mx-auto px-4 relative z-20">

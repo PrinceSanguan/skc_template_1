@@ -1,6 +1,6 @@
 import React from 'react';
-import Template from '../../components/welcomePage/Template';
-import AnimatedElement from '../../components/ui/AnimatedElement';
+import Template from '@/pages/Programs/Template';
+import AnimatedElement from '@/components/ui/animated-element';
 
 export default function AdultKarate() {
   // Sample class schedule
@@ -87,7 +87,7 @@ export default function AdultKarate() {
   ];
 
   return (
-    <Template>
+    <Template title="Adult Kempo Karate">
       {/* Hero Section */}
       <div className="relative">
         <img

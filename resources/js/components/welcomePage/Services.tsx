@@ -16,10 +16,12 @@ const Services = () => {
       // Title animation
       gsap.fromTo(
         section.querySelector('.title-container'),
-        { opacity: 0 },
+        { opacity: 0, y: 20 },
         {
           opacity: 1,
+          y: 0,
           duration: 0.8,
+          ease: "power2.out",
           scrollTrigger: {
             trigger: section,
             start: 'top 80%',
@@ -27,30 +29,31 @@ const Services = () => {
         }
       );
 
-      // Cards animation
+      // Cards animation with improved stagger
       gsap.fromTo(
         section.querySelectorAll('.program-card'),
-        { opacity: 0 },
+        { opacity: 0, y: 30 },
         {
           opacity: 1,
+          y: 0,
           stagger: 0.1,
           duration: 0.6,
+          ease: "power2.out",
           scrollTrigger: {
             trigger: section,
             start: 'top 70%',
           }
         }
       );
-
-      // Floating cards animation removed
     }
 
-    // Create particles
+    // Create subtle fire particles
     if (particles) {
-      const colors = ['#ff4b4b', '#ffffff', '#ff8080'];
+      // Subtle fire colors
+      const colors = ["#ff9500", "#ff6a00", "#ff4d00", "#ff8800"];
       const particleInterval = setInterval(() => {
         const particle = document.createElement('div');
-        const size = Math.random() * 6 + 2;
+        const size = Math.random() * 4 + 1; // Smaller particles
         const color = colors[Math.floor(Math.random() * colors.length)];
 
         particle.style.position = 'absolute';
@@ -58,14 +61,16 @@ const Services = () => {
         particle.style.height = `${size}px`;
         particle.style.borderRadius = '50%';
         particle.style.backgroundColor = color;
-        particle.style.opacity = '0.4';
+        particle.style.opacity = (0.2 + Math.random() * 0.2).toString(); // Lower opacity
         particle.style.left = `${Math.random() * 100}%`;
-        particle.style.top = `${Math.random() * 100}%`;
+        particle.style.bottom = '0';
 
         particles.appendChild(particle);
 
+        // Gentle upward movement
         gsap.to(particle, {
-          x: Math.random() * 30 - 15,
+          x: Math.random() * 30 - 15, // Less horizontal movement
+          y: -(Math.random() * 100 + 50), // Less height
           opacity: 0,
           duration: 3 + Math.random() * 2,
           ease: "power1.out",
@@ -75,7 +80,7 @@ const Services = () => {
             }
           }
         });
-      }, 300);
+      }, 300); // Less frequent particles
 
       return () => {
         if (particleInterval) {
@@ -149,45 +154,34 @@ const Services = () => {
   ];
 
   return (
-    <section id="programs" className="relative bg-black py-16 text-white overflow-hidden" ref={sectionRef}>
-      {/* Background image with overlay */}
-      <div className="absolute inset-0 bg-black opacity-80 z-0"></div>
-      <div className="absolute inset-0 bg-cover bg-center z-0" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1592205644721-2fe5214762ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')" }}></div>
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-black/90 to-black/80 z-0"></div>
-
-      {/* Particle effect container */}
-      <div ref={particlesRef} className="absolute inset-0 pointer-events-none z-10"></div>
-
-      {/* Decorative elements */}
-      <div className="absolute top-1/3 right-0 w-40 h-40 bg-red-600/20 rounded-full blur-3xl z-0"></div>
-      <div className="absolute bottom-1/4 left-1/4 w-32 h-32 bg-red-600/30 rounded-full blur-2xl z-0"></div>
-      <div className="absolute right-1/3 top-1/4 w-20 h-20 bg-red-500/20 rounded-full blur-xl z-0"></div>
-
-      {/* Martial arts silhouette elements */}
-      <div className="absolute top-10 right-10 w-48 h-48 bg-contain bg-no-repeat bg-right-top z-0 opacity-20"
-           style={{ backgroundImage: "url('https://cdn-icons-png.flaticon.com/512/4144/4144733.png')" }}></div>
-      <div className="absolute bottom-10 left-10 w-48 h-48 bg-contain bg-no-repeat bg-left-bottom z-0 opacity-20"
-           style={{ backgroundImage: "url('https://cdn-icons-png.flaticon.com/512/5044/5044737.png')" }}></div>
+    <section id="programs" className="relative py-20 text-white overflow-hidden" ref={sectionRef}>
+      {/* Subtle particles container */}
+      <div ref={particlesRef} className="absolute inset-0 pointer-events-none z-5"></div>
 
       <div className="container relative mx-auto px-4 z-20">
-        <div className="title-container mb-12 text-center">
-          <h2 className="mb-4 text-3xl font-bold text-white md:text-4xl">Our Programs</h2>
-          <p className="mx-auto max-w-2xl text-gray-300">
+        <div className="title-container mb-16 text-center">
+          <div className="inline-flex items-center space-x-2 mb-4">
+            <div className="h-px w-8 bg-red-500"></div>
+            <span className="text-red-400 uppercase tracking-wider text-sm font-semibold">Our Programs</span>
+            <div className="h-px w-8 bg-red-500"></div>
+          </div>
+          <h2 className="mb-4 text-4xl font-bold text-white md:text-5xl">Martial Arts Programs</h2>
+          <p className="mx-auto max-w-2xl text-gray-300 mt-4">
             Discover the perfect martial arts class at SKC! Our diverse programs cater to kids, teens, and adults, ensuring everyone finds a class that suits their needs and skill level.
           </p>
-          <div className="mx-auto mt-4 h-1 w-20 bg-red-600"></div>
+          <div className="mx-auto mt-6 h-1 w-20 bg-gradient-to-r from-red-600 to-red-400 rounded-full"></div>
         </div>
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {services.map((service) => (
             <div
               key={service.id}
-              className="program-card rounded-lg bg-black/60 p-6 shadow-lg transition-all duration-300 backdrop-blur-sm border border-red-900/30 hover:border-red-600"
+              className="program-card rounded-xl bg-black/60 p-6 shadow-xl transition-all duration-300 backdrop-blur-sm border border-red-900/20 hover:border-red-600/40 hover:shadow-red-900/5 group"
             >
-              <div className="mb-4">{service.icon}</div>
+              <div className="mb-5 transform transition-transform duration-300 group-hover:scale-110">{service.icon}</div>
               <h3 className="mb-3 text-xl font-semibold text-white">{service.title}</h3>
               <p className="text-gray-300">{service.description}</p>
-              <button className="mt-4 text-sm font-medium text-red-500 hover:text-red-400 transition-colors duration-300 flex items-center group">
+              <button className="mt-5 text-sm font-medium text-red-500 hover:text-red-400 transition-colors duration-300 flex items-center group">
                 View Program
                 <svg className="w-4 h-4 ml-1 transform transition-transform duration-300 group-hover:translate-x-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -197,10 +191,14 @@ const Services = () => {
           ))}
         </div>
 
-        <div className="mt-12 text-center">
-          <button className="rounded-md bg-red-600 px-6 py-3 text-white hover:bg-red-700 transition-all duration-300 shadow-lg transform hover:scale-105 relative group overflow-hidden">
-            <span className="relative z-10">Browse All Programs</span>
-            <span className="absolute inset-0 bg-gradient-to-r from-red-700 to-red-600 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
+        <div className="mt-16 text-center">
+          <button className="rounded-xl bg-gradient-to-r from-red-700 to-red-600 px-8 py-4 text-white hover:from-red-600 hover:to-red-500 transition-all duration-300 shadow-lg shadow-red-900/20 transform hover:scale-105 relative group overflow-hidden">
+            <span className="relative z-10 flex items-center justify-center">
+              Browse All Programs
+              <svg className="w-5 h-5 ml-2 transform transition-transform duration-300 group-hover:translate-x-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </span>
           </button>
         </div>
       </div>

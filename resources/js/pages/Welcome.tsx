@@ -1,5 +1,6 @@
 import { Head } from '@inertiajs/react';
 import { useEffect } from 'react';
+import MartialArtsBackground from '@/components/welcomePage/martial-arts-background';
 import Navbar from '@/components/welcomePage/Navbar';
 import Hero from '@/components/welcomePage/Hero';
 import About from '@/components/welcomePage/About';
@@ -26,19 +27,21 @@ export default function Welcome() {
                 <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
             </Head>
 
-            <div className="flex min-h-screen flex-col bg-black text-white">
-                <Navbar />
-                <Hero />
-                <About />
-                <Services />
-                <Feedback />
-                <Communities />
-                <Blog />
-                <Location />
-                <Booking />
-                <Contact />
-                <Footer />
-            </div>
+            <MartialArtsBackground>
+                <div className="flex min-h-screen flex-col text-white">
+                    <Navbar />
+                    <Hero />
+                    <About />
+                    <Services />
+                    <Feedback />
+                    <Communities />
+                    <Blog />
+                    <Location />
+                    <Booking />
+                    <Contact />
+                    <Footer />
+                </div>
+            </MartialArtsBackground>
         </>
     );
 }

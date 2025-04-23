@@ -17,6 +17,11 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/about/team', [HomeController::class, 'team'])->name('about.team');
 Route::get('/about/blog', [HomeController::class, 'blog'])->name('about.blog');
+Route::get('/about/blog/{id}', function ($id) {
+    return Inertia::render('About/BlogPost', [
+        'id' => $id
+    ]);
+})->name('about.blog.post');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('/locations/evans', [HomeController::class, 'evansLocation'])->name('locations.evans');
 Route::get('/locations/grovetown', [HomeController::class, 'grovetownLocation'])->name('locations.grovetown');

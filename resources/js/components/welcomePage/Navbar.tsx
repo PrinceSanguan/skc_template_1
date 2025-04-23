@@ -127,19 +127,45 @@ const Navbar = () => {
   useEffect(() => {
     const style = document.createElement('style')
     style.innerHTML = `
-      .contact-dropdown:hover .contact-submenu {
-        display: block !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        transform: translateY(0) !important;
+      .about-dropdown {
+        position: relative;
       }
-      .contact-submenu {
+      .about-submenu {
+        position: absolute;
+        left: 0;
+        top: 100%;
+        width: 200px;
+        background-color: rgba(0, 0, 0, 0.9);
+        border-radius: 4px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         display: none;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-10px);
-        transition: opacity 0.3s, transform 0.3s;
+        z-index: 50;
       }
+      .about-dropdown:hover .about-submenu {
+        display: block;
+      }
+
+      .contact-item {
+        position: relative;
+        display: block;
+      }
+      .contact-item:hover {
+        background-color: #dc2626 !important;
+      }
+      .location-submenu {
+        position: absolute;
+        left: 0;
+        top: 100%;
+        width: 200px;
+        background-color: rgba(0, 0, 0, 0.9);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        display: none;
+        z-index: 60;
+      }
+      .contact-item:hover .location-submenu {
+        display: block;
+      }
+
       .programs-dropdown:hover .programs-submenu {
         display: block !important;
         opacity: 1 !important;
@@ -240,11 +266,7 @@ const Navbar = () => {
                   </Link>
                 </AnimatedElement>
                 <AnimatedElement as="div" type="fadeInDown" delay={0.3} scrollTrigger={false}>
-                  <div
-                    className="relative"
-                    onMouseEnter={() => setIsAboutDropdownOpen(true)}
-                    onMouseLeave={() => setIsAboutDropdownOpen(false)}
-                  >
+                  <div className="about-dropdown">
                     <Link
                       href="/about"
                       className="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:text-red-400 transition-colors flex items-center"
@@ -260,53 +282,42 @@ const Navbar = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
                     </Link>
-                    {isAboutDropdownOpen && (
-                      <div className="absolute left-0 mt-2 w-48 bg-black/90 rounded-md nav-dropdown-menu overflow-hidden z-10">
+                    <div className="about-submenu">
+                      <Link
+                        href="/about/team"
+                        className="block px-4 py-2 text-sm text-white hover:bg-red-600 transition-colors"
+                      >
+                        Our Team
+                      </Link>
+                      <Link
+                        href="/about/blog"
+                        className="block px-4 py-2 text-sm text-white hover:bg-red-600 transition-colors"
+                      >
+                        Blog
+                      </Link>
+                      <div className="contact-item">
                         <Link
-                          href="/about/team"
-                          className="block px-4 py-2 text-sm text-white hover:bg-red-600/20 hover:text-red-400 transition-colors"
+                          href="/contact"
+                          className="block px-4 py-2 text-sm text-white transition-colors"
                         >
-                          Our Team
+                          Contact
                         </Link>
-                        <Link
-                          href="/about/blog"
-                          className="block px-4 py-2 text-sm text-white hover:bg-red-600/20 hover:text-red-400 transition-colors"
-                        >
-                          Blog
-                        </Link>
-                        <div className="contact-dropdown">
+                        <div className="location-submenu">
                           <Link
-                            href="/contact"
-                            className="flex justify-between items-center px-4 py-2 text-sm text-white hover:bg-red-600/20 hover:text-red-400 transition-colors"
+                            href="/locations/evans"
+                            className="block px-4 py-2 text-sm text-white hover:bg-red-600 transition-colors"
                           >
-                            <span>Contact</span>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-4 w-4"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
+                            Evans, GA
                           </Link>
-                          <div className="contact-submenu absolute left-full top-0 w-48 bg-black/90 rounded-md nav-dropdown-menu overflow-hidden">
-                            <Link
-                              href="/locations/evans"
-                              className="block px-4 py-2 text-sm text-white hover:bg-red-600/20 hover:text-red-400 transition-colors"
-                            >
-                              Evans, GA
-                            </Link>
-                            <Link
-                              href="/locations/grovetown"
-                              className="block px-4 py-2 text-sm text-white hover:bg-red-600/20 hover:text-red-400 transition-colors"
-                            >
-                              Grovetown, GA
-                            </Link>
-                          </div>
+                          <Link
+                            href="/locations/grovetown"
+                            className="block px-4 py-2 text-sm text-white hover:bg-red-600 transition-colors"
+                          >
+                            Grovetown, GA
+                          </Link>
                         </div>
                       </div>
-                    )}
+                    </div>
                   </div>
                 </AnimatedElement>
                 <AnimatedElement as="div" type="fadeInDown" delay={0.4} scrollTrigger={false}>

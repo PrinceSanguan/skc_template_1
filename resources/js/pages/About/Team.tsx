@@ -25,37 +25,37 @@ export default function Team() {
     {
       name: 'Mr. Tommy Seigler',
       position: 'Founder/Owner',
-      imageUrl: '/images/team/Tommy.jpg',
+      imageUrl: '/Images/team/Tommy.jpg',
       slug: 'tommy-seigler',
     },
     {
       name: 'Mrs. Jennifer Seigler Waters',
       position: 'Executive Sensei',
-      imageUrl: '/images/team/Jennifer.jpg',
+      imageUrl: '/Images/team/Jennifer.jpg',
       slug: 'jennifer-seigler-waters'
     },
     {
       name: 'Mrs. Lisa Corley',
       position: 'Chief of Operations',
-      imageUrl: '/images/team/Lisa.jpg',
+      imageUrl: '/Images/team/Lisa.jpg',
       slug: 'lisa-corley'
     },
     {
       name: 'Mr. Titus Waters',
       position: 'Head Sensei',
-      imageUrl: '/images/team/Titus.jpg',
+      imageUrl: '/Images/team/Titus.jpg',
       slug: 'titus-waters'
     },
     {
       name: 'Mr. Daniel Corley',
       position: 'Senior Sensei',
-      imageUrl: '/images/team/Daniel.jpg',
+      imageUrl: '/Images/team/Daniel.jpg',
       slug: 'daniel-corley'
     },
     {
       name: 'Ms. Cameron Corley',
       position: 'Senior Success Coach',
-      imageUrl: '/images/team/Cameron.jpg',
+      imageUrl: '/Images/team/Cameron.jpg',
       slug: 'cameron-corley'
     }
   ];

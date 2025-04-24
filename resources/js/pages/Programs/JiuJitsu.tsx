@@ -189,7 +189,7 @@ export default function JiuJitsu() {
         {/* Hero image */}
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1577998474517-7eeeed4e448a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+            src="/Images/team/JIU JITSU.jpg"
             alt="Jiu Jitsu Class"
             className="w-full h-full object-cover opacity-40"
           />

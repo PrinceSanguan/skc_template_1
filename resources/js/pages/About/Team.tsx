@@ -570,13 +570,13 @@ export default function Team() {
                   Join our community and discover the transformative power of martial arts training.
                 </p>
 
-                <div className="flex flex-col sm:flex-row justify-center gap-4">
-                  <button className="bg-white text-red-700 font-bold py-3 px-8 rounded-md text-lg shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:-translate-y-1 flex items-center mx-auto">
+                <div className="flex flex-col sm:flex-row justify-center space-x-0 sm:space-x-4">
+                  <button className="bg-white text-red-700 font-bold py-3 px-8 rounded-md text-lg shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:-translate-y-1 flex items-center mx-0 sm:mr-3">
                     Start Your Training Today
                     <ChevronRight className="ml-2 h-5 w-5" />
                   </button>
 
-                  <button className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-bold py-3 px-8 rounded-md text-lg transition-all duration-300 flex items-center mx-auto">
+                  <button className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-bold py-3 px-8 rounded-md text-lg transition-all duration-300 flex items-center mx-0">
                     Schedule a Tour
                     <ChevronRight className="ml-2 h-5 w-5" />
                   </button>

@@ -361,17 +361,17 @@ export default function ProgramsIndex() {
                 We invite you to visit one of our locations for a free trial class. Our instructors will help you find
                 the perfect program based on your age, experience, and goals.
               </p>
-              <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <div className="flex flex-col sm:flex-row justify-center space-x-0 sm:space-x-4">
                 <Link
                   href="/contact"
-                  className="bg-white text-red-700 hover:bg-gray-100 font-bold py-3 px-8 rounded-md text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center mx-auto"
+                  className="bg-white text-red-700 hover:bg-gray-100 font-bold py-3 px-8 rounded-md text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center mx-0 sm:mr-3"
                 >
                   Schedule a Free Class
                   <ChevronRight className="ml-2 h-5 w-5" />
                 </Link>
                 <Link
                   href="/locations/evans"
-                  className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-bold py-3 px-8 rounded-md text-lg transition-all duration-300 flex items-center justify-center mx-auto"
+                  className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-bold py-3 px-8 rounded-md text-lg transition-all duration-300 flex items-center justify-center mx-0"
                 >
                   Visit a Location
                   <MapPin className="ml-2 h-5 w-5" />

@@ -10,6 +10,7 @@ const Footer = () => {
   const logoRef = useRef<HTMLDivElement>(null)
   const particlesRef = useRef<HTMLDivElement>(null)
   const dividerRef = useRef<HTMLDivElement>(null)
+  const locationCardsRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
@@ -18,6 +19,7 @@ const Footer = () => {
     const logo = logoRef.current
     const particles = particlesRef.current
     const divider = dividerRef.current
+    const locationCards = locationCardsRef.current
 
     if (divider) {
       // Animate the divider elements
@@ -171,6 +173,25 @@ const Footer = () => {
         }
       }
     }
+
+    // Animate location cards
+    if (locationCards) {
+      gsap.fromTo(
+        locationCards.querySelectorAll(".location-card"),
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.2,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: locationCards,
+            start: "top 90%",
+          },
+        }
+      )
+    }
   }, [])
 
   const navigation = {
@@ -247,8 +268,99 @@ const Footer = () => {
         </div>
       </div>
 
+      {/* Location Cards */}
+      <div ref={locationCardsRef} className="py-12 bg-black/90">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Evans Location */}
+            <div className="location-card p-8 border border-red-900/50 rounded-lg bg-black/70">
+              <h3 className="text-2xl font-bold text-white mb-6">Evans, GA</h3>
+              <div className="space-y-5">
+                <div className="flex items-start">
+                  <MapPin className="h-5 w-5 mr-3 text-red-600 mt-0.5 flex-shrink-0" />
+                  <span className="text-gray-300">
+                    4150 Washington Road, Suite 4, Evans, GA, 30809
+                  </span>
+                </div>
+                <div className="flex items-center">
+                  <Phone className="h-5 w-5 mr-3 text-red-600 flex-shrink-0" />
+                  <a href="tel:+17068555683" className="text-gray-300 hover:text-red-400 transition-colors">
+                    (706) 855-5683
+                  </a>
+                </div>
+                <div className="flex items-center">
+                  <Mail className="h-5 w-5 mr-3 text-red-600 flex-shrink-0" />
+                  <a href="mailto:skc@goskc.com" className="text-gray-300 hover:text-red-400 transition-colors">
+                    skc@goskc.com
+                  </a>
+                </div>
+                <div className="flex space-x-4 pt-2">
+                  <a href="#" className="text-gray-400 hover:text-red-600 transition-all duration-300">
+                    <Facebook className="h-5 w-5" />
+                  </a>
+                  <a href="#" className="text-gray-400 hover:text-red-600 transition-all duration-300">
+                    <Instagram className="h-5 w-5" />
+                  </a>
+                  <a href="#" className="text-gray-400 hover:text-red-600 transition-all duration-300">
+                    <Youtube className="h-5 w-5" />
+                  </a>
+                  <a href="#" className="text-gray-400 hover:text-red-600 transition-all duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+                      <path d="M15.88 15.29L16.94 12h-4.97v-2.01h7.04c0.14.63 0.25 1.3 0.25 2.01 0 4.56-3.05 7.79-7.7 7.79-4.4 0-8-3.6-8-8s3.6-8 8-8c2.17 0 4.13 0.88 5.56 2.3l-1.89 1.89c-0.93-0.89-2.1-1.45-3.67-1.45-3.05 0-5.56 2.55-5.56 5.61s2.51 5.61 5.56 5.61c2.23 0 4.13-1.33 4.42-3.16z"/>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Grovetown Location */}
+            <div className="location-card p-8 border border-red-900/50 rounded-lg bg-black/70">
+              <h3 className="text-2xl font-bold text-white mb-6">Grovetown, GA</h3>
+              <div className="space-y-5">
+                <div className="flex items-start">
+                  <MapPin className="h-5 w-5 mr-3 text-red-600 mt-0.5 flex-shrink-0" />
+                  <span className="text-gray-300">
+                    271 Meridian Drive Grovetown, GA 30813
+                  </span>
+                </div>
+                <div className="flex items-center">
+                  <Phone className="h-5 w-5 mr-3 text-red-600 flex-shrink-0" />
+                  <a href="tel:+17068555683" className="text-gray-300 hover:text-red-400 transition-colors">
+                    (706) 855-5683
+                  </a>
+                </div>
+                <div className="flex items-center">
+                  <Mail className="h-5 w-5 mr-3 text-red-600 flex-shrink-0" />
+                  <a href="mailto:skc@goskc.com" className="text-gray-300 hover:text-red-400 transition-colors">
+                    skc@goskc.com
+                  </a>
+                </div>
+                <div className="flex space-x-4 pt-2">
+                  <a href="#" className="text-gray-400 hover:text-red-600 transition-all duration-300">
+                    <Facebook className="h-5 w-5" />
+                  </a>
+                  <a href="#" className="text-gray-400 hover:text-red-600 transition-all duration-300">
+                    <Instagram className="h-5 w-5" />
+                  </a>
+                  <a href="#" className="text-gray-400 hover:text-red-600 transition-all duration-300">
+                    <Youtube className="h-5 w-5" />
+                  </a>
+                  <a href="#" className="text-gray-400 hover:text-red-600 transition-all duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+                      <path d="M15.88 15.29L16.94 12h-4.97v-2.01h7.04c0.14.63 0.25 1.3 0.25 2.01 0 4.56-3.05 7.79-7.7 7.79-4.4 0-8-3.6-8-8s3.6-8 8-8c2.17 0 4.13 0.88 5.56 2.3l-1.89 1.89c-0.93-0.89-2.1-1.45-3.67-1.45-3.05 0-5.56 2.55-5.56 5.61s2.51 5.61 5.56 5.61c2.23 0 4.13-1.33 4.42-3.16z"/>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Main Footer */}
-      <footer ref={footerRef} className="relative py-16 overflow-hidden border-t-4 border-red-900/50">
+      <footer ref={footerRef} className="relative py-16 bg-black border-t border-red-900/30">
         {/* Particle effect container */}
         <div ref={particlesRef} className="absolute inset-0 pointer-events-none z-10"></div>
 
@@ -280,10 +392,7 @@ const Footer = () => {
               <div ref={logoRef} className="mb-6 inline-block">
                 <h1 className="logo-text text-3xl font-bold text-white">
                   <span className="text-red-600">SEIGLER'S</span> KARATE
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-red-600 to-red-400">
-                    {" "}
-                    CENTER
-                  </span>
+                  <span className="text-red-600"> CENTER</span>
                 </h1>
               </div>
               <p className="text-gray-300 mb-6 max-w-md leading-relaxed">
@@ -291,16 +400,18 @@ const Footer = () => {
                 Join our community and discover your potential through our award-winning programs.
               </p>
               <div className="flex space-x-5">
-                {navigation.socialMedia.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className="social-icon text-gray-400 hover:text-red-500 transition-all duration-300 transform hover:scale-110 hover:rotate-3"
-                  >
-                    <span className="sr-only">{item.name}</span>
-                    <item.icon className="h-6 w-6" aria-hidden="true" />
-                  </a>
-                ))}
+                <a href="#" className="text-gray-400 hover:text-red-600 transition-all duration-300">
+                  <Facebook className="h-5 w-5" />
+                </a>
+                <a href="#" className="text-gray-400 hover:text-red-600 transition-all duration-300">
+                  <Instagram className="h-5 w-5" />
+                </a>
+                <a href="#" className="text-gray-400 hover:text-red-600 transition-all duration-300">
+                  <Twitter className="h-5 w-5" />
+                </a>
+                <a href="#" className="text-gray-400 hover:text-red-600 transition-all duration-300">
+                  <Youtube className="h-5 w-5" />
+                </a>
               </div>
             </div>
 
@@ -308,16 +419,16 @@ const Footer = () => {
             <div className="md:col-span-2">
               <h2 className="text-lg font-semibold text-white mb-5 relative inline-block">
                 Quick Links
-                <span className="absolute -bottom-1 left-0 w-12 h-0.5 bg-gradient-to-r from-red-600 to-red-400 rounded-full"></span>
+                <span className="absolute -bottom-1 left-0 w-12 h-0.5 bg-red-600 rounded-full"></span>
               </h2>
               <ul className="footer-links space-y-3">
                 {navigation.main.map((item) => (
                   <li key={item.name} className="group">
                     <a
                       href={item.href}
-                      className="text-gray-300 hover:text-red-400 transition-colors duration-300 flex items-center"
+                      className="text-gray-300 hover:text-red-600 transition-colors duration-300 flex items-center"
                     >
-                      <ChevronRight className="h-4 w-4 mr-2 text-red-500 group-hover:translate-x-1 transition-transform duration-300" />
+                      <ChevronRight className="h-4 w-4 mr-2 text-red-600 group-hover:translate-x-1 transition-transform duration-300" />
                       {item.name}
                     </a>
                   </li>
@@ -329,16 +440,16 @@ const Footer = () => {
             <div className="md:col-span-2">
               <h2 className="text-lg font-semibold text-white mb-5 relative inline-block">
                 Programs
-                <span className="absolute -bottom-1 left-0 w-12 h-0.5 bg-gradient-to-r from-red-600 to-red-400 rounded-full"></span>
+                <span className="absolute -bottom-1 left-0 w-12 h-0.5 bg-red-600 rounded-full"></span>
               </h2>
               <ul className="footer-links space-y-3">
                 {navigation.programs.map((item) => (
                   <li key={item.name} className="group">
                     <a
                       href={item.href}
-                      className="text-gray-300 hover:text-red-400 transition-colors duration-300 flex items-center"
+                      className="text-gray-300 hover:text-red-600 transition-colors duration-300 flex items-center"
                     >
-                      <ChevronRight className="h-4 w-4 mr-2 text-red-500 group-hover:translate-x-1 transition-transform duration-300" />
+                      <ChevronRight className="h-4 w-4 mr-2 text-red-600 group-hover:translate-x-1 transition-transform duration-300" />
                       {item.name}
                     </a>
                   </li>
@@ -346,35 +457,35 @@ const Footer = () => {
               </ul>
             </div>
 
-            {/* Contact Info */}
+            {/* Contact Us */}
             <div className="md:col-span-3">
               <h2 className="text-lg font-semibold text-white mb-5 relative inline-block">
                 Contact Us
-                <span className="absolute -bottom-1 left-0 w-12 h-0.5 bg-gradient-to-r from-red-600 to-red-400 rounded-full"></span>
+                <span className="absolute -bottom-1 left-0 w-12 h-0.5 bg-red-600 rounded-full"></span>
               </h2>
               <ul className="footer-links space-y-4">
                 <li className="flex items-start group">
-                  <MapPin className="h-5 w-5 mr-3 text-red-500 mt-0.5 flex-shrink-0 group-hover:text-red-400 transition-colors duration-300" />
-                  <span className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300">
+                  <MapPin className="h-5 w-5 mr-3 text-red-600 mt-0.5 flex-shrink-0" />
+                  <span className="text-gray-300">
                     123 Dojo Street, Augusta
                     <br />
                     Georgia, 30909
                   </span>
                 </li>
                 <li className="flex items-center group">
-                  <Phone className="h-5 w-5 mr-3 text-red-500 flex-shrink-0 group-hover:text-red-400 transition-colors duration-300" />
+                  <Phone className="h-5 w-5 mr-3 text-red-600 flex-shrink-0" />
                   <a
                     href="tel:+15551234567"
-                    className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300"
+                    className="text-gray-300 hover:text-gray-200 transition-colors duration-300"
                   >
                     (555) 123-4567
                   </a>
                 </li>
                 <li className="flex items-center group">
-                  <Mail className="h-5 w-5 mr-3 text-red-500 flex-shrink-0 group-hover:text-red-400 transition-colors duration-300" />
+                  <Mail className="h-5 w-5 mr-3 text-red-600 flex-shrink-0" />
                   <a
                     href="mailto:info@seiglerskarate.com"
-                    className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300"
+                    className="text-gray-300 hover:text-gray-200 transition-colors duration-300"
                   >
                     info@seiglerskarate.com
                   </a>
@@ -388,9 +499,9 @@ const Footer = () => {
                   <input
                     type="email"
                     placeholder="Your email"
-                    className="flex-grow px-4 py-2 bg-black/40 border border-red-900/30 rounded-l-md text-white placeholder-gray-400 focus:outline-none focus:border-red-500"
+                    className="flex-grow px-4 py-2 bg-black/80 border border-red-900/30 rounded-l-md text-white placeholder-gray-400 focus:outline-none focus:border-red-600"
                   />
-                  <button className="bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 text-white px-4 py-2 rounded-r-md transition-colors duration-300">
+                  <button className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-r-md transition-colors duration-300">
                     <ChevronRight className="h-5 w-5" />
                   </button>
                 </div>
@@ -403,13 +514,13 @@ const Footer = () => {
             <div className="flex flex-col md:flex-row justify-between items-center">
               <p className="text-gray-400 text-sm">© {currentYear} Seigler's Karate Center. All rights reserved.</p>
               <div className="mt-4 md:mt-0 flex space-x-8">
-                <a href="#" className="text-gray-400 hover:text-red-400 text-sm transition-colors duration-300">
+                <a href="#" className="text-gray-400 hover:text-red-600 text-sm transition-colors duration-300">
                   Privacy Policy
                 </a>
-                <a href="#" className="text-gray-400 hover:text-red-400 text-sm transition-colors duration-300">
+                <a href="#" className="text-gray-400 hover:text-red-600 text-sm transition-colors duration-300">
                   Terms of Service
                 </a>
-                <a href="#" className="text-gray-400 hover:text-red-400 text-sm transition-colors duration-300">
+                <a href="#" className="text-gray-400 hover:text-red-600 text-sm transition-colors duration-300">
                   Sitemap
                 </a>
               </div>

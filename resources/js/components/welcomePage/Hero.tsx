@@ -167,7 +167,7 @@ const Hero = () => {
               {/* Main image */}
               <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-2xl mb-8 md:mb-0">
                 <img
-                  src="/karate-dojo-training.png"
+                  src="Images/team/ADULTKEMPO.jpg"
                   alt="Martial Arts Class at Seigler's Karate Center"
                   className="w-full h-full object-cover"
                 />

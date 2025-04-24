@@ -84,7 +84,7 @@ export default function BlogPost({ id = '1' }: Props) {
         'Additionally, she is an avid athlete and has earned a 5th Degree Kempo Karate Black Belt and is a Purple Belt in Brazilian Jiu-Jitsu under Professor Carlos Machado.',
         'She also is the IKF US Amateur Kickboxing Champion and is now a professional kickboxer and MMA fighter. Although she is a well established martial artist, her passion lies in helping others succeed at changing their life through martial arts.'
       ],
-      image: '/images/team/jennifer-waters.jpg'
+      image: '/Images/team/Jennifer.jpg'
     }
   };
 

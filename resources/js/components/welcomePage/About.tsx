@@ -118,7 +118,7 @@ const About = () => {
               {/* Main image */}
               <div
                 className="h-full w-full bg-cover bg-center"
-                style={{ backgroundImage: "url('/karate-master.png')" }}
+                style={{ backgroundImage: "url('Images/team/88A5D580-B43D-4916-92F9-2B8037264B27-rotated-e1724873881945.jpg')" }}
               ></div>
 
               {/* Gradient overlay */}

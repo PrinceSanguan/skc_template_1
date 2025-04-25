@@ -1,5 +1,7 @@
 "use client"
 
+import type React from "react"
+
 import Template from "../Programs/Template"
 import AnimatedElement from "@/components/ui/animated-element"
 import { Link } from "@inertiajs/react"
@@ -7,11 +9,17 @@ import { useState, useEffect } from "react"
 
 export default function WrittenReviews() {
   const [imagesLoaded, setImagesLoaded] = useState(false)
+  const defaultProfilePicture = "/images/team/Default-Profile-Picture-PNG-Image-Transparent-Background.png"
 
   useEffect(() => {
     // Set images as loaded after component mounts to prevent hydration issues
     setImagesLoaded(true)
   }, [])
+
+  // Handle image error by replacing with default profile picture
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    e.currentTarget.src = defaultProfilePicture
+  }
 
   // Written reviews data
   const reviews = [
@@ -147,6 +155,7 @@ export default function WrittenReviews() {
                           alt={review.name}
                           className="w-full h-full object-cover absolute inset-0 opacity-70"
                           style={{ minHeight: "300px" }}
+                          onError={handleImageError}
                         />
                       )}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>

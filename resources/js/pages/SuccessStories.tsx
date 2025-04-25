@@ -1,18 +1,34 @@
 "use client"
 
+import type React from "react"
+
 import Template from "@/pages/Programs/Template"
 import AnimatedElement from "@/components/ui/animated-element"
 import { Link } from "@inertiajs/react"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 
 export default function SuccessStories() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [imagesLoaded, setImagesLoaded] = useState(false)
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false)
+  const videoRef = useRef<HTMLIFrameElement>(null)
+
+  // Default profile picture path
+  const defaultProfilePicture = "/images/team/Default-Profile-Picture-PNG-Image-Transparent-Background.png"
 
   useEffect(() => {
     // Set images as loaded after component mounts to prevent hydration issues
     setImagesLoaded(true)
   }, [])
+
+  const handlePlayVideo = () => {
+    setIsVideoPlaying(true)
+  }
+
+  // Handle image error by using the default profile picture
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    e.currentTarget.src = defaultProfilePicture
+  }
 
   // Featured success stories
   const featuredStories = [
@@ -25,6 +41,7 @@ export default function SuccessStories() {
       achievement: "Black Belt Achievement",
       quote:
         "When I started at Seigler's, I was shy and struggled with confidence. The instructors believed in me when I didn't believe in myself. Now I'm a black belt and assistant instructor, helping others find their strength.",
+      image: "/martial-arts-student-michael.jpg",
     },
     {
       id: 2,
@@ -36,6 +53,7 @@ export default function SuccessStories() {
       quote:
         "Before karate, Sophia struggled with focus in school and was often anxious in new situations. Since joining Seigler's, her teachers have noticed dramatic improvements in her attention and confidence.",
       parent: "Jennifer Williams, Sophia's mother",
+      image: "/martial-arts-student-sophia.jpg",
     },
   ]
 
@@ -47,6 +65,7 @@ export default function SuccessStories() {
       role: "Adult Kempo Student, 2 Years",
       quote:
         "I joined Seigler's at 42 years old, thinking I was too old to start martial arts. Two years later, I'm in the best shape of my life and have skills I never thought possible.",
+      image: "/martial-arts-student-david.png",
     },
     {
       id: 2,
@@ -54,6 +73,7 @@ export default function SuccessStories() {
       role: "Parent of Lil Dragons Student",
       quote:
         "My son has transformed from a shy 4-year-old to a confident 5-year-old with amazing focus. His preschool teacher even asked what changed. The answer? Seigler's Karate Center!",
+      image: "/martial-arts-student-maria.jpg",
     },
     {
       id: 3,
@@ -61,6 +81,7 @@ export default function SuccessStories() {
       role: "Kickboxing Student, 1 Year",
       quote:
         "I've lost 35 pounds since joining the kickboxing program. The instructors push you to your limits but are incredibly supportive. The community here is what keeps me coming back.",
+      image: "/martial-arts-student-robert.jpg",
     },
     {
       id: 4,
@@ -68,6 +89,7 @@ export default function SuccessStories() {
       role: "Jiu Jitsu Student, 3 Years",
       quote:
         "As a woman, learning self-defense has been empowering. The skills I've gained at Seigler's have given me confidence that extends to every area of my life.",
+      image: "/martial-arts-student-amanda.jpg",
     },
   ]
 
@@ -202,9 +224,10 @@ export default function SuccessStories() {
                   <div className="md:w-1/3 relative bg-gradient-to-br from-red-900/40 to-black/60">
                     {imagesLoaded && (
                       <img
-                        src={`/focused-fighter.png?key=eidkq&height=400&width=300&query=martial arts student ${story.name}`}
+                        src={story.image || defaultProfilePicture}
                         alt={story.name}
                         className="w-full h-full object-cover absolute inset-0 opacity-70"
+                        onError={handleImageError}
                       />
                     )}
                     <div className="absolute inset-0 flex items-center justify-center">
@@ -316,9 +339,10 @@ export default function SuccessStories() {
                     <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-red-600 mr-5 shadow-lg bg-gradient-to-br from-red-900/40 to-black/60 flex items-center justify-center">
                       {imagesLoaded ? (
                         <img
-                          src={`/placeholder.svg?key=dor8k&key=x82rh&height=80&width=80&query=martial arts student portrait ${index}`}
+                          src={testimonial.image || defaultProfilePicture}
                           alt={testimonial.name}
                           className="w-full h-full object-cover"
+                          onError={handleImageError}
                         />
                       ) : (
                         <svg
@@ -371,35 +395,58 @@ export default function SuccessStories() {
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-red-600/10 rounded-full filter blur-3xl"></div>
                 </div>
 
-                {imagesLoaded && (
+                {imagesLoaded && !isVideoPlaying && (
                   <img
-                    src="/placeholder.svg?key=iun9p"
-                    alt="James' transformation story"
-                    className="absolute inset-0 w-full h-full object-cover opacity-40"
+                    src="https://img.youtube.com/vi/tAfJPan3ih0/maxresdefault.jpg"
+                    alt="How SKC Boosted This Child's Confidence and Leadership"
+                    className="absolute inset-0 w-full h-full object-cover opacity-70"
+                    onError={(e) => {
+                      e.currentTarget.src = defaultProfilePicture
+                      e.currentTarget.className = "absolute inset-0 w-full h-full object-contain opacity-40"
+                    }}
                   />
                 )}
 
-                <div className="text-center relative z-10">
-                  <div className="w-24 h-24 rounded-full bg-red-600/30 backdrop-blur-sm flex items-center justify-center mx-auto mb-6 cursor-pointer hover:bg-red-600/40 transition-all duration-300 border border-red-600/50 shadow-[0_0_15px_rgba(220,38,38,0.3)] hover:shadow-[0_0_25px_rgba(220,38,38,0.5)] group">
-                    <svg
-                      className="w-12 h-12 text-white group-hover:scale-110 transition-transform duration-300"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
+                {!isVideoPlaying ? (
+                  <div className="text-center relative z-10">
+                    <div
+                      className="w-24 h-24 rounded-full bg-red-600/30 backdrop-blur-sm flex items-center justify-center mx-auto mb-6 cursor-pointer hover:bg-red-600/40 transition-all duration-300 border border-red-600/50 shadow-[0_0_15px_rgba(220,38,38,0.3)] hover:shadow-[0_0_25px_rgba(220,38,38,0.5)] group"
+                      onClick={handlePlayVideo}
                     >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
+                      <svg
+                        className="w-12 h-12 text-white group-hover:scale-110 transition-transform duration-300"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                    <p className="text-gray-300 text-lg">Click to watch this transformation story</p>
                   </div>
-                  <p className="text-gray-300 text-lg">Click to watch James' transformation story</p>
-                </div>
+                ) : (
+                  <div className="relative z-10 w-full h-full">
+                    <iframe
+                      ref={videoRef}
+                      width="100%"
+                      height="100%"
+                      src="https://www.youtube.com/embed/tAfJPan3ih0?autoplay=1"
+                      title="James' Transformation Story"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="absolute inset-0"
+                    ></iframe>
+                  </div>
+                )}
               </div>
               <div className="md:w-1/2 p-10">
                 <h3 className="text-3xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
-                  From Bullied to Black Belt: James' Story
+                  How SKC Boosted This Child's Confidence and Leadership
                 </h3>
                 <div className="w-24 h-1 bg-gradient-to-r from-red-700 to-red-500 mb-8 rounded-full"></div>
 
@@ -407,13 +454,12 @@ export default function SuccessStories() {
                 <div className="absolute top-8 right-8 text-6xl text-red-600/10 font-serif">力</div>
 
                 <p className="text-gray-300 mb-6 text-lg leading-relaxed">
-                  When James first came to us at age 8, he was being bullied at school and struggled with
-                  self-confidence. After 4 years of dedicated training, he not only earned his black belt but also
-                  developed the confidence to stand up for himself and others.
+                  In this powerful parent testimonial, you'll hear how SKC goes beyond teaching martial arts. It's about
+                  real growth—at home, at school, and in life.
                 </p>
                 <p className="text-gray-300 mb-8 text-lg leading-relaxed">
-                  James is now one of our student leaders, mentoring younger kids who face the same challenges he once
-                  did. His journey exemplifies the transformative power of martial arts beyond just physical techniques.
+                  From building confidence and discipline to encouraging leadership, see how our program has transformed
+                  this child's life both on and off the mat.
                 </p>
                 <Link
                   href="/contact"

@@ -101,7 +101,7 @@ const Blog = () => {
       excerpt: 'Discover how martial arts training can help children develop discipline, confidence, and physical fitness.',
       date: 'June 15, 2023',
       author: 'Sensei Michael',
-      image: 'https://images.unsplash.com/photo-1599474924187-334a4ae5bd3c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+      image: '/Images/team/TN-Lil-Dragons.jpg',
       category: 'Youth Programs'
     },
     {
@@ -110,7 +110,7 @@ const Blog = () => {
       excerpt: 'A comprehensive comparison of two popular martial arts styles and their unique approaches to self-defense.',
       date: 'May 28, 2023',
       author: 'Master Chen',
-      image: 'https://images.unsplash.com/photo-1595229068232-c7b423950463?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+      image: '/Images/team/Copy-of-IMG_3535-1-scaled-1-683x1024.jpg',
       category: 'Martial Arts Styles'
     },
     {
@@ -119,7 +119,7 @@ const Blog = () => {
       excerpt: 'Essential tips and mental preparation strategies to help you succeed in your upcoming belt examination.',
       date: 'April 12, 2023',
       author: 'Sensei Sarah',
-      image: 'https://images.unsplash.com/photo-1621457590600-35c1e9b48b7d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+      image: '/Images/team/TN-Kids-Karate.jpg',
       category: 'Student Guidance'
     }
   ];

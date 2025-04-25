@@ -120,7 +120,7 @@ export default function Franchise() {
             <div className="absolute inset-0 z-0">
               <div className="absolute inset-0 bg-gradient-to-b from-black via-black/70 to-black z-10"></div>
               {imagesLoaded && (
-                <img src="/dojo-practice.png" alt="Martial arts training" className="w-full h-full object-cover" />
+                <img src="/Images/team/63d03cc126d6cd7584f54e0c-1-1024x576.png" alt="Martial arts training" className="w-full h-full object-cover" />
               )}
             </div>
 
@@ -221,7 +221,7 @@ export default function Franchise() {
                     <div className="absolute -inset-1 bg-gradient-to-tr from-red-600 to-red-900 rounded-lg blur-sm opacity-70"></div>
                     {imagesLoaded ? (
                       <img
-                        src="/focused-sparring-session.png"
+                        src="/Images/team/Copy-of-IMG_9985-1-scaled-1.jpg"
                         alt="SKC Students"
                         className="w-full h-auto object-cover rounded-lg relative z-10"
                       />
@@ -331,7 +331,7 @@ export default function Franchise() {
                     <div className="h-64 overflow-hidden relative">
                       {imagesLoaded ? (
                         <img
-                          src="/martial-arts-growth.png"
+                          src="/Images/team/Copy-of-IMG_0115-1-scaled-1-1024x683 (1).jpg"
                           alt="SKC Support"
                           className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                         />
@@ -375,7 +375,7 @@ export default function Franchise() {
                     <div className="h-64 overflow-hidden relative">
                       {imagesLoaded ? (
                         <img
-                          src="/serene-dojo.png"
+                          src="/Images/team/Copy-of-IMG_8401-1-scaled-1-1024x683 (1).jpg"
                           alt="SKC Mission"
                           className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                         />
@@ -419,7 +419,7 @@ export default function Franchise() {
                     <div className="h-64 overflow-hidden relative">
                       {imagesLoaded ? (
                         <img
-                          src="/confident-martial-arts-leader.png"
+                          src="/Images/team/Copy-of-IMG_8865-2-scaled-1-1024x683.jpg"
                           alt="Ideal Franchisee"
                           className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                         />
@@ -523,7 +523,7 @@ export default function Franchise() {
                         <div className="absolute -inset-1 bg-gradient-to-tr from-red-600/20 to-red-900/20 rounded-lg blur-sm"></div>
                         {imagesLoaded && (
                           <img
-                            src="/martial-arts-business-flow.png"
+                            src="/Images/team/Copy-of-IMG_3576-scaled-2-1024x683.jpg"
                             alt="Operational Support"
                             className="w-full h-auto rounded-lg relative z-10"
                           />
@@ -549,7 +549,7 @@ export default function Franchise() {
                         <div className="absolute -inset-1 bg-gradient-to-tr from-red-600/20 to-red-900/20 rounded-lg blur-sm"></div>
                         {imagesLoaded && (
                           <img
-                            src="/dynamic-martial-arts-group.png"
+                            src="/Images/team/63d03cc126d6cd7584f54e0c-1-1024x576.png"
                             alt="Marketing Support"
                             className="w-full h-auto rounded-lg relative z-10"
                           />
@@ -575,7 +575,7 @@ export default function Franchise() {
                         <div className="absolute -inset-1 bg-gradient-to-tr from-red-600/20 to-red-900/20 rounded-lg blur-sm"></div>
                         {imagesLoaded && (
                           <img
-                            src="/focused-instructor-guidance.png"
+                            src="/Images/team/88A5D580-B43D-4916-92F9-2B8037264B27-rotated-e1724873881945.jpg"
                             alt="Comprehensive Training"
                             className="w-full h-auto rounded-lg relative z-10"
                           />
@@ -619,7 +619,7 @@ export default function Franchise() {
                     <div className="absolute -inset-1 bg-gradient-to-tr from-red-600 to-red-900 rounded-lg blur-sm opacity-70"></div>
                     {imagesLoaded ? (
                       <img
-                        src="/confident-dojo-owner.png"
+                        src="/Images/team/ADULTKEMPO.jpg"
                         alt="SKC Path to Ownership"
                         className="w-full h-auto object-cover rounded-lg relative z-10"
                       />

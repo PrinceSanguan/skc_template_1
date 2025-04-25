@@ -3,13 +3,54 @@
 import Template from "../About/Template"
 import AnimatedElement from "@/components/ui/animated-element"
 import { Link } from "@inertiajs/react"
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useState } from "react"
 import { MapPin, Phone, Mail, Clock, ChevronRight, Star, Users } from "lucide-react"
 import gsap from "gsap"
 
 export default function Evans() {
   const particlesRef = useRef<HTMLDivElement>(null)
   const heroRef = useRef<HTMLDivElement>(null)
+  
+  // State for currently selected facility image
+  const [selectedImage, setSelectedImage] = useState<string | null>(null)
+
+  // Facility images 
+  const facilityImages = [
+    {
+      thumb: "/Images/team/JIU JITSU.jpg", 
+      full: "/Images/team/JIU JITSU.jpg",
+      alt: "Main Training Area"
+    },
+    {
+      thumb: "/Images/team/88A5D580-B43D-4916-92F9-2B8037264B27-rotated-e1724873881945.jpg", 
+      full: "/Images/team/88A5D580-B43D-4916-92F9-2B8037264B27-rotated-e1724873881945.jpg",
+      alt: "Equipment Wall"
+    },
+    {
+      thumb: "/Images/team/TN-Lil-Dragons.jpg", 
+      full: "/Images/team/TN-Lil-Dragons.jpg",
+      alt: "Kids Training Area"
+    },
+    {
+      thumb: "/Images/team/TN-Teen-Karate.jpg", 
+      full: "/Images/team/TN-Teen-Karate.jpg",
+      alt: "Pro Shop"
+    }
+  ]
+
+  // Set the first image as selected by default
+  useEffect(() => {
+    if (facilityImages.length > 0 && !selectedImage) {
+      setSelectedImage(facilityImages[0].full)
+    }
+  }, [])
+
+  // Function to handle image error
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    const img = e.currentTarget;
+    img.onerror = null; // Prevent infinite loop
+    img.src = "/api/placeholder/400/300"; // Fallback to placeholder
+  };
 
   // Communities served
   const communitiesServed = [
@@ -177,8 +218,21 @@ export default function Evans() {
 
               <div className="aspect-w-16 aspect-h-9">
                 <div className="h-72 bg-black/40 flex items-center justify-center relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60 pointer-events-none"></div>
-                  <span className="text-lg text-gray-400 relative z-10">Facility Image</span>
+                  {selectedImage ? (
+                    <>
+                      <img 
+                        src={selectedImage} 
+                        alt="Seigler's Karate Center Facility" 
+                        className="w-full h-full object-cover"
+                        onError={handleImageError}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60 pointer-events-none"></div>
+                    </>
+                  ) : (
+                    <div className="flex items-center justify-center h-full w-full">
+                      <span className="text-lg text-gray-400 relative z-10">Loading Facility Images...</span>
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="p-8 relative z-10">
@@ -191,18 +245,20 @@ export default function Evans() {
                   viewing area for parents, and a pro shop with quality martial arts supplies.
                 </p>
                 <div className="grid grid-cols-2 gap-3 mt-6">
-                  <div className="h-24 bg-black/40 border border-red-900/20 rounded-lg flex items-center justify-center transform transition-all duration-300 hover:scale-105 hover:border-red-600/30 cursor-pointer">
-                    <span className="text-sm text-gray-400">Image 1</span>
-                  </div>
-                  <div className="h-24 bg-black/40 border border-red-900/20 rounded-lg flex items-center justify-center transform transition-all duration-300 hover:scale-105 hover:border-red-600/30 cursor-pointer">
-                    <span className="text-sm text-gray-400">Image 2</span>
-                  </div>
-                  <div className="h-24 bg-black/40 border border-red-900/20 rounded-lg flex items-center justify-center transform transition-all duration-300 hover:scale-105 hover:border-red-600/30 cursor-pointer">
-                    <span className="text-sm text-gray-400">Image 3</span>
-                  </div>
-                  <div className="h-24 bg-black/40 border border-red-900/20 rounded-lg flex items-center justify-center transform transition-all duration-300 hover:scale-105 hover:border-red-600/30 cursor-pointer">
-                    <span className="text-sm text-gray-400">Image 4</span>
-                  </div>
+                  {facilityImages.map((image, index) => (
+                    <div 
+                      key={index} 
+                      className={`h-24 bg-black/40 border ${selectedImage === image.full ? 'border-red-600' : 'border-red-900/20'} rounded-lg flex items-center justify-center transform transition-all duration-300 hover:scale-105 hover:border-red-600/70 cursor-pointer overflow-hidden`}
+                      onClick={() => setSelectedImage(image.full)}
+                    >
+                      <img 
+                        src={image.thumb} 
+                        alt={image.alt} 
+                        className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-300"
+                        onError={handleImageError}
+                      />
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -217,8 +273,18 @@ export default function Evans() {
 
               <div className="aspect-w-16 aspect-h-9">
                 <div className="h-72 bg-black/40 flex items-center justify-center relative overflow-hidden">
+                  {/* Replace with actual Google Map or map image */}
+                  <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3328.1234567890123!2d-82.13456789012345!3d33.54321098765432!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDMyJzM1LjYiTiA4MsKwMDgnMDQuOCJX!5e0!3m2!1sen!2sus!4v1712345678901!5m2!1sen!2sus" 
+                    width="100%" 
+                    height="100%" 
+                    style={{ border: 0 }} 
+                    allowFullScreen={false} 
+                    loading="lazy" 
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="absolute inset-0"
+                  ></iframe>
                   <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60 pointer-events-none"></div>
-                  <span className="text-lg text-gray-400 relative z-10">Map Location</span>
                 </div>
               </div>
               <div className="p-8 relative z-10">

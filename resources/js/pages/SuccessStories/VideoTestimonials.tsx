@@ -1,19 +1,34 @@
 "use client"
 
+import type React from "react"
+
 import Template from "../Programs/Template"
 import AnimatedElement from "@/components/ui/animated-element"
 import { Link } from "@inertiajs/react"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 
 export default function VideoTestimonials() {
   const [imagesLoaded, setImagesLoaded] = useState(false)
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false)
+  const [activeVideoId, setActiveVideoId] = useState("")
+  const videoRef = useRef<HTMLIFrameElement>(null)
+  const defaultProfilePicture = "/images/team/Default-Profile-Picture-PNG-Image-Transparent-Background.png"
 
   useEffect(() => {
     // Set images as loaded after component mounts to prevent hydration issues
     setImagesLoaded(true)
   }, [])
 
-  // Video testimonials data
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    e.currentTarget.src = defaultProfilePicture
+  }
+
+  const handlePlayVideo = (videoId: string) => {
+    setIsVideoPlaying(true)
+    setActiveVideoId(videoId)
+  }
+
+  // Video testimonials data with actual YouTube video IDs
   const videoTestimonials = [
     {
       id: 1,
@@ -24,6 +39,7 @@ export default function VideoTestimonials() {
       title: "From Bullied to Black Belt",
       description:
         "When James first came to us at age 8, he was being bullied at school and struggled with self-confidence. After 4 years of dedicated training, he not only earned his black belt but also developed the confidence to stand up for himself and others.",
+      videoId: "tAfJPan3ih0",
     },
     {
       id: 2,
@@ -34,6 +50,7 @@ export default function VideoTestimonials() {
       title: "Finding Strength After Adversity",
       description:
         "After recovering from a serious injury, Sarah found both physical and mental healing through martial arts. Her journey at Seigler's Karate Center demonstrates how martial arts can help rebuild strength, confidence, and resilience.",
+      videoId: "5CrGryQ5TtQ",
     },
     {
       id: 3,
@@ -41,6 +58,7 @@ export default function VideoTestimonials() {
       title: "A Family Transformed",
       description:
         "What started as karate lessons for their kids turned into a family activity that transformed the Martinez family. Hear how training together has strengthened their bonds and brought positive changes to all their lives.",
+      videoId: "v78zxfQmhVk",
     },
     {
       id: 4,
@@ -50,6 +68,7 @@ export default function VideoTestimonials() {
       title: "The Instructor's Perspective",
       description:
         "Coach Mike has been teaching at Seigler's for over a decade. In this video, he shares his most memorable moments seeing students transform and grow through martial arts training.",
+      videoId: "HgZ9U6EC-QU",
     },
   ]
 
@@ -123,15 +142,19 @@ export default function VideoTestimonials() {
                     {imagesLoaded && (
                       <div className="w-full h-64 relative overflow-hidden">
                         <img
-                          src={`/focused-fighter.png?key=vid${index}&height=400&width=600&query=martial arts ${video.program || "training"} ${video.name}`}
+                          src={`https://img.youtube.com/vi/${video.videoId}/maxresdefault.jpg`}
                           alt={video.title}
                           className="w-full h-full object-cover"
+                          onError={handleImageError}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30"></div>
                       </div>
                     )}
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <button className="w-20 h-20 bg-gradient-to-br from-red-600 to-red-800 rounded-full flex items-center justify-center hover:from-red-700 hover:to-red-900 transition-all duration-300 transform hover:scale-110 shadow-[0_0_25px_rgba(220,38,38,0.5)]">
+                      <button
+                        onClick={() => handlePlayVideo(video.videoId)}
+                        className="w-20 h-20 bg-gradient-to-br from-red-600 to-red-800 rounded-full flex items-center justify-center hover:from-red-700 hover:to-red-900 transition-all duration-300 transform hover:scale-110 shadow-[0_0_25px_rgba(220,38,38,0.5)]"
+                      >
                         <svg
                           className="w-10 h-10 text-white ml-1"
                           fill="currentColor"
@@ -172,7 +195,10 @@ export default function VideoTestimonials() {
                       </p>
                     </div>
                     <p className="text-gray-300 mb-8 flex-grow">{video.description}</p>
-                    <button className="self-start bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-3 px-6 rounded-lg transition-all duration-300 shadow-lg border border-red-500/30 transform hover:scale-105">
+                    <button
+                      onClick={() => handlePlayVideo(video.videoId)}
+                      className="self-start bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-3 px-6 rounded-lg transition-all duration-300 shadow-lg border border-red-500/30 transform hover:scale-105"
+                    >
                       Watch Video
                     </button>
                   </div>
@@ -188,35 +214,57 @@ export default function VideoTestimonials() {
             <div className="md:flex">
               <div className="md:w-2/3 relative">
                 <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
-                  {imagesLoaded && (
-                    <div className="absolute inset-0 overflow-hidden">
-                      <img
-                        src="/focused-fighter.png?key=featured&height=600&width=800&query=martial arts training group"
-                        alt="Student Success Highlights"
-                        className="w-full h-full object-cover opacity-60"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/50"></div>
-                    </div>
-                  )}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center">
-                      <button className="w-24 h-24 bg-gradient-to-br from-red-600 to-red-800 rounded-full flex items-center justify-center hover:from-red-700 hover:to-red-900 transition-all duration-300 transform hover:scale-110 shadow-[0_0_35px_rgba(220,38,38,0.5)] mx-auto mb-6">
-                        <svg
-                          className="w-12 h-12 text-white ml-1"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-                            clipRule="evenodd"
+                  {isVideoPlaying ? (
+                    <iframe
+                      ref={videoRef}
+                      width="100%"
+                      height="100%"
+                      src={`https://www.youtube.com/embed/${activeVideoId || "tAfJPan3ih0"}?autoplay=1`}
+                      title="Student Success Highlights"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="absolute inset-0"
+                    ></iframe>
+                  ) : (
+                    <>
+                      {imagesLoaded && (
+                        <div className="absolute inset-0 overflow-hidden">
+                          <img
+                            src="https://img.youtube.com/vi/tAfJPan3ih0/maxresdefault.jpg"
+                            alt="How SKC Boosted This Child's Confidence and Leadership"
+                            className="w-full h-full object-cover opacity-60"
+                            onError={handleImageError}
                           />
-                        </svg>
-                      </button>
-                      <p className="text-white text-xl font-medium">Click to watch our student success highlights</p>
-                    </div>
-                  </div>
+                          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/50"></div>
+                        </div>
+                      )}
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="text-center">
+                          <button
+                            onClick={() => handlePlayVideo("tAfJPan3ih0")}
+                            className="w-24 h-24 bg-gradient-to-br from-red-600 to-red-800 rounded-full flex items-center justify-center hover:from-red-700 hover:to-red-900 transition-all duration-300 transform hover:scale-110 shadow-[0_0_35px_rgba(220,38,38,0.5)] mx-auto mb-6"
+                          >
+                            <svg
+                              className="w-12 h-12 text-white ml-1"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </button>
+                          <p className="text-white text-xl font-medium">
+                            Click to watch our student success highlights
+                          </p>
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
               <div className="md:w-1/3 p-10 relative">
@@ -228,17 +276,22 @@ export default function VideoTestimonials() {
                 </div>
 
                 <h3 className="text-3xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
-                  Student Success Highlights
+                  {isVideoPlaying ? "Now Playing" : "Student Success Highlights"}
                 </h3>
                 <div className="w-20 h-1 bg-gradient-to-r from-red-700 to-red-500 mb-6 rounded-full"></div>
                 <p className="text-gray-300 mb-8 leading-relaxed">
-                  This compilation showcases some of our most inspiring student transformations over the past year. From
-                  first-day beginners to competition champions, witness the journey our students take at Seigler's
-                  Karate Center.
+                  {isVideoPlaying
+                    ? "Watch how SKC has boosted this child's confidence and leadership skills through martial arts training. See the real transformation that happens at Seigler's Karate Center."
+                    : "This video showcases how SKC goes beyond teaching martial arts. It's about real growth—at home, at school, and in life. From building confidence and discipline to encouraging leadership, every child can thrive at Seigler's Karate Center."}
                 </p>
-                <button className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-3 px-6 rounded-lg transition-all duration-300 shadow-lg border border-red-500/30 transform hover:scale-105">
-                  Watch Compilation
-                </button>
+                {!isVideoPlaying && (
+                  <button
+                    onClick={() => handlePlayVideo("tAfJPan3ih0")}
+                    className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-3 px-6 rounded-lg transition-all duration-300 shadow-lg border border-red-500/30 transform hover:scale-105"
+                  >
+                    Watch Video
+                  </button>
+                )}
               </div>
             </div>
           </div>

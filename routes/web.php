@@ -123,7 +123,7 @@ Route::get('/about/team/{slug}', function ($slug) {
         'tommy-seigler' => [
             'name' => 'Mr. Tommy Seigler',
             'position' => 'Founder/Owner',
-            'imageUrl' => '/images/team/Tommy.jpg',
+            'imageUrl' => '/Images/team/Tommy.jpg',
             'slug' => 'tommy-seigler',
             'certifications' => [
                 '10th Degree Black Belt in Tetsushin Budo',
@@ -142,7 +142,7 @@ He believes in leading his team on a mission to change lives through martial art
         'jennifer-seigler-waters' => [
             'name' => 'Mrs. Jennifer Seigler Waters',
             'position' => 'Executive Sensei',
-            'imageUrl' => '/images/team/Jennifer.jpg',
+            'imageUrl' => '/Images/team/Jennifer.jpg',
             'slug' => 'jennifer-seigler-waters',
             'certifications' => [
                 '6th Degree Kempo Karate Black Belt',
@@ -159,7 +159,7 @@ She also is the IKF US Amateur Kickboxing Champion and is now a professional kic
         'lisa-corley' => [
             'name' => 'Mrs. Lisa Corley',
             'position' => 'Chief of Operations',
-            'imageUrl' => '/images/team/Lisa.jpg',
+            'imageUrl' => '/Images/team/Lisa.jpg',
             'slug' => 'lisa-corley',
             'longBio' => "Lisa Corley is from Evans, Georgia. When her son enrolled as a Lil Dragon at SKC, she was so impressed by the positive and family-friendly atmosphere that she wanted to experience learning martial arts herself! The training buddies and friends she made in her classes soon had her falling in love with SKC too.
 
@@ -168,7 +168,7 @@ She started working at SKC in 2013 and is now the Chief Operating Officer. Mrs. 
         'titus-waters' => [
             'name' => 'Mr. Titus Waters',
             'position' => 'Head Sensei',
-            'imageUrl' => '/images/team/Titus.jpg',
+            'imageUrl' => '/Images/team/Titus.jpg',
             'slug' => 'titus-waters',
             'certifications' => [
                 '5th degree Black Belt in Kempo',
@@ -181,7 +181,7 @@ He met Jennifer Waters (Mr. Seigler's daughter)and they got married soon after. 
         'daniel-corley' => [
             'name' => 'Mr. Daniel Corley',
             'position' => 'Senior Sensei',
-            'imageUrl' => '/images/team/Daniel.jpg',
+            'imageUrl' => '/Images/team/Daniel.jpg',
             'slug' => 'daniel-corley',
             'certifications' => [
                 '4th Degree Black Belt in Kempo',
@@ -192,7 +192,7 @@ He met Jennifer Waters (Mr. Seigler's daughter)and they got married soon after. 
         'cameron-corley' => [
             'name' => 'Ms. Cameron Corley',
             'position' => 'Senior Success Coach',
-            'imageUrl' => '/images/team/Cameron.jpg',
+            'imageUrl' => '/Images/team/Cameron.jpg',
             'slug' => 'cameron-corley',
             'longBio' => "Cameron Corley is originally from Evans GA, but found her home at SKC in 2015. After seeing her brother and mom start training, she soon began working at the front desk and quickly rose through the ranks.
 

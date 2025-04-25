@@ -100,28 +100,28 @@ const Communities = () => {
       title: 'Augusta, GA',
       description: 'Our flagship location serving the Augusta area with comprehensive martial arts programs for all ages and skill levels.',
       members: 'Core Location',
-      image: 'https://images.unsplash.com/photo-1581866069016-ab30b5109172?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+      image: '/Images/team/Augusta-Riverwalk-Best-Things-to-do-in-Augusta.jpg'
     },
     {
       id: 2,
       title: 'Martinez, GA',
       description: 'Serving the Martinez community with our signature martial arts training and character development programs.',
       members: 'Growing Community',
-      image: 'https://images.unsplash.com/photo-1569418603365-a8cfd4e4f138?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+      image: '/Images/team/535b81457a154c1399dfddd432cbf866_716x444.jpg'
     },
     {
       id: 3,
       title: 'Grovetown, GA',
       description: '271 Meridian Drive Grovetown, GA 30813 - Our newest location bringing martial arts excellence to the Grovetown area.',
       members: 'New Location',
-      image: 'https://images.unsplash.com/photo-1573126617899-41f1dffb196c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+      image: '/Images/team/ga388endgrovetown.webp'
     },
     {
       id: 4,
       title: 'Evans, GA',
       description: '4150 Washington Road, Suite 4, Evans, GA, 30809 - Serving Evans with professional martial arts instruction for all ages.',
       members: 'Main Dojo',
-      image: 'https://images.unsplash.com/photo-1579722820248-91892d01c4b4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+      image: '/Images/team/adobestock-469148590.jpg'
     }
   ];
 

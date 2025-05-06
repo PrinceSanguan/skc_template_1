@@ -1,6 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import type React from "react"
+
+import { useState, useEffect } from "react"
 import Template from "./Template"
 import AnimatedElement from "@/components/ui/animated-element"
 import { Link } from "@inertiajs/react"
@@ -19,6 +21,39 @@ interface BlogPost {
 export default function Blog() {
   // State for active category filter
   const [activeCategory, setActiveCategory] = useState("All Posts")
+
+  // Countdown timer state
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  })
+
+  // Set end date for promotion (example: 7 days from now)
+  useEffect(() => {
+    const endDate = new Date()
+    endDate.setDate(endDate.getDate() + 7) // 7 days from now
+
+    const timer = setInterval(() => {
+      const now = new Date()
+      const difference = endDate.getTime() - now.getTime()
+
+      if (difference <= 0) {
+        clearInterval(timer)
+        return
+      }
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000)
+
+      setTimeLeft({ days, hours, minutes, seconds })
+    }, 1000)
+
+    return () => clearInterval(timer)
+  }, [])
 
   // Actual blog data
   const blogPosts: BlogPost[] = [
@@ -133,9 +168,9 @@ export default function Blog() {
 
   // Function to handle image error
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    const img = e.currentTarget;
-    img.onerror = null; // Prevent infinite loop
-    img.src = "/api/placeholder/400/320"; // Fallback to placeholder
+    const img = e.currentTarget
+    img.onerror = null // Prevent infinite loop
+    img.src = "/api/placeholder/400/320" // Fallback to placeholder
   }
 
   return (
@@ -163,10 +198,62 @@ export default function Blog() {
             </AnimatedElement>
 
             <AnimatedElement type="fadeIn" delay={0.3}>
-              <p className="text-xl text-gray-300 mt-8 mb-12 max-w-3xl mx-auto">
+              <p className="text-xl text-gray-300 mt-8 mb-8 max-w-3xl mx-auto">
                 Insights, tips, and stories from our karate journey. Stay informed about techniques, events, and the
                 martial arts lifestyle.
               </p>
+            </AnimatedElement>
+
+            {/* Top CTA with updated text */}
+            <AnimatedElement type="fadeIn" delay={0.35}>
+              <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+                <Link
+                  href="/schedule"
+                  className="bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 text-white font-medium py-3 px-8 rounded-md transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center"
+                >
+                  View Our Schedule & Pricing Options <ChevronRight className="ml-2 h-4 w-4" />
+                </Link>
+                <Link
+                  href="/contact"
+                  className="bg-transparent border-2 border-red-600 text-white hover:bg-red-600/10 font-medium py-3 px-8 rounded-md transition-colors flex items-center justify-center"
+                >
+                  Contact Us <ChevronRight className="ml-2 h-4 w-4" />
+                </Link>
+              </div>
+            </AnimatedElement>
+
+            {/* Countdown Timer */}
+            <AnimatedElement type="fadeIn" delay={0.4}>
+              <div className="bg-gradient-to-r from-red-900/80 to-red-700/80 rounded-lg p-4 max-w-2xl mx-auto mb-8 backdrop-blur-sm border border-red-500/30 shadow-lg">
+                <h3 className="text-white font-bold mb-2">Limited Time Offer - New Student Special</h3>
+                <p className="text-gray-200 mb-4">Sign up now and receive 50% off your first month of training!</p>
+                <div className="flex justify-center space-x-4">
+                  <div className="flex flex-col items-center">
+                    <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center">
+                      {timeLeft.days}
+                    </div>
+                    <span className="text-xs mt-1 text-gray-300">Days</span>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center">
+                      {timeLeft.hours}
+                    </div>
+                    <span className="text-xs mt-1 text-gray-300">Hours</span>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center">
+                      {timeLeft.minutes}
+                    </div>
+                    <span className="text-xs mt-1 text-gray-300">Minutes</span>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center">
+                      {timeLeft.seconds}
+                    </div>
+                    <span className="text-xs mt-1 text-gray-300">Seconds</span>
+                  </div>
+                </div>
+              </div>
             </AnimatedElement>
           </div>
 
@@ -198,8 +285,8 @@ export default function Blog() {
                     <div className="aspect-w-16 aspect-h-9 w-full">
                       <div className="h-56 w-full relative overflow-hidden">
                         {/* Added actual image element here */}
-                        <img 
-                          src={post.imageUrl} 
+                        <img
+                          src={post.imageUrl || "/placeholder.svg"}
                           alt={post.title}
                           className="w-full h-full object-cover"
                           onError={handleImageError}
@@ -335,6 +422,47 @@ export default function Blog() {
                 </ul>
               </div>
             </div>
+          </div>
+
+          {/* Bottom CTA Section */}
+          <div className="mt-16">
+            <AnimatedElement type="fadeIn" delay={0.2}>
+              <div className="relative rounded-xl overflow-hidden">
+                {/* Background with overlay */}
+                <div className="absolute inset-0 bg-gradient-to-r from-red-900 to-red-700"></div>
+                <div className="absolute inset-0 bg-[url('/pattern-overlay.png')] opacity-10 mix-blend-overlay"></div>
+
+                {/* Decorative elements */}
+                <div className="absolute -top-20 -right-20 w-80 h-80 bg-red-600/20 rounded-full blur-3xl"></div>
+                <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-red-600/20 rounded-full blur-3xl"></div>
+
+                {/* Content */}
+                <div className="relative z-10 p-10 text-center">
+                  <h2 className="text-3xl font-bold text-white mb-4">Ready to Begin Your Martial Arts Journey?</h2>
+                  <p className="text-lg text-gray-100 mb-8">
+                    Join our community and discover the transformative power of martial arts training.
+                  </p>
+
+                  <div className="flex flex-col sm:flex-row justify-center space-x-0 sm:space-x-4">
+                    <Link
+                      href="/schedule"
+                      className="bg-white text-red-700 font-bold py-3 px-8 rounded-md text-lg shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center mx-0 sm:mr-3 mb-4 sm:mb-0"
+                    >
+                      View Our Schedule & Pricing Options
+                      <ChevronRight className="ml-2 h-5 w-5" />
+                    </Link>
+
+                    <Link
+                      href="/contact"
+                      className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-bold py-3 px-8 rounded-md text-lg transition-all duration-300 flex items-center justify-center mx-0"
+                    >
+                      Contact Us
+                      <ChevronRight className="ml-2 h-5 w-5" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </AnimatedElement>
           </div>
         </div>
       </div>

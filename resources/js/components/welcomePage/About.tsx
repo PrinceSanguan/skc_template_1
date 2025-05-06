@@ -107,7 +107,7 @@ const About = () => {
             <div className="h-px w-8 bg-red-500"></div>
           </div>
           <h2 className="mb-4 text-4xl font-bold md:text-5xl lg:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-red-200">
-            About Our Dojo
+            About Us
           </h2>
           <div className="mx-auto h-1 w-20 bg-gradient-to-r from-red-600 to-red-400 rounded-full mt-6"></div>
         </div>

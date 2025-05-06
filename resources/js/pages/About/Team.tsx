@@ -4,7 +4,7 @@ import Template from "./Template"
 import AnimatedElement from "@/components/ui/animated-element"
 import { Link } from "@inertiajs/react"
 import { MapPin, Phone, Mail, ChevronRight, Award, Star, Calendar, Users } from "lucide-react"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import gsap from "gsap"
 
 interface TeamMember {
@@ -28,6 +28,14 @@ interface Location {
 }
 
 export default function Team() {
+  // Countdown timer state
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  })
+
   // Refs for GSAP animations
   const heroRef = useRef<HTMLDivElement>(null)
   const teamGridRef = useRef<HTMLDivElement>(null)
@@ -98,7 +106,7 @@ export default function Team() {
       city: "Evans",
       zip: "30809",
       phone: "(706) 855-5685",
-      email: "skc@goskc.com",
+      email: "info@goskc.com",
     },
     {
       name: "Grovetown, GA",
@@ -106,9 +114,34 @@ export default function Team() {
       city: "Grovetown",
       zip: "30813",
       phone: "(706) 855-5685",
-      email: "skc@goskc.com",
+      email: "info@goskc.com",
     },
   ]
+
+  // Set end date for promotion (example: 7 days from now)
+  useEffect(() => {
+    const endDate = new Date()
+    endDate.setDate(endDate.getDate() + 7) // 7 days from now
+
+    const timer = setInterval(() => {
+      const now = new Date()
+      const difference = endDate.getTime() - now.getTime()
+
+      if (difference <= 0) {
+        clearInterval(timer)
+        return
+      }
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000)
+
+      setTimeLeft({ days, hours, minutes, seconds })
+    }, 1000)
+
+    return () => clearInterval(timer)
+  }, [])
 
   // GSAP animations
   useEffect(() => {
@@ -221,8 +254,60 @@ export default function Team() {
             </div>
           </AnimatedElement>
 
-          {/* Stats */}
+          {/* Top CTA with updated text */}
+          <AnimatedElement type="fadeIn" delay={0.35}>
+            <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+              <Link
+                href="/schedule"
+                className="bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 text-white font-medium py-3 px-8 rounded-md transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center"
+              >
+                View Our Schedule & Pricing Options <ChevronRight className="ml-2 h-4 w-4" />
+              </Link>
+              <Link
+                href="/contact"
+                className="bg-transparent border-2 border-red-600 text-white hover:bg-red-600/10 font-medium py-3 px-8 rounded-md transition-colors flex items-center justify-center"
+              >
+                Contact Us <ChevronRight className="ml-2 h-4 w-4" />
+              </Link>
+            </div>
+          </AnimatedElement>
+
+          {/* Countdown Timer */}
           <AnimatedElement type="fadeIn" delay={0.4}>
+            <div className="bg-gradient-to-r from-red-900/80 to-red-700/80 rounded-lg p-4 max-w-2xl mx-auto mb-8 backdrop-blur-sm border border-red-500/30 shadow-lg">
+              <h3 className="text-white font-bold mb-2">Limited Time Offer - New Student Special</h3>
+              <p className="text-gray-200 mb-4">Sign up now and receive 50% off your first month of training!</p>
+              <div className="flex justify-center space-x-4">
+                <div className="flex flex-col items-center">
+                  <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center">
+                    {timeLeft.days}
+                  </div>
+                  <span className="text-xs mt-1 text-gray-300">Days</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center">
+                    {timeLeft.hours}
+                  </div>
+                  <span className="text-xs mt-1 text-gray-300">Hours</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center">
+                    {timeLeft.minutes}
+                  </div>
+                  <span className="text-xs mt-1 text-gray-300">Minutes</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center">
+                    {timeLeft.seconds}
+                  </div>
+                  <span className="text-xs mt-1 text-gray-300">Seconds</span>
+                </div>
+              </div>
+            </div>
+          </AnimatedElement>
+
+          {/* Stats */}
+          <AnimatedElement type="fadeIn" delay={0.45}>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mt-12">
               <div className="rounded-xl border border-red-900/30 bg-black/60 p-4 text-center shadow-xl backdrop-blur-sm hover:border-red-600/50 transition-all duration-300 group">
                 <div className="flex flex-col items-center">
@@ -542,7 +627,7 @@ export default function Team() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* CTA Section - Updated text */}
       <section className="py-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('/pattern-overlay.png')] opacity-5 mix-blend-overlay"></div>
 
@@ -571,15 +656,21 @@ export default function Team() {
                 </p>
 
                 <div className="flex flex-col sm:flex-row justify-center space-x-0 sm:space-x-4">
-                  <button className="bg-white text-red-700 font-bold py-3 px-8 rounded-md text-lg shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:-translate-y-1 flex items-center mx-0 sm:mr-3">
-                    Start Your Training Today
+                  <Link
+                    href="/schedule"
+                    className="bg-white text-red-700 font-bold py-3 px-8 rounded-md text-lg shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center mx-0 sm:mr-3 mb-4 sm:mb-0"
+                  >
+                    View Our Schedule & Pricing Options
                     <ChevronRight className="ml-2 h-5 w-5" />
-                  </button>
+                  </Link>
 
-                  <button className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-bold py-3 px-8 rounded-md text-lg transition-all duration-300 flex items-center mx-0">
-                    Schedule a Tour
+                  <Link
+                    href="/contact"
+                    className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-bold py-3 px-8 rounded-md text-lg transition-all duration-300 flex items-center justify-center mx-0"
+                  >
+                    Contact Us
                     <ChevronRight className="ml-2 h-5 w-5" />
-                  </button>
+                  </Link>
                 </div>
 
                 {/* Testimonial preview */}

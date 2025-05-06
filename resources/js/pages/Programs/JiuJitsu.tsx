@@ -9,14 +9,7 @@ import gsap from "gsap"
 
 export default function JiuJitsu() {
   const particlesRef = useRef<HTMLDivElement>(null)
-  const heroRef = useRef<HTMLDivElement>(null)
-
-  // Sample class schedule
-  const schedule = [
-    { day: "Monday", time: "7:30 PM - 8:30 PM" },
-    { day: "Wednesday", time: "7:30 PM - 8:30 PM" },
-    { day: "Saturday", time: "1:30 PM - 2:30 PM" },
-  ]
+  const heroRef = useRef(null)
 
   // Program benefits
   const benefits = [
@@ -173,8 +166,8 @@ export default function JiuJitsu() {
 
   return (
     <Template title="Jiu Jitsu (14+)">
-      {/* Hero Section */}
-      <div ref={heroRef} className="relative overflow-hidden min-h-[60vh] flex items-center">
+      {/* Hero Section - Modified to remove overlay and improve image visibility */}
+      <div ref={heroRef} className="relative overflow-hidden min-h-[70vh] flex items-center">
         {/* Particle effect container */}
         <div ref={particlesRef} className="absolute inset-0 pointer-events-none z-10"></div>
 
@@ -184,16 +177,15 @@ export default function JiuJitsu() {
         <div className="absolute right-0 top-1/2 w-24 h-24 bg-red-500/10 rounded-full blur-xl"></div>
 
         <div className="absolute inset-0 bg-[url('/pattern-overlay.png')] opacity-5 mix-blend-overlay"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black"></div>
-
-        {/* Hero image */}
+        
+        {/* Hero image - Overlay removed to see image more clearly */}
         <div className="absolute inset-0 z-0">
           <img
             src="/Images/team/JIU JITSU.jpg"
             alt="Jiu Jitsu Class"
-            className="w-full h-full object-cover opacity-40"
+            className="w-full h-full object-cover opacity-80"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent"></div>
         </div>
 
         {/* Martial arts silhouettes */}
@@ -229,9 +221,9 @@ export default function JiuJitsu() {
       </div>
 
       <div className="container mx-auto px-4 py-16 relative z-10">
-        {/* Program Description */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
-          <AnimatedElement type="slideInLeft" delay={0.4}>
+        {/* Program Description - Single column after removing schedule */}
+        <div className="mb-20">
+          <AnimatedElement type="fadeIn" delay={0.4}>
             <div className="rounded-xl border border-red-900/30 bg-black/60 shadow-xl backdrop-blur-sm p-8 relative overflow-hidden">
               <div className="absolute inset-0 bg-[url('/pattern-overlay.png')] opacity-5 mix-blend-overlay"></div>
               <div className="absolute -top-20 -right-20 w-80 h-80 bg-red-900/5 rounded-full blur-3xl"></div>
@@ -257,51 +249,6 @@ export default function JiuJitsu() {
                   offers a path to achievement that challenges both mind and body while building confidence and
                   resilience.
                 </p>
-              </div>
-            </div>
-          </AnimatedElement>
-
-          <AnimatedElement type="slideInRight" delay={0.4}>
-            <div className="rounded-xl border border-red-900/30 bg-black/60 shadow-xl backdrop-blur-sm p-8 relative overflow-hidden">
-              <div className="absolute inset-0 bg-[url('/pattern-overlay.png')] opacity-5 mix-blend-overlay"></div>
-              <div className="absolute -top-20 -left-20 w-80 h-80 bg-red-900/5 rounded-full blur-3xl"></div>
-              <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-red-900/5 rounded-full blur-3xl"></div>
-
-              <div className="relative z-10">
-                <h3 className="text-2xl font-bold text-white mb-6 relative inline-block">
-                  Class Schedule
-                  <div className="absolute -bottom-2 left-0 w-12 h-0.5 bg-gradient-to-r from-red-600 to-red-400 rounded-full"></div>
-                </h3>
-
-                <div className="mb-8">
-                  <h4 className="font-semibold text-red-400 mb-3 text-lg">Evans Location</h4>
-                  <div className="space-y-2">
-                    {schedule.map((item, index) => (
-                      <div
-                        key={index}
-                        className="flex justify-between py-2 border-b border-red-900/20 hover:border-red-600/30 transition-colors"
-                      >
-                        <span className="font-medium text-white">{item.day}</span>
-                        <span className="text-gray-300">{item.time}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <h4 className="font-semibold text-red-400 mb-3 text-lg">Grovetown Location</h4>
-                  <div className="space-y-2">
-                    {schedule.map((item, index) => (
-                      <div
-                        key={`g-${index}`}
-                        className="flex justify-between py-2 border-b border-red-900/20 hover:border-red-600/30 transition-colors"
-                      >
-                        <span className="font-medium text-white">{item.day}</span>
-                        <span className="text-gray-300">{item.time}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
               </div>
             </div>
           </AnimatedElement>

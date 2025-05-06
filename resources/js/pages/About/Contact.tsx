@@ -6,7 +6,7 @@ import Template from "./Template"
 import AnimatedElement from "@/components/ui/animated-element"
 import { Link } from "@inertiajs/react"
 import { useState, useRef, useEffect } from "react"
-import { MapPin, Phone, ChevronRight, Calendar } from "lucide-react"
+import { MapPin, Phone, ChevronRight, Calendar } from 'lucide-react'
 import gsap from "gsap"
 
 export default function Contact() {
@@ -22,6 +22,39 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const particlesRef = useRef<HTMLDivElement>(null)
+
+  // Countdown timer state
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  })
+
+  // Set end date for promotion (example: 7 days from now)
+  useEffect(() => {
+    const endDate = new Date()
+    endDate.setDate(endDate.getDate() + 7) // 7 days from now
+
+    const timer = setInterval(() => {
+      const now = new Date()
+      const difference = endDate.getTime() - now.getTime()
+
+      if (difference <= 0) {
+        clearInterval(timer)
+        return
+      }
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000)
+
+      setTimeLeft({ days, hours, minutes, seconds })
+    }, 1000)
+
+    return () => clearInterval(timer)
+  }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -138,6 +171,58 @@ export default function Contact() {
                 Have a question about our programs or ready to begin your martial arts journey? We're here to help! Get
                 in touch with us today.
               </p>
+            </div>
+          </AnimatedElement>
+
+          {/* Top CTA with updated text */}
+          <AnimatedElement type="fadeIn" delay={0.35}>
+            <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+              <Link
+                href="/schedule"
+                className="bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 text-white font-medium py-3 px-8 rounded-md transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center"
+              >
+                View Our Schedule & Pricing Options <ChevronRight className="ml-2 h-4 w-4" />
+              </Link>
+              <Link
+                href="/contact"
+                className="bg-transparent border-2 border-red-600 text-white hover:bg-red-600/10 font-medium py-3 px-8 rounded-md transition-colors flex items-center justify-center"
+              >
+                Contact Us <ChevronRight className="ml-2 h-4 w-4" />
+              </Link>
+            </div>
+          </AnimatedElement>
+
+          {/* Countdown Timer */}
+          <AnimatedElement type="fadeIn" delay={0.4}>
+            <div className="bg-gradient-to-r from-red-900/80 to-red-700/80 rounded-lg p-4 max-w-2xl mx-auto mb-8 backdrop-blur-sm border border-red-500/30 shadow-lg">
+              <h3 className="text-white font-bold mb-2">Limited Time Offer - New Student Special</h3>
+              <p className="text-gray-200 mb-4">Sign up now and receive 50% off your first month of training!</p>
+              <div className="flex justify-center space-x-4">
+                <div className="flex flex-col items-center">
+                  <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center">
+                    {timeLeft.days}
+                  </div>
+                  <span className="text-xs mt-1 text-gray-300">Days</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center">
+                    {timeLeft.hours}
+                  </div>
+                  <span className="text-xs mt-1 text-gray-300">Hours</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center">
+                    {timeLeft.minutes}
+                  </div>
+                  <span className="text-xs mt-1 text-gray-300">Minutes</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center">
+                    {timeLeft.seconds}
+                  </div>
+                  <span className="text-xs mt-1 text-gray-300">Seconds</span>
+                </div>
+              </div>
             </div>
           </AnimatedElement>
         </div>
@@ -328,7 +413,7 @@ export default function Contact() {
             </div>
           </AnimatedElement>
 
-          {/* Location Info */}
+          {/* Location Info - Business Hours Section Removed */}
           <AnimatedElement type="slideInRight" delay={0.5}>
             <div className="space-y-8">
               <div className="rounded-xl border border-red-900/30 bg-black/60 shadow-xl backdrop-blur-sm p-6 relative overflow-hidden">
@@ -385,41 +470,7 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div className="rounded-xl border border-red-900/30 bg-black/60 shadow-xl backdrop-blur-sm p-6 relative overflow-hidden">
-                <div className="absolute inset-0 bg-[url('/pattern-overlay.png')] opacity-5 mix-blend-overlay"></div>
-                <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-red-600/5 rounded-full blur-xl"></div>
-
-                <div className="relative z-10">
-                  <h3 className="text-lg font-bold text-white mb-4 relative inline-block">
-                    Business Hours
-                    <div className="absolute -bottom-2 left-0 w-8 h-0.5 bg-gradient-to-r from-red-600 to-red-400 rounded-full"></div>
-                  </h3>
-
-                  <div className="space-y-2">
-                    <div className="flex justify-between items-center py-2 border-b border-red-900/20">
-                      <span className="text-gray-300 flex items-center">
-                        <Calendar className="h-3 w-3 mr-2 text-red-500" />
-                        Monday - Friday
-                      </span>
-                      <span className="text-white">9:00 AM - 9:00 PM</span>
-                    </div>
-                    <div className="flex justify-between items-center py-2 border-b border-red-900/20">
-                      <span className="text-gray-300 flex items-center">
-                        <Calendar className="h-3 w-3 mr-2 text-red-500" />
-                        Saturday
-                      </span>
-                      <span className="text-white">9:00 AM - 2:00 PM</span>
-                    </div>
-                    <div className="flex justify-between items-center py-2">
-                      <span className="text-gray-300 flex items-center">
-                        <Calendar className="h-3 w-3 mr-2 text-red-500" />
-                        Sunday
-                      </span>
-                      <span className="text-white">Closed</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {/* Business Hours Section Removed */}
 
               <div className="rounded-xl border border-red-900/30 bg-black/60 shadow-xl backdrop-blur-sm p-6 relative overflow-hidden">
                 <div className="absolute inset-0 bg-[url('/pattern-overlay.png')] opacity-5 mix-blend-overlay"></div>
@@ -462,9 +513,22 @@ export default function Contact() {
                       href="#"
                       className="w-10 h-10 rounded-full bg-black/40 border border-red-900/30 flex items-center justify-center text-gray-300 hover:text-red-400 hover:border-red-600/50 transition-all duration-300 transform hover:scale-110"
                     >
+                      <span className="sr-only">Twitter</span>
+                      <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+                      </svg>
+                    </a>
+                    <a
+                      href="#"
+                      className="w-10 h-10 rounded-full bg-black/40 border border-red-900/30 flex items-center justify-center text-gray-300 hover:text-red-400 hover:border-red-600/50 transition-all duration-300 transform hover:scale-110"
+                    >
                       <span className="sr-only">YouTube</span>
                       <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
+                        <path
+                          fillRule="evenodd"
+                          d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z"
+                          clipRule="evenodd"
+                        />
                       </svg>
                     </a>
                   </div>
@@ -476,7 +540,7 @@ export default function Contact() {
 
         {/* Map Section */}
         <AnimatedElement type="fadeIn" delay={0.6}>
-          <div className="rounded-xl border border-red-900/30 bg-black/60 shadow-xl backdrop-blur-sm p-8 mb-16 relative overflow-hidden">
+          <div className="rounded-xl border border-red-900/30 bg-black/60 shadow-xl backdrop-blur-sm p-8 relative overflow-hidden mb-16">
             <div className="absolute inset-0 bg-[url('/pattern-overlay.png')] opacity-5 mix-blend-overlay"></div>
             <div className="absolute -top-20 -right-20 w-80 h-80 bg-red-900/5 rounded-full blur-3xl"></div>
             <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-red-900/5 rounded-full blur-3xl"></div>
@@ -486,9 +550,18 @@ export default function Contact() {
                 Find Us
                 <div className="absolute -bottom-2 left-0 w-12 h-0.5 bg-gradient-to-r from-red-600 to-red-400 rounded-full"></div>
               </h2>
-              <div className="h-96 bg-black/40 border border-red-900/20 rounded-lg flex items-center justify-center overflow-hidden relative">
-                <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60 pointer-events-none"></div>
-                <span className="text-gray-400 relative z-10">Interactive Map Would Be Displayed Here</span>
+
+              <div className="aspect-w-16 aspect-h-7 rounded-lg overflow-hidden border border-red-900/30">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3328.1752836863716!2d-82.1292234!3d33.5360199!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f9d6f1f3c9e2d5%3A0x5b3f5e9a2f5b8c7a!2sEvans%2C%20GA%2030809!5e0!3m2!1sen!2sus!4v1620123456789!5m2!1sen!2sus"
+                  width="100%"
+                  height="450"
+                  style={{ border: 0 }}
+                  allowFullScreen={false}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Seigler's Karate Center Location"
+                ></iframe>
               </div>
             </div>
           </div>
@@ -496,63 +569,49 @@ export default function Contact() {
 
         {/* FAQ Section */}
         <AnimatedElement type="fadeIn" delay={0.7}>
-          <div className="mb-16">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-white mb-4 relative inline-block">
+          <div className="rounded-xl border border-red-900/30 bg-black/60 shadow-xl backdrop-blur-sm p-8 relative overflow-hidden mb-16">
+            <div className="absolute inset-0 bg-[url('/pattern-overlay.png')] opacity-5 mix-blend-overlay"></div>
+            <div className="absolute -top-20 -right-20 w-80 h-80 bg-red-900/5 rounded-full blur-3xl"></div>
+            <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-red-900/5 rounded-full blur-3xl"></div>
+
+            <div className="relative z-10">
+              <h2 className="text-2xl font-bold text-white mb-6 relative inline-block">
                 Frequently Asked Questions
-                <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-0.5 bg-gradient-to-r from-red-600 to-red-400 rounded-full"></div>
+                <div className="absolute -bottom-2 left-0 w-12 h-0.5 bg-gradient-to-r from-red-600 to-red-400 rounded-full"></div>
               </h2>
-            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="rounded-xl border border-red-900/30 bg-black/60 shadow-xl backdrop-blur-sm p-6 hover:border-red-600/50 transition-all duration-300 relative overflow-hidden">
-                <div className="absolute inset-0 bg-[url('/pattern-overlay.png')] opacity-5 mix-blend-overlay"></div>
-                <div className="absolute -top-10 -right-10 w-40 h-40 bg-red-600/5 rounded-full blur-xl"></div>
-
-                <div className="relative z-10">
-                  <h3 className="text-lg font-medium mb-3 text-white">Do I need previous martial arts experience?</h3>
+              <div className="space-y-6">
+                <div className="bg-black/30 rounded-lg p-6 border border-red-900/20">
+                  <h3 className="text-lg font-semibold text-white mb-2">What age can my child start martial arts?</h3>
                   <p className="text-gray-300">
-                    Not at all! Our programs are designed for students of all experience levels, from complete beginners
-                    to advanced practitioners. Our instructors will help you progress at your own pace.
+                    We offer programs for children as young as 4 years old with our Lil Dragons program. Each age group
+                    has a curriculum specifically designed for their physical and mental development stage.
                   </p>
                 </div>
-              </div>
 
-              <div className="rounded-xl border border-red-900/30 bg-black/60 shadow-xl backdrop-blur-sm p-6 hover:border-red-600/50 transition-all duration-300 relative overflow-hidden">
-                <div className="absolute inset-0 bg-[url('/pattern-overlay.png')] opacity-5 mix-blend-overlay"></div>
-                <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-red-600/5 rounded-full blur-xl"></div>
-
-                <div className="relative z-10">
-                  <h3 className="text-lg font-medium mb-3 text-white">How often should I attend classes?</h3>
+                <div className="bg-black/30 rounded-lg p-6 border border-red-900/20">
+                  <h3 className="text-lg font-semibold text-white mb-2">Do I need to be in shape to start?</h3>
                   <p className="text-gray-300">
-                    For optimal progress, we recommend attending classes 2-3 times per week. However, we understand that
-                    everyone's schedule is different, and we offer flexible class times to accommodate various needs.
+                    Not at all! Our programs are designed to meet you at your current fitness level and help you
+                    progress at your own pace. Many students find that their fitness improves naturally as they continue
+                    training.
                   </p>
                 </div>
-              </div>
 
-              <div className="rounded-xl border border-red-900/30 bg-black/60 shadow-xl backdrop-blur-sm p-6 hover:border-red-600/50 transition-all duration-300 relative overflow-hidden">
-                <div className="absolute inset-0 bg-[url('/pattern-overlay.png')] opacity-5 mix-blend-overlay"></div>
-                <div className="absolute -top-10 -left-10 w-40 h-40 bg-red-600/5 rounded-full blur-xl"></div>
-
-                <div className="relative z-10">
-                  <h3 className="text-lg font-medium mb-3 text-white">What should I wear to my first class?</h3>
+                <div className="bg-black/30 rounded-lg p-6 border border-red-900/20">
+                  <h3 className="text-lg font-semibold text-white mb-2">How often should I train?</h3>
                   <p className="text-gray-300">
-                    For your first class, comfortable athletic clothing is appropriate. If you decide to continue
-                    training, you'll need a traditional karate uniform (gi), which can be purchased at our pro shop.
+                    For beginners, we recommend 2-3 classes per week. This provides enough training to see progress
+                    while allowing your body to adjust to the new activities. As you advance, you may choose to train
+                    more frequently.
                   </p>
                 </div>
-              </div>
 
-              <div className="rounded-xl border border-red-900/30 bg-black/60 shadow-xl backdrop-blur-sm p-6 hover:border-red-600/50 transition-all duration-300 relative overflow-hidden">
-                <div className="absolute inset-0 bg-[url('/pattern-overlay.png')] opacity-5 mix-blend-overlay"></div>
-                <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-red-600/5 rounded-full blur-xl"></div>
-
-                <div className="relative z-10">
-                  <h3 className="text-lg font-medium mb-3 text-white">Do you offer trial classes?</h3>
+                <div className="bg-black/30 rounded-lg p-6 border border-red-900/20">
+                  <h3 className="text-lg font-semibold text-white mb-2">Do you offer trial classes?</h3>
                   <p className="text-gray-300">
-                    Yes! We offer a free introductory class for new students. This allows you to experience our teaching
-                    style and facility before making a commitment. Contact us to schedule your free class.
+                    Yes! We offer a free introductory class so you can experience our training environment before
+                    committing. Contact us to schedule your free trial class today.
                   </p>
                 </div>
               </div>
@@ -560,9 +619,9 @@ export default function Contact() {
           </div>
         </AnimatedElement>
 
-        {/* CTA */}
+        {/* Bottom CTA Section - Updated text */}
         <AnimatedElement type="fadeIn" delay={0.8}>
-          <div className="relative rounded-xl overflow-hidden mb-8">
+          <div className="relative rounded-xl overflow-hidden">
             {/* Background with overlay */}
             <div className="absolute inset-0 bg-gradient-to-r from-red-900 to-red-700"></div>
             <div className="absolute inset-0 bg-[url('/pattern-overlay.png')] opacity-10 mix-blend-overlay"></div>
@@ -571,34 +630,29 @@ export default function Contact() {
             <div className="absolute -top-20 -right-20 w-80 h-80 bg-red-600/20 rounded-full blur-3xl"></div>
             <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-red-600/20 rounded-full blur-3xl"></div>
 
-            {/* Martial arts silhouettes */}
-            <div
-              className="absolute bottom-0 right-0 w-64 h-64 bg-contain bg-no-repeat bg-right-bottom opacity-10"
-              style={{ backgroundImage: "url('/karate-silhouette-1.png')" }}
-            ></div>
-
             {/* Content */}
             <div className="relative z-10 p-10 text-center">
               <h2 className="text-3xl font-bold text-white mb-4">Ready to Begin Your Martial Arts Journey?</h2>
-              <p className="text-lg text-gray-100 mb-8 max-w-2xl mx-auto">
-                Take the first step toward self-improvement through martial arts training. Visit one of our locations or
-                contact us today to schedule your free introductory class.
+              <p className="text-lg text-gray-100 mb-8">
+                Join our community and discover the transformative power of martial arts training.
               </p>
-              <div className="flex flex-col sm:flex-row justify-center gap-4">
+
+              <div className="flex flex-col sm:flex-row justify-center space-x-0 sm:space-x-4">
                 <Link
-                  href="/locations/evans"
-                  className="bg-white text-red-700 hover:bg-gray-100 font-bold py-3 px-8 rounded-md text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center mx-auto"
+                  href="/schedule"
+                  className="bg-white text-red-700 font-bold py-3 px-8 rounded-md text-lg shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center mx-0 sm:mr-3 mb-4 sm:mb-0"
                 >
-                  Find a Location
+                  View Our Schedule & Pricing Options
                   <ChevronRight className="ml-2 h-5 w-5" />
                 </Link>
-                <a
-                  href="tel:+17065243444"
-                  className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-bold py-3 px-8 rounded-md text-lg transition-all duration-300 flex items-center justify-center mx-auto"
+
+                <Link
+                  href="/contact"
+                  className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-bold py-3 px-8 rounded-md text-lg transition-all duration-300 flex items-center justify-center mx-0"
                 >
-                  Call Us: (706) 524-3444
-                  <Phone className="ml-2 h-5 w-5" />
-                </a>
+                  Contact Us
+                  <ChevronRight className="ml-2 h-5 w-5" />
+                </Link>
               </div>
             </div>
           </div>
@@ -606,4 +660,4 @@ export default function Contact() {
       </div>
     </Template>
   )
-}
+} 

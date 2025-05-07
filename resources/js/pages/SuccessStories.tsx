@@ -13,12 +13,49 @@ export default function SuccessStories() {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false)
   const videoRef = useRef<HTMLIFrameElement>(null)
 
+  // Countdown timer state
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  })
+
   // Default profile picture path
   const defaultProfilePicture = "/images/team/Default-Profile-Picture-PNG-Image-Transparent-Background.png"
 
   useEffect(() => {
     // Set images as loaded after component mounts to prevent hydration issues
     setImagesLoaded(true)
+  }, [])
+
+  // Countdown timer effect
+  useEffect(() => {
+    // Set the end date to 7 days from now
+    const endDate = new Date()
+    endDate.setDate(endDate.getDate() + 7)
+
+    const calculateTimeLeft = () => {
+      const difference = endDate.getTime() - new Date().getTime()
+
+      if (difference > 0) {
+        setTimeLeft({
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((difference / (1000 * 60)) % 60),
+          seconds: Math.floor((difference / 1000) % 60),
+        })
+      }
+    }
+
+    // Initial calculation
+    calculateTimeLeft()
+
+    // Update every second
+    const timer = setInterval(calculateTimeLeft, 1000)
+
+    // Clear interval on component unmount
+    return () => clearInterval(timer)
   }, [])
 
   const handlePlayVideo = () => {
@@ -190,6 +227,52 @@ export default function SuccessStories() {
             Discover how martial arts training at Seigler's Karate Center has transformed the lives of our students,
             building confidence, discipline, and skills that last a lifetime.
           </p>
+        </AnimatedElement>
+
+        {/* Promotional Countdown Section */}
+        <AnimatedElement type="fadeIn" delay={0.35}>
+          <div className="rounded-2xl overflow-hidden mb-16 border border-red-900/50 bg-gradient-to-r from-red-900/80 to-red-950/80 backdrop-blur-md shadow-[0_0_25px_rgba(0,0,0,0.7)]">
+            <div className="p-8 text-center">
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Limited Time Special Offer!</h2>
+              <p className="text-lg text-gray-200 mb-6 max-w-2xl mx-auto">
+                Sign up now and receive 50% off your first month of training. Don't miss this opportunity!
+              </p>
+
+              <div className="flex justify-center space-x-4 mb-6">
+                <div className="flex flex-col items-center">
+                  <div className="w-16 h-16 rounded-lg bg-black/50 backdrop-blur-sm flex items-center justify-center text-2xl font-bold text-white border border-red-500/30">
+                    {timeLeft.days}
+                  </div>
+                  <span className="text-sm text-gray-300 mt-2">Days</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="w-16 h-16 rounded-lg bg-black/50 backdrop-blur-sm flex items-center justify-center text-2xl font-bold text-white border border-red-500/30">
+                    {timeLeft.hours}
+                  </div>
+                  <span className="text-sm text-gray-300 mt-2">Hours</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="w-16 h-16 rounded-lg bg-black/50 backdrop-blur-sm flex items-center justify-center text-2xl font-bold text-white border border-red-500/30">
+                    {timeLeft.minutes}
+                  </div>
+                  <span className="text-sm text-gray-300 mt-2">Minutes</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="w-16 h-16 rounded-lg bg-black/50 backdrop-blur-sm flex items-center justify-center text-2xl font-bold text-white border border-red-500/30">
+                    {timeLeft.seconds}
+                  </div>
+                  <span className="text-sm text-gray-300 mt-2">Seconds</span>
+                </div>
+              </div>
+
+              <Link
+                href="/contact"
+                className="inline-block bg-white text-red-700 hover:bg-gray-100 font-medium py-3 px-8 rounded-lg shadow-lg transition-all duration-300 text-lg border border-white/30 hover:scale-105 transform"
+              >
+                View Our Schedule & Pricing Options
+              </Link>
+            </div>
+          </div>
         </AnimatedElement>
 
         {/* Japanese-inspired decorative element */}
@@ -465,7 +548,7 @@ export default function SuccessStories() {
                   href="/contact"
                   className="inline-block bg-gradient-to-r from-red-700 to-red-900 hover:from-red-800 hover:to-red-950 text-white py-3 px-8 rounded-lg shadow-lg transition-all duration-300 font-medium border border-red-600/30"
                 >
-                  Start Your Journey
+                  View Our Schedule & Pricing Options
                 </Link>
               </div>
             </div>
@@ -494,7 +577,7 @@ export default function SuccessStories() {
                   href="/contact"
                   className="bg-white text-red-700 hover:bg-gray-100 font-medium py-4 px-10 rounded-lg shadow-lg transition-all duration-300 text-lg border border-white/30 hover:scale-105 transform"
                 >
-                  Start with a Free Class
+                  View Our Schedule & Pricing Options
                 </Link>
                 <Link
                   href="/programs"

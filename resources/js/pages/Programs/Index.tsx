@@ -3,7 +3,7 @@
 import Template from "./Template"
 import AnimatedElement from "@/components/ui/animated-element"
 import { Link } from "@inertiajs/react"
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useState } from "react"
 import { ChevronRight, Award, Users, Clock, MapPin } from "lucide-react"
 import gsap from "gsap"
 
@@ -169,6 +169,31 @@ export default function ProgramsIndex() {
     }
   }
 
+  // Countdown timer state
+  const [timeLeft, setTimeLeft] = useState({
+    days: 3,
+    hours: 11,
+    minutes: 37,
+    seconds: 42,
+  })
+
+  // Update countdown timer
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (timeLeft.seconds > 0) {
+        setTimeLeft({ ...timeLeft, seconds: timeLeft.seconds - 1 })
+      } else if (timeLeft.minutes > 0) {
+        setTimeLeft({ ...timeLeft, minutes: timeLeft.minutes - 1, seconds: 59 })
+      } else if (timeLeft.hours > 0) {
+        setTimeLeft({ ...timeLeft, hours: timeLeft.hours - 1, minutes: 59, seconds: 59 })
+      } else if (timeLeft.days > 0) {
+        setTimeLeft({ ...timeLeft, days: timeLeft.days - 1, hours: 23, minutes: 59, seconds: 59 })
+      }
+    }, 1000)
+
+    return () => clearTimeout(timer)
+  }, [timeLeft])
+
   return (
     <Template title="Programs">
       {/* Hero Section */}
@@ -218,6 +243,51 @@ export default function ProgramsIndex() {
         </div>
       </div>
 
+      {/* Promotional Banner with Countdown */}
+      <div className="container mx-auto px-4 mb-12">
+        <AnimatedElement type="fadeIn" delay={0.4}>
+          <div className="rounded-xl border border-red-500/30 bg-gradient-to-r from-red-900/40 to-black/40 shadow-xl backdrop-blur-sm p-6 relative overflow-hidden">
+            <div className="absolute inset-0 bg-[url('/pattern-overlay.png')] opacity-5 mix-blend-overlay"></div>
+            <div className="absolute -top-20 -right-20 w-80 h-80 bg-red-600/10 rounded-full blur-3xl"></div>
+            <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-red-600/10 rounded-full blur-3xl"></div>
+
+            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between">
+              <div className="mb-6 md:mb-0 text-center md:text-left">
+                <h3 className="text-2xl font-bold text-white mb-2">Special Promotion Ending Soon!</h3>
+                <p className="text-gray-300">Sign up today and receive 50% off your first month and a free uniform.</p>
+              </div>
+
+              <div className="flex space-x-4">
+                <div className="flex flex-col items-center">
+                  <div className="w-16 h-16 rounded-lg bg-black/50 border border-red-500/30 flex items-center justify-center text-2xl font-bold text-white">
+                    {timeLeft.days}
+                  </div>
+                  <span className="text-gray-400 text-sm mt-1">Days</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="w-16 h-16 rounded-lg bg-black/50 border border-red-500/30 flex items-center justify-center text-2xl font-bold text-white">
+                    {timeLeft.hours}
+                  </div>
+                  <span className="text-gray-400 text-sm mt-1">Hours</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="w-16 h-16 rounded-lg bg-black/50 border border-red-500/30 flex items-center justify-center text-2xl font-bold text-white">
+                    {timeLeft.minutes}
+                  </div>
+                  <span className="text-gray-400 text-sm mt-1">Minutes</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="w-16 h-16 rounded-lg bg-black/50 border border-red-500/30 flex items-center justify-center text-2xl font-bold text-white">
+                    {timeLeft.seconds}
+                  </div>
+                  <span className="text-gray-400 text-sm mt-1">Seconds</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </AnimatedElement>
+      </div>
+
       <div className="container mx-auto px-4 py-16 relative z-10">
         {/* Programs Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
@@ -261,7 +331,7 @@ export default function ProgramsIndex() {
                     href={program.link}
                     className="mt-auto inline-flex items-center bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 text-white py-2 px-4 rounded-lg transition-all duration-300 shadow-[0_4px_10px_rgba(220,38,38,0.3)] hover:shadow-[0_6px_15px_rgba(220,38,38,0.4)] group-hover:translate-x-1"
                   >
-                    Learn More
+                    View Our Schedule & Pricing Options
                     <ChevronRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                   </Link>
                 </div>
@@ -366,7 +436,7 @@ export default function ProgramsIndex() {
                   href="/contact"
                   className="bg-white text-red-700 hover:bg-gray-100 font-bold py-3 px-8 rounded-md text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center mx-0 sm:mr-3"
                 >
-                  Schedule a Free Class
+                  View Our Schedule & Pricing Options
                   <ChevronRight className="ml-2 h-5 w-5" />
                 </Link>
                 <Link

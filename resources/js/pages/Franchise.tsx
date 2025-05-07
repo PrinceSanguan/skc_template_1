@@ -30,6 +30,49 @@ export default function Franchise() {
   })
   const [formFocus, setFormFocus] = useState<string | null>(null)
 
+  // Countdown timer state
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  })
+
+  const endDateRef = useRef(new Date())
+
+  // Replace the existing countdown timer useEffect with this corrected version
+  useEffect(() => {
+    // Set end date to 7 days from now, but only once when component mounts
+    if (!endDateRef.current || endDateRef.current.getTime() <= new Date().getTime()) {
+      const newEndDate = new Date()
+      newEndDate.setDate(newEndDate.getDate() + 7)
+      endDateRef.current = newEndDate
+    }
+
+    const calculateTimeLeft = () => {
+      const difference = endDateRef.current.getTime() - new Date().getTime()
+
+      if (difference > 0) {
+        setTimeLeft({
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((difference / 1000 / 60) % 60),
+          seconds: Math.floor((difference / 1000) % 60),
+        })
+      } else {
+        // If countdown is finished, reset it to 7 more days
+        const newEndDate = new Date()
+        newEndDate.setDate(newEndDate.getDate() + 7)
+        endDateRef.current = newEndDate
+      }
+    }
+
+    calculateTimeLeft()
+    const timer = setInterval(calculateTimeLeft, 1000)
+
+    return () => clearInterval(timer)
+  }, [])
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormState((prev) => ({ ...prev, [name]: value }))
@@ -116,13 +159,21 @@ export default function Franchise() {
         <main className="flex-grow">
           {/* Hero Section */}
           <section className="relative h-screen min-h-[600px] flex items-center overflow-hidden">
-            {/* Background image with overlay */}
-            <div className="absolute inset-0 z-0">
-              <div className="absolute inset-0 bg-gradient-to-b from-black via-black/70 to-black z-10"></div>
-              {imagesLoaded && (
-                <img src="/Images/team/63d03cc126d6cd7584f54e0c-1-1024x576.png" alt="Martial arts training" className="w-full h-full object-cover" />
-              )}
-            </div>
+            {/* Background image with minimal overlay */}
+<div className="absolute inset-0 z-0">
+  <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/30 z-10"></div>
+  {imagesLoaded && (
+  <img
+    src="/Images/team/63d03cc126d6cd7584f54e0c-1-1024x576.png"
+    alt="Martial arts training"
+    className="w-full h-full object-cover"
+    style={{ 
+      objectPosition: "center -45%", // Show the very top of the image
+      transform: "translateY(30px)" // Positive value pushes the image down
+    }}
+  />
+)}
+</div>
 
             {/* Decorative elements */}
             <div className="absolute inset-0 overflow-hidden">
@@ -185,7 +236,7 @@ export default function Franchise() {
                     href="#download-brochure"
                     className="inline-block bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 px-8 py-4 rounded-md text-lg font-semibold text-white transition-all duration-300 shadow-[0_4px_15px_rgba(220,38,38,0.4)] hover:shadow-[0_6px_20px_rgba(220,38,38,0.6)] hover:-translate-y-1"
                   >
-                    DOWNLOAD OUR BROCHURE
+                    View Our Schedule & Pricing Options
                   </a>
                 </div>
               </div>
@@ -203,6 +254,53 @@ export default function Franchise() {
                   transform: "scaleY(0.5)",
                 }}
               ></div>
+            </div>
+          </section>
+
+          {/* Promotional Countdown Section */}
+          <section className="py-10 bg-gradient-to-r from-red-900 to-red-800 relative overflow-hidden">
+            {/* Background decorative elements */}
+            <div className="absolute inset-0 bg-[url('/pattern-overlay.png')] opacity-10 mix-blend-overlay"></div>
+            <div className="absolute -top-20 -right-20 w-80 h-80 bg-red-600/20 rounded-full blur-3xl"></div>
+            <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-red-600/20 rounded-full blur-3xl"></div>
+
+            <div className="container mx-auto px-4 relative z-10">
+              <div className="flex flex-col md:flex-row items-center justify-between">
+                <div className="mb-6 md:mb-0 text-center md:text-left">
+                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Limited Time Offer!</h2>
+                  <p className="text-white/90 text-lg">Special franchise pricing available for the next:</p>
+                </div>
+
+                <div className="grid grid-cols-4 gap-2 md:gap-4">
+                  <div className="flex flex-col items-center">
+                    <div className="bg-black/30 backdrop-blur-sm w-16 h-16 md:w-20 md:h-20 rounded-lg flex items-center justify-center border border-white/10">
+                      <span className="text-2xl md:text-3xl font-bold text-white">{timeLeft.days}</span>
+                    </div>
+                    <span className="text-white/80 text-sm mt-1">Days</span>
+                  </div>
+
+                  <div className="flex flex-col items-center">
+                    <div className="bg-black/30 backdrop-blur-sm w-16 h-16 md:w-20 md:h-20 rounded-lg flex items-center justify-center border border-white/10">
+                      <span className="text-2xl md:text-3xl font-bold text-white">{timeLeft.hours}</span>
+                    </div>
+                    <span className="text-white/80 text-sm mt-1">Hours</span>
+                  </div>
+
+                  <div className="flex flex-col items-center">
+                    <div className="bg-black/30 backdrop-blur-sm w-16 h-16 md:w-20 md:h-20 rounded-lg flex items-center justify-center border border-white/10">
+                      <span className="text-2xl md:text-3xl font-bold text-white">{timeLeft.minutes}</span>
+                    </div>
+                    <span className="text-white/80 text-sm mt-1">Minutes</span>
+                  </div>
+
+                  <div className="flex flex-col items-center">
+                    <div className="bg-black/30 backdrop-blur-sm w-16 h-16 md:w-20 md:h-20 rounded-lg flex items-center justify-center border border-white/10">
+                      <span className="text-2xl md:text-3xl font-bold text-white">{timeLeft.seconds}</span>
+                    </div>
+                    <span className="text-white/80 text-sm mt-1">Seconds</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -275,7 +373,7 @@ export default function Franchise() {
                         href="#download-brochure"
                         className="inline-block bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 px-6 py-3 rounded-md font-semibold text-white transition-all duration-300 shadow-[0_4px_10px_rgba(220,38,38,0.3)] hover:shadow-[0_6px_15px_rgba(220,38,38,0.4)] hover:-translate-y-1"
                       >
-                        DOWNLOAD OUR BROCHURE
+                        View Our Schedule & Pricing Options
                       </a>
                     </div>
                   </div>
@@ -708,7 +806,7 @@ export default function Franchise() {
                   href="#download-brochure"
                   className="inline-block bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 px-8 py-4 rounded-md text-lg font-semibold text-white transition-all duration-300 shadow-[0_4px_15px_rgba(220,38,38,0.4)] hover:shadow-[0_6px_20px_rgba(220,38,38,0.6)] hover:-translate-y-1"
                 >
-                  DOWNLOAD OUR BROCHURE
+                  View Our Schedule & Pricing Options
                 </a>
               </div>
             </div>
@@ -870,7 +968,7 @@ export default function Franchise() {
                           type="submit"
                           className="relative inline-block bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 px-8 py-4 rounded-md text-lg font-semibold text-white transition-all duration-300 shadow-[0_4px_15px_rgba(220,38,38,0.4)] hover:shadow-[0_6px_20px_rgba(220,38,38,0.6)] w-full hover:-translate-y-1 overflow-hidden group"
                         >
-                          <span className="relative z-10">DOWNLOAD OUR BROCHURE</span>
+                          <span className="relative z-10">View Our Schedule & Pricing Options</span>
                           <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-red-600 to-red-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                         </button>
                       </div>

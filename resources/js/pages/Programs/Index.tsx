@@ -1,15 +1,32 @@
 "use client"
 
+import type React from "react"
+
 import Template from "./Template"
 import AnimatedElement from "@/components/ui/animated-element"
 import { Link } from "@inertiajs/react"
 import { useRef, useEffect, useState } from "react"
 import { ChevronRight, Award, Users, Clock, MapPin } from "lucide-react"
 import gsap from "gsap"
+import SchedulePricingModal from "@/components/SchedulePricingModal" // Import the modal component
 
 export default function ProgramsIndex() {
   const particlesRef = useRef<HTMLDivElement>(null)
   const heroRef = useRef<HTMLDivElement>(null)
+
+  // Modal state
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  // Function to open the modal
+  const openModal = (e: React.MouseEvent) => {
+    e.preventDefault() // Prevent default link behavior
+    setIsModalOpen(true)
+  }
+
+  // Function to close the modal
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
 
   const programs = [
     {
@@ -17,8 +34,7 @@ export default function ProgramsIndex() {
       title: "Lil Dragons (4 — 5)",
       description:
         "A fun and engaging program designed specifically for young children aged 4-5, focusing on basic motor skills, coordination, and social skills through martial arts activities.",
-      image:
-        "/Images/team/TN-Lil-Dragons.jpg",
+      image: "/Images/team/TN-Lil-Dragons.jpg",
       link: "/programs/lil-dragons",
       icon: "dragon",
     },
@@ -27,8 +43,7 @@ export default function ProgramsIndex() {
       title: "Kids Karate (6 — 10)",
       description:
         "Empowering children ages 6-10 with focus, discipline, and confidence while teaching practical self-defense techniques and traditional karate values.",
-      image:
-        "/Images/team/TN-Kids-Karate.jpg",
+      image: "/Images/team/TN-Kids-Karate.jpg",
       link: "/programs/kids-karate",
       icon: "child",
     },
@@ -37,8 +52,7 @@ export default function ProgramsIndex() {
       title: "Teens Karate (11 — 13)",
       description:
         "A dynamic program tailored for teens that builds mental strength, physical fitness, and leadership skills while navigating the challenges of adolescence.",
-      image:
-        "/Images/team/TN-Teen-Karate.jpg",
+      image: "/Images/team/TN-Teen-Karate.jpg",
       link: "/programs/teens-karate",
       icon: "teen",
     },
@@ -47,8 +61,7 @@ export default function ProgramsIndex() {
       title: "Adult Kempo Karate (14+)",
       description:
         "A comprehensive martial arts system for adults, teaching practical self-defense, traditional forms, and physical conditioning in a supportive environment.",
-      image:
-        "/Images/team/ADULTKEMPO.jpg",
+      image: "/Images/team/ADULTKEMPO.jpg",
       link: "/programs/adult-kempo",
       icon: "adult",
     },
@@ -57,8 +70,7 @@ export default function ProgramsIndex() {
       title: "Kickboxing (14+)",
       description:
         "High-energy cardio workouts combined with authentic martial arts techniques, providing an excellent way to improve fitness, reduce stress, and learn striking skills.",
-      image:
-        "/Images/team/88A5D580-B43D-4916-92F9-2B8037264B27-rotated-e1724873881945.jpg",
+      image: "/Images/team/88A5D580-B43D-4916-92F9-2B8037264B27-rotated-e1724873881945.jpg",
       link: "/programs/kickboxing",
       icon: "kick",
     },
@@ -67,8 +79,7 @@ export default function ProgramsIndex() {
       title: "Jiu Jitsu (14+)",
       description:
         "Focused on ground fighting and submission techniques, our Jiu Jitsu program emphasizes leverage and technique over strength, making it an effective martial art for practitioners of all sizes.",
-      image:
-        "/Images/team/JIU JITSU.jpg",
+      image: "/Images/team/JIU JITSU.jpg",
       link: "/programs/jiu-jitsu",
       icon: "ground",
     },
@@ -327,13 +338,14 @@ export default function ProgramsIndex() {
 
                   <p className="text-gray-300 mb-6 flex-grow">{program.description}</p>
 
-                  <Link
-                    href={program.link}
+                  <a
+                    href="#"
+                    onClick={openModal}
                     className="mt-auto inline-flex items-center bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 text-white py-2 px-4 rounded-lg transition-all duration-300 shadow-[0_4px_10px_rgba(220,38,38,0.3)] hover:shadow-[0_6px_15px_rgba(220,38,38,0.4)] group-hover:translate-x-1"
                   >
                     View Our Schedule & Pricing Options
                     <ChevronRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                  </Link>
+                  </a>
                 </div>
               </div>
             </AnimatedElement>
@@ -432,13 +444,14 @@ export default function ProgramsIndex() {
                 the perfect program based on your age, experience, and goals.
               </p>
               <div className="flex flex-col sm:flex-row justify-center space-x-0 sm:space-x-4">
-                <Link
-                  href="/contact"
+                <a
+                  href="#"
+                  onClick={openModal}
                   className="bg-white text-red-700 hover:bg-gray-100 font-bold py-3 px-8 rounded-md text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center mx-0 sm:mr-3"
                 >
                   View Our Schedule & Pricing Options
                   <ChevronRight className="ml-2 h-5 w-5" />
-                </Link>
+                </a>
                 <Link
                   href="/locations/evans"
                   className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-bold py-3 px-8 rounded-md text-lg transition-all duration-300 flex items-center justify-center mx-0"
@@ -451,6 +464,9 @@ export default function ProgramsIndex() {
           </div>
         </AnimatedElement>
       </div>
+
+      {/* Modal Component */}
+      <SchedulePricingModal isOpen={isModalOpen} onClose={closeModal} />
     </Template>
   )
 }

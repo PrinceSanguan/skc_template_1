@@ -1,5 +1,7 @@
 "use client"
 
+import type React from "react"
+
 import Template from "../About/Template"
 import AnimatedElement from "@/components/ui/animated-element"
 import { Link } from "@inertiajs/react"
@@ -10,32 +12,65 @@ import gsap from "gsap"
 export default function Evans() {
   const particlesRef = useRef<HTMLDivElement>(null)
   const heroRef = useRef<HTMLDivElement>(null)
-  
+
   // State for currently selected facility image
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
 
-  // Facility images 
+  // Countdown timer state
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  })
+
+  // Set end date for promotion (example: 7 days from now)
+  useEffect(() => {
+    const endDate = new Date()
+    endDate.setDate(endDate.getDate() + 7) // 7 days from now
+
+    const timer = setInterval(() => {
+      const now = new Date()
+      const difference = endDate.getTime() - now.getTime()
+
+      if (difference <= 0) {
+        clearInterval(timer)
+        return
+      }
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000)
+
+      setTimeLeft({ days, hours, minutes, seconds })
+    }, 1000)
+
+    return () => clearInterval(timer)
+  }, [])
+
+  // Facility images
   const facilityImages = [
     {
-      thumb: "/Images/team/JIU JITSU.jpg", 
+      thumb: "/Images/team/JIU JITSU.jpg",
       full: "/Images/team/JIU JITSU.jpg",
-      alt: "Main Training Area"
+      alt: "Main Training Area",
     },
     {
-      thumb: "/Images/team/88A5D580-B43D-4916-92F9-2B8037264B27-rotated-e1724873881945.jpg", 
+      thumb: "/Images/team/88A5D580-B43D-4916-92F9-2B8037264B27-rotated-e1724873881945.jpg",
       full: "/Images/team/88A5D580-B43D-4916-92F9-2B8037264B27-rotated-e1724873881945.jpg",
-      alt: "Equipment Wall"
+      alt: "Equipment Wall",
     },
     {
-      thumb: "/Images/team/TN-Lil-Dragons.jpg", 
+      thumb: "/Images/team/TN-Lil-Dragons.jpg",
       full: "/Images/team/TN-Lil-Dragons.jpg",
-      alt: "Kids Training Area"
+      alt: "Kids Training Area",
     },
     {
-      thumb: "/Images/team/TN-Teen-Karate.jpg", 
+      thumb: "/Images/team/TN-Teen-Karate.jpg",
       full: "/Images/team/TN-Teen-Karate.jpg",
-      alt: "Pro Shop"
-    }
+      alt: "Pro Shop",
+    },
   ]
 
   // Set the first image as selected by default
@@ -47,10 +82,10 @@ export default function Evans() {
 
   // Function to handle image error
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    const img = e.currentTarget;
-    img.onerror = null; // Prevent infinite loop
-    img.src = "/api/placeholder/400/300"; // Fallback to placeholder
-  };
+    const img = e.currentTarget
+    img.onerror = null // Prevent infinite loop
+    img.src = "/api/placeholder/400/300" // Fallback to placeholder
+  }
 
   // Communities served
   const communitiesServed = [
@@ -207,6 +242,59 @@ export default function Evans() {
       </div>
 
       <div className="container mx-auto px-4 py-16 relative z-10">
+        {/* Top CTA with Countdown */}
+        <AnimatedElement type="fadeIn" delay={0.35}>
+          <div className="mb-16 rounded-xl overflow-hidden relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-red-800 to-red-950 z-0"></div>
+
+            {/* Decorative elements */}
+            <div className="absolute top-0 left-0 w-60 h-60 bg-red-600/30 rounded-full filter blur-3xl"></div>
+            <div className="absolute bottom-0 right-0 w-60 h-60 bg-red-600/30 rounded-full filter blur-3xl"></div>
+
+            <div className="relative z-10 p-8 text-center">
+              <h3 className="text-2xl font-bold text-white mb-4">Limited Time Offer!</h3>
+              <p className="text-white text-lg mb-6 max-w-2xl mx-auto">
+                Sign up now and receive 50% off your first month of training!
+              </p>
+
+              {/* Countdown Timer */}
+              <div className="flex justify-center space-x-4 mb-6">
+                <div className="flex flex-col items-center">
+                  <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center border border-red-500/30">
+                    {timeLeft.days}
+                  </div>
+                  <span className="text-xs mt-1 text-gray-300">Days</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center border border-red-500/30">
+                    {timeLeft.hours}
+                  </div>
+                  <span className="text-xs mt-1 text-gray-300">Hours</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center border border-red-500/30">
+                    {timeLeft.minutes}
+                  </div>
+                  <span className="text-xs mt-1 text-gray-300">Minutes</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center border border-red-500/30">
+                    {timeLeft.seconds}
+                  </div>
+                  <span className="text-xs mt-1 text-gray-300">Seconds</span>
+                </div>
+              </div>
+
+              <Link
+                href="/schedule"
+                className="bg-white text-red-700 hover:bg-gray-100 font-medium py-3 px-8 rounded-lg shadow-lg transition-all duration-300 text-lg border border-white/30 hover:scale-105 transform"
+              >
+                View Our Schedule & Pricing Options
+              </Link>
+            </div>
+          </div>
+        </AnimatedElement>
+
         {/* Location Info */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
           {/* Facility Gallery */}
@@ -220,9 +308,9 @@ export default function Evans() {
                 <div className="h-72 bg-black/40 flex items-center justify-center relative overflow-hidden">
                   {selectedImage ? (
                     <>
-                      <img 
-                        src={selectedImage} 
-                        alt="Seigler's Karate Center Facility" 
+                      <img
+                        src={selectedImage || "/placeholder.svg"}
+                        alt="Seigler's Karate Center Facility"
                         className="w-full h-full object-cover"
                         onError={handleImageError}
                       />
@@ -246,14 +334,14 @@ export default function Evans() {
                 </p>
                 <div className="grid grid-cols-2 gap-3 mt-6">
                   {facilityImages.map((image, index) => (
-                    <div 
-                      key={index} 
-                      className={`h-24 bg-black/40 border ${selectedImage === image.full ? 'border-red-600' : 'border-red-900/20'} rounded-lg flex items-center justify-center transform transition-all duration-300 hover:scale-105 hover:border-red-600/70 cursor-pointer overflow-hidden`}
+                    <div
+                      key={index}
+                      className={`h-24 bg-black/40 border ${selectedImage === image.full ? "border-red-600" : "border-red-900/20"} rounded-lg flex items-center justify-center transform transition-all duration-300 hover:scale-105 hover:border-red-600/70 cursor-pointer overflow-hidden`}
                       onClick={() => setSelectedImage(image.full)}
                     >
-                      <img 
-                        src={image.thumb} 
-                        alt={image.alt} 
+                      <img
+                        src={image.thumb || "/placeholder.svg"}
+                        alt={image.alt}
                         className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-300"
                         onError={handleImageError}
                       />
@@ -274,13 +362,13 @@ export default function Evans() {
               <div className="aspect-w-16 aspect-h-9">
                 <div className="h-72 bg-black/40 flex items-center justify-center relative overflow-hidden">
                   {/* Replace with actual Google Map or map image */}
-                  <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3328.1234567890123!2d-82.13456789012345!3d33.54321098765432!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDMyJzM1LjYiTiA4MsKwMDgnMDQuOCJX!5e0!3m2!1sen!2sus!4v1712345678901!5m2!1sen!2sus" 
-                    width="100%" 
-                    height="100%" 
-                    style={{ border: 0 }} 
-                    allowFullScreen={false} 
-                    loading="lazy" 
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3328.1234567890123!2d-82.13456789012345!3d33.54321098765432!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDMyJzM1LjYiTiA4MsKwMDgnMDQuOCJX!5e0!3m2!1sen!2sus!4v1712345678901!5m2!1sen!2sus"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen={false}
+                    loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
                     className="absolute inset-0"
                   ></iframe>
@@ -579,10 +667,10 @@ export default function Evans() {
               </p>
               <div className="flex flex-col sm:flex-row justify-center space-x-0 sm:space-x-4 gap-y-4 sm:gap-y-0">
                 <Link
-                  href="/contact"
+                  href="/schedule"
                   className="bg-white text-red-700 hover:bg-gray-100 font-bold py-3 px-8 rounded-md text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center mx-0 sm:mr-3"
                 >
-                  Schedule a Free Class
+                  View Our Schedule & Pricing Options
                   <ChevronRight className="ml-2 h-5 w-5" />
                 </Link>
                 <Link

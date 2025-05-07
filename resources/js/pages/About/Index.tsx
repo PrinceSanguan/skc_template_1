@@ -1,9 +1,45 @@
+"use client"
+
 import Template from "./Template"
 import AnimatedElement from "@/components/ui/animated-element"
 import { Link } from "@inertiajs/react"
 import { ChevronRight, Award, Users, Clock } from "lucide-react"
+import { useEffect, useState } from "react"
 
 export default function AboutIndex() {
+  // Countdown timer state
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  })
+
+  // Set end date for promotion (example: 7 days from now)
+  useEffect(() => {
+    const endDate = new Date()
+    endDate.setDate(endDate.getDate() + 7) // 7 days from now
+
+    const timer = setInterval(() => {
+      const now = new Date()
+      const difference = endDate.getTime() - now.getTime()
+
+      if (difference <= 0) {
+        clearInterval(timer)
+        return
+      }
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000)
+
+      setTimeLeft({ days, hours, minutes, seconds })
+    }, 1000)
+
+    return () => clearInterval(timer)
+  }, [])
+
   return (
     <Template title="About Us">
       <div className="relative">
@@ -30,6 +66,58 @@ export default function AboutIndex() {
               <p className="text-xl text-gray-300 mt-8 mb-12 max-w-3xl mx-auto">
                 Building discipline, confidence, and character through traditional martial arts training since 1985.
               </p>
+            </AnimatedElement>
+
+            {/* Top CTA with updated text */}
+            <AnimatedElement type="fadeIn" delay={0.4}>
+              <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+                <Link
+                  href="/schedule"
+                  className="bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 text-white font-medium py-3 px-8 rounded-md transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center"
+                >
+                  View Our Schedule & Pricing Options <ChevronRight className="ml-2 h-4 w-4" />
+                </Link>
+                <Link
+                  href="/contact"
+                  className="bg-transparent border-2 border-red-600 text-white hover:bg-red-600/10 font-medium py-3 px-8 rounded-md transition-colors flex items-center justify-center"
+                >
+                  Contact Us <ChevronRight className="ml-2 h-4 w-4" />
+                </Link>
+              </div>
+            </AnimatedElement>
+
+            {/* Countdown Timer */}
+            <AnimatedElement type="fadeIn" delay={0.5}>
+              <div className="bg-gradient-to-r from-red-900/80 to-red-700/80 rounded-lg p-4 max-w-2xl mx-auto mb-12 backdrop-blur-sm border border-red-500/30 shadow-lg">
+                <h3 className="text-white font-bold mb-2">Limited Time Offer - New Student Special</h3>
+                <p className="text-gray-200 mb-4">Sign up now and receive 50% off your first month of training!</p>
+                <div className="flex justify-center space-x-4">
+                  <div className="flex flex-col items-center">
+                    <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center">
+                      {timeLeft.days}
+                    </div>
+                    <span className="text-xs mt-1 text-gray-300">Days</span>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center">
+                      {timeLeft.hours}
+                    </div>
+                    <span className="text-xs mt-1 text-gray-300">Hours</span>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center">
+                      {timeLeft.minutes}
+                    </div>
+                    <span className="text-xs mt-1 text-gray-300">Minutes</span>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center">
+                      {timeLeft.seconds}
+                    </div>
+                    <span className="text-xs mt-1 text-gray-300">Seconds</span>
+                  </div>
+                </div>
+              </div>
             </AnimatedElement>
           </div>
 
@@ -286,7 +374,7 @@ export default function AboutIndex() {
             </div>
           </AnimatedElement>
 
-          {/* CTA */}
+          {/* CTA - Updated text */}
           <AnimatedElement type="fadeIn" delay={0.7}>
             <div className="relative rounded-xl overflow-hidden">
               {/* Background with overlay */}
@@ -308,16 +396,16 @@ export default function AboutIndex() {
                 </p>
                 <div className="flex flex-col sm:flex-row justify-center gap-4">
                   <Link
-                    href="/contact"
+                    href="/schedule"
                     className="bg-white text-red-700 hover:bg-gray-100 font-medium py-3 px-8 rounded-md transition-colors shadow-lg hover:shadow-xl flex items-center justify-center"
                   >
-                    Contact Us <ChevronRight className="ml-2 h-4 w-4" />
+                    View Our Schedule & Pricing Options <ChevronRight className="ml-2 h-4 w-4" />
                   </Link>
                   <Link
-                    href="/locations/evans"
+                    href="/contact"
                     className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-medium py-3 px-8 rounded-md transition-colors flex items-center justify-center"
                   >
-                    Find a Location <ChevronRight className="ml-2 h-4 w-4" />
+                    Contact Us <ChevronRight className="ml-2 h-4 w-4" />
                   </Link>
                 </div>
               </div>

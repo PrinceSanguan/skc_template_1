@@ -132,7 +132,7 @@ const Location = () => {
       state: "GA",
       zip: "",
       phone: "(706) 855-5685",
-      hours: "Opening Fall 2023",
+      hours: "",
       features: ["Pre-registration available", "Grand opening specials", "All ages welcome", "New student orientation"],
     },
   ]

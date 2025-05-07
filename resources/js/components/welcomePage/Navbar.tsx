@@ -281,9 +281,13 @@ const Navbar = () => {
           <div className="flex h-16 items-center justify-between">
             <div className="flex-shrink-0">
               <div ref={logoRef} className="flex items-center">
-                {/* Logo emblem */}
-                <div className="mr-2 w-8 h-8 rounded-full bg-gradient-to-br from-red-700 to-red-900 flex items-center justify-center shadow-lg">
-                  <span className="text-white font-bold text-xs">SKC</span>
+                {/* Logo emblem - replaced with image */}
+                <div className="mr-2 w-8 h-8 flex items-center justify-center shadow-lg">
+                  <img
+                    src="/Images/team/logo-small-fit.png"
+                    alt="Seigler's Karate Center Logo"
+                    className="w-8 h-8 object-contain"
+                  />
                 </div>
 
                 <AnimatedElement type="fadeIn" delay={0.1} scrollTrigger={false}>

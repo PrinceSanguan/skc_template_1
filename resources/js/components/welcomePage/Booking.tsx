@@ -5,8 +5,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const Booking = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const particlesRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef(null);
+  const particlesRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -93,37 +93,6 @@ const Booking = () => {
     }
   }, []);
 
-  const services = [
-    {
-      id: 1,
-      name: 'Free Trial Class',
-      description: 'Experience a martial arts class with no obligation to continue',
-      duration: '45 min',
-      price: 'FREE'
-    },
-    {
-      id: 2,
-      name: 'Beginner Package',
-      description: '6-week introductory course including uniform and first belt test',
-      duration: '2x weekly',
-      price: '$149'
-    },
-    {
-      id: 3,
-      name: 'One-on-One Training',
-      description: 'Private training session with a certified black belt instructor',
-      duration: '30 min',
-      price: '$49'
-    },
-    {
-      id: 4,
-      name: 'Family Program',
-      description: 'Train together as a family with our special family pricing',
-      duration: 'Ongoing',
-      price: 'From $199/mo'
-    }
-  ];
-
   return (
     <section id="booking" ref={sectionRef} className="relative py-20 text-white overflow-hidden">
       {/* Subtle particles container */}
@@ -138,62 +107,20 @@ const Booking = () => {
           </div>
           <h2 className="mb-4 text-4xl font-bold text-white md:text-5xl">Schedule & Pricing</h2>
           <p className="mx-auto max-w-2xl text-gray-300 mt-4">
-            Get started with Seigler's Karate Center today. Select a program and schedule your first class.
+            Get started with Seigler's Karate Center today. Fill out the form to request information.
           </p>
           <div className="mx-auto mt-6 h-1 w-20 bg-gradient-to-r from-red-600 to-red-400 rounded-full"></div>
         </div>
 
-        <div ref={containerRef} className="flex flex-col rounded-2xl shadow-xl lg:flex-row overflow-hidden border border-red-900/20">
-          <div className="w-full p-8 bg-black/60 backdrop-blur-sm lg:w-1/2 border-r border-red-900/20">
-            <h3 className="mb-6 text-2xl font-semibold text-white">Select a Program</h3>
-
-            <div className="space-y-4">
-              {services.map((service) => (
-                <div
-                  key={service.id}
-                  className="flex cursor-pointer items-center rounded-lg border border-red-900/20 p-4 transition-all hover:border-red-500/40 hover:shadow-md bg-black/40 group"
-                >
-                  <div className="mr-4 flex h-12 w-12 items-center justify-center rounded-full bg-red-900/30 text-red-400 transition-all duration-300 group-hover:bg-red-800/40">
-                    <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                    </svg>
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="font-medium text-white group-hover:text-red-400 transition-colors duration-300">{service.name}</h4>
-                    <p className="text-sm text-gray-300">{service.description}</p>
-                  </div>
-                  <div className="ml-4 text-right">
-                    <span className="block font-semibold text-white">{service.price}</span>
-                    <span className="text-sm text-gray-400">{service.duration}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-8">
-              <Button 
-                variant="default" 
-                className="w-full bg-gradient-to-r from-red-700 to-red-600 px-6 py-4 text-white hover:from-red-600 hover:to-red-500 transition-all duration-300 shadow-lg shadow-red-900/20 transform hover:scale-105 relative group overflow-hidden"
-              >
-                <span className="flex items-center justify-center">
-                  <svg className="mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                  </svg>
-                  View More Options
-                </span>
-              </Button>
-            </div>
-          </div>
-
-          <div className="relative w-full bg-black/80 backdrop-blur-sm p-8 text-white lg:w-1/2 lg:rounded-r-2xl">
-            <div className="absolute bottom-0 left-0 right-0 top-0 bg-gradient-to-br from-red-900/30 to-red-800/10 opacity-50 lg:rounded-r-2xl"></div>
+        <div ref={containerRef} className="flex flex-col rounded-2xl shadow-xl overflow-hidden border border-red-900/20">
+          <div className="relative w-full bg-black/80 backdrop-blur-sm p-8 text-white rounded-2xl">
+            <div className="absolute bottom-0 left-0 right-0 top-0 bg-gradient-to-br from-red-900/30 to-red-800/10 opacity-50 rounded-2xl"></div>
             <div className="relative z-10">
               <h3 className="mb-6 text-2xl font-semibold">ONLINE EXCLUSIVE OFFER</h3>
 
               <div className="mb-6 rounded-lg bg-red-900/20 border border-red-900/30 p-4 shadow-lg">
                 <div className="mb-2 text-center text-xl font-semibold">Limited Time & Availability</div>
-                <p className="text-center text-gray-300">Get more information about our classes and schedule on the next page!</p>
+                <p className="text-center text-gray-300">Get more information about our classes and schedule!</p>
               </div>
 
               <form className="space-y-4">

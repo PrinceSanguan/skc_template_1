@@ -83,7 +83,7 @@ const Hero = () => {
               <div className="flex items-center space-x-2 mb-4">
                 <div className="h-px w-8 bg-red-500"></div>
                 <span className="text-red-400 uppercase tracking-wider text-sm font-semibold">
-                  Augusta's Premier Dojo
+                  Martial Arts School
                 </span>
               </div>
               <h1 className="text-5xl font-bold leading-tight md:text-6xl lg:text-7xl bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-red-200">
@@ -164,28 +164,29 @@ const Hero = () => {
 
           <div ref={imageRef} className="w-full max-w-xl">
             <div className="relative">
-              {/* Main image */}
-              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-2xl mb-8 md:mb-0">
-                <img
-                  src="Images/team/ADULTKEMPO.jpg"
-                  alt="Martial Arts Class at Seigler's Karate Center"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+              {/* YouTube Video */}
+              <div className="relative aspect-[16/9] overflow-hidden rounded-2xl shadow-2xl mb-8 md:mb-0">
+                <iframe
+                  src="https://www.youtube.com/embed/SYzrc5-bImM?autoplay=1&mute=1"
+                  title="Come behind the scenes with us on Black Belt Testing Day!"
+                  className="w-full h-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
 
                 {/* Floating badge */}
                 <div className="absolute bottom-6 left-6 rounded-xl bg-red-600 px-4 py-2 text-sm font-medium text-white shadow-lg flex items-center">
                   <span className="mr-2">🔥</span>
-                  LIMITED TIME OFFER
+                  WATCH NOW
                 </div>
 
                 {/* Floating info card */}
                 <div className="absolute right-2 sm:right-4 md:right-6 bottom-0 sm:bottom-2 md:bottom-4 bg-black/80 backdrop-blur-md rounded-xl p-4 shadow-xl border border-red-500/20 w-[200px] sm:w-[220px]">
                   <div className="flex items-center mb-2">
                     <Users className="text-red-500 mr-2 flex-shrink-0" size={16} />
-                    <h3 className="font-semibold truncate">Classes For All Ages</h3>
+                    <h3 className="font-semibold truncate">Black Belt Testing</h3>
                   </div>
-                  <p className="text-sm text-gray-300">Kids, teens, and adults programs available</p>
+                  <p className="text-sm text-gray-300">Behind the scenes at our dojo</p>
                 </div>
               </div>
 

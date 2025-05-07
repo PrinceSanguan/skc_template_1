@@ -1,14 +1,14 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
 import { useEffect, useRef } from "react"
+import { Link } from "@inertiajs/react" // Import Link for navigation
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 const Communities = () => {
-  const sectionRef = useRef<HTMLElement>(null)
-  const cardsRef = useRef<HTMLDivElement>(null)
-  const particlesRef = useRef<HTMLDivElement>(null)
+  const sectionRef = useRef<HTMLElement | null>(null)
+  const cardsRef = useRef<HTMLDivElement | null>(null)
+  const particlesRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
@@ -173,9 +173,11 @@ const Communities = () => {
                   {community.title}
                 </h3>
                 <p className="mb-4 text-gray-300">{community.description}</p>
-                <Button
-                  variant="outline"
-                  className="w-full border-red-600/30 text-red-500 hover:bg-red-900/20 hover:border-red-500/50 hover:text-red-400 transition-all duration-300 group-hover:text-red-400"
+                
+                {/* Replace Button with Link component */}
+                <Link
+                  href="/contact"
+                  className="inline-flex w-full justify-center items-center px-4 py-2 border border-red-600/30 text-red-500 hover:bg-red-900/20 hover:border-red-500/50 hover:text-red-400 transition-all duration-300 group-hover:text-red-400 rounded-md"
                 >
                   <span className="flex items-center">
                     <svg
@@ -200,7 +202,7 @@ const Communities = () => {
                     </svg>
                     Get Directions
                   </span>
-                </Button>
+                </Link>
               </div>
             </div>
           ))}
@@ -213,9 +215,11 @@ const Communities = () => {
               areas.
             </p>
           </div>
-          <Button
-            variant="default"
-            className="rounded-xl bg-gradient-to-r from-red-700 to-red-600 px-8 py-4 text-white hover:from-red-600 hover:to-red-500 hover:text-white transition-all duration-300 shadow-lg shadow-red-900/20 transform hover:scale-105 relative group overflow-hidden"
+          
+          {/* Replace Button with Link component */}
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-red-700 to-red-600 px-8 py-4 text-white hover:from-red-600 hover:to-red-500 hover:text-white transition-all duration-300 shadow-lg shadow-red-900/20 transform hover:scale-105 relative group overflow-hidden"
           >
             <span className="relative z-10 flex items-center justify-center">
               Contact Us For More Locations
@@ -229,7 +233,7 @@ const Communities = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
             </span>
-          </Button>
+          </Link>
         </div>
       </div>
     </section>

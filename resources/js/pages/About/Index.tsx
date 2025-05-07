@@ -5,9 +5,11 @@ import AnimatedElement from "@/components/ui/animated-element"
 import { Link } from "@inertiajs/react"
 import { ChevronRight, Award, Users, Clock } from "lucide-react"
 import { useEffect, useState } from "react"
+import SchedulePricingModal from "@/components/SchedulePricingModal" // Import the modal component
 
 export default function AboutIndex() {
   const [imagesLoaded, setImagesLoaded] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false) // State to control modal visibility
   
   // Countdown timer state
   const [timeLeft, setTimeLeft] = useState({
@@ -52,6 +54,17 @@ export default function AboutIndex() {
     e.currentTarget.src = "/images/team/Default-Profile-Picture-PNG-Image-Transparent-Background.png"
   }
 
+  // Function to open the modal
+  const openModal = (e: React.MouseEvent) => {
+    e.preventDefault() // Prevent default link behavior
+    setIsModalOpen(true)
+  }
+
+  // Function to close the modal
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
+
   // Define image placeholders for cards
   const imagePlaceholders = {
     mission: "/Images/team/Copy of IMG_1969 (2).jpg",
@@ -93,15 +106,16 @@ export default function AboutIndex() {
               </p>
             </AnimatedElement>
 
-            {/* Top CTA with updated text */}
+            {/* Top CTA with updated text - Using onClick handler instead of href */}
             <AnimatedElement type="fadeIn" delay={0.4}>
               <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
-                <Link
-                  href="/schedule"
+                <a
+                  href="#"
+                  onClick={openModal}
                   className="bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 text-white font-medium py-3 px-8 rounded-md transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center"
                 >
                   View Our Schedule & Pricing Options <ChevronRight className="ml-2 h-4 w-4" />
-                </Link>
+                </a>
                 <Link
                   href="/contact"
                   className="bg-transparent border-2 border-red-600 text-white hover:bg-red-600/10 font-medium py-3 px-8 rounded-md transition-colors flex items-center justify-center"
@@ -464,7 +478,7 @@ export default function AboutIndex() {
             </div>
           </AnimatedElement>
 
-          {/* CTA - Updated text */}
+          {/* CTA - Updated with onClick handler */}
           <AnimatedElement type="fadeIn" delay={0.7}>
             <div className="relative rounded-xl overflow-hidden">
               {/* Background with overlay */}
@@ -485,12 +499,13 @@ export default function AboutIndex() {
                   Contact us to schedule your free introductory class.
                 </p>
                 <div className="flex flex-col sm:flex-row justify-center gap-4">
-                  <Link
-                    href="/schedule"
+                <a
+                    href="#"
+                    onClick={openModal}
                     className="bg-white text-red-700 hover:bg-gray-100 font-medium py-3 px-8 rounded-md transition-colors shadow-lg hover:shadow-xl flex items-center justify-center"
                   >
                     View Our Schedule & Pricing Options <ChevronRight className="ml-2 h-4 w-4" />
-                  </Link>
+                  </a>
                   <Link
                     href="/contact"
                     className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-medium py-3 px-8 rounded-md transition-colors flex items-center justify-center"
@@ -503,6 +518,9 @@ export default function AboutIndex() {
           </AnimatedElement>
         </div>
       </div>
+      
+      {/* Modal Component */}
+      <SchedulePricingModal isOpen={isModalOpen} onClose={closeModal} />
     </Template>
   )
 }

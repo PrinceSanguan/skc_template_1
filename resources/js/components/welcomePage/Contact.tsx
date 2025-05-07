@@ -1,13 +1,12 @@
-"use client"
-
 import { useEffect, useRef } from "react"
+import { Link } from "@inertiajs/react" // Using Inertia Link for navigation
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 const Contact = () => {
   const sectionRef = useRef<HTMLElement>(null)
-  const infoRef = useRef<HTMLDivElement>(null)
-  const particlesRef = useRef<HTMLDivElement>(null)
+  const infoRef = useRef(null)
+  const particlesRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
@@ -154,28 +153,51 @@ const Contact = () => {
                   <h4 className="text-xl font-semibold mb-2">Evans Location</h4>
                   <p className="text-gray-300">4150 Washington Road, Suite 4</p>
                   <p className="text-gray-300 mb-4">Evans, GA 30809</p>
-                  <a
-                    href="https://maps.google.com/?q=4150+Washington+Road+Suite+4+Evans+GA+30809"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center text-red-400 hover:text-red-300 transition-colors"
-                  >
-                    <span>View on Map</span>
-                    <svg
-                      className="w-4 h-4 ml-1"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
+                  <div className="flex flex-col space-y-2">
+                    <a
+                      href="https://maps.google.com/?q=4150+Washington+Road+Suite+4+Evans+GA+30809"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center text-red-400 hover:text-red-300 transition-colors"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                      />
-                    </svg>
-                  </a>
+                      <span>View on Map</span>
+                      <svg
+                        className="w-4 h-4 ml-1"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                        />
+                      </svg>
+                    </a>
+                    {/* Added Link to Contact page */}
+                    <Link
+                      href="/contact"
+                      className="inline-flex items-center justify-center text-white bg-red-600 hover:bg-red-500 transition-colors rounded-md px-3 py-1"
+                    >
+                      <span>Get Directions & More Info</span>
+                      <svg
+                        className="w-4 h-4 ml-1"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                    </Link>
+                  </div>
                 </div>
 
                 {/* Grovetown Location */}
@@ -205,28 +227,51 @@ const Contact = () => {
                   <h4 className="text-xl font-semibold mb-2">Grovetown Location</h4>
                   <p className="text-gray-300">271 Meridian Drive</p>
                   <p className="text-gray-300 mb-4">Grovetown, GA 30813</p>
-                  <a
-                    href="https://maps.google.com/?q=271+Meridian+Drive+Grovetown+GA+30813"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center text-red-400 hover:text-red-300 transition-colors"
-                  >
-                    <span>View on Map</span>
-                    <svg
-                      className="w-4 h-4 ml-1"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
+                  <div className="flex flex-col space-y-2">
+                    <a
+                      href="https://maps.google.com/?q=271+Meridian+Drive+Grovetown+GA+30813"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center text-red-400 hover:text-red-300 transition-colors"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                      />
-                    </svg>
-                  </a>
+                      <span>View on Map</span>
+                      <svg
+                        className="w-4 h-4 ml-1"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                        />
+                      </svg>
+                    </a>
+                    {/* Added Link to Contact page */}
+                    <Link
+                      href="/contact"
+                      className="inline-flex items-center justify-center text-white bg-red-600 hover:bg-red-500 transition-colors rounded-md px-3 py-1"
+                    >
+                      <span>Get Directions & More Info</span>
+                      <svg
+                        className="w-4 h-4 ml-1"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                    </Link>
+                  </div>
                 </div>
               </div>
 
@@ -281,10 +326,10 @@ const Contact = () => {
                 </div>
               </div>
 
-              {/* Social Media */}
+              {/* Social Media and Get More Info button */}
               <div className="text-center">
                 <h4 className="text-xl font-semibold mb-4">Connect With Us</h4>
-                <div className="flex justify-center space-x-6">
+                <div className="flex justify-center space-x-6 mb-8">
                   <a
                     href="#"
                     className="flex h-12 w-12 items-center justify-center rounded-full bg-red-600/20 transition-all duration-300 hover:bg-red-600/40 hover:scale-110"
@@ -318,6 +363,28 @@ const Contact = () => {
                     </svg>
                   </a>
                 </div>
+                
+                {/* Added main contact page button */}
+                <Link 
+                  href="/contact"
+                  className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-gradient-to-r from-red-700 to-red-600 text-white font-semibold hover:from-red-600 hover:to-red-500 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                >
+                  <span>Visit Our Full Contact Page</span>
+                  <svg
+                    className="w-5 h-5 ml-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    />
+                  </svg>
+                </Link>
               </div>
             </div>
           </div>

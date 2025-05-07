@@ -6,6 +6,7 @@ import { Link } from "@inertiajs/react"
 import { MapPin, Phone, Mail, ChevronRight, Award, Star, Calendar, Users } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
 import gsap from "gsap"
+import SchedulePricingModal from "@/components/SchedulePricingModal" // Import the modal component
 
 interface TeamMember {
   name: string
@@ -28,6 +29,8 @@ interface Location {
 }
 
 export default function Team() {
+  const [isModalOpen, setIsModalOpen] = useState(false) // State to control modal visibility
+  
   // Countdown timer state
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
@@ -117,6 +120,17 @@ export default function Team() {
       email: "info@goskc.com",
     },
   ]
+
+  // Function to open the modal
+  const openModal = (e: React.MouseEvent) => {
+    e.preventDefault() // Prevent default link behavior
+    setIsModalOpen(true)
+  }
+
+  // Function to close the modal
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
 
   // Set end date for promotion (example: 7 days from now)
   useEffect(() => {
@@ -254,15 +268,16 @@ export default function Team() {
             </div>
           </AnimatedElement>
 
-          {/* Top CTA with updated text */}
+          {/* Top CTA with updated text - Using onClick handler instead of href */}
           <AnimatedElement type="fadeIn" delay={0.35}>
             <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
-              <Link
-                href="/schedule"
+              <a
+                href="#"
+                onClick={openModal}
                 className="bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 text-white font-medium py-3 px-8 rounded-md transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center"
               >
                 View Our Schedule & Pricing Options <ChevronRight className="ml-2 h-4 w-4" />
-              </Link>
+              </a>
               <Link
                 href="/contact"
                 className="bg-transparent border-2 border-red-600 text-white hover:bg-red-600/10 font-medium py-3 px-8 rounded-md transition-colors flex items-center justify-center"
@@ -563,7 +578,7 @@ export default function Team() {
           </AnimatedElement>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {locations.map((location, index) => (
+          {locations.map((location, index) => (
               <AnimatedElement key={location.name} type="fadeInUp" delay={0.3 + index * 0.1}>
                 <div className="rounded-xl border border-red-900/30 bg-black/60 shadow-xl backdrop-blur-sm p-8 hover:border-red-600/50 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-red-900/20 relative overflow-hidden group">
                   {/* Decorative elements */}
@@ -656,13 +671,14 @@ export default function Team() {
                 </p>
 
                 <div className="flex flex-col sm:flex-row justify-center space-x-0 sm:space-x-4">
-                  <Link
-                    href="/schedule"
+                  <a
+                    href="#"
+                    onClick={openModal}
                     className="bg-white text-red-700 font-bold py-3 px-8 rounded-md text-lg shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center mx-0 sm:mr-3 mb-4 sm:mb-0"
                   >
                     View Our Schedule & Pricing Options
                     <ChevronRight className="ml-2 h-5 w-5" />
-                  </Link>
+                  </a>
 
                   <Link
                     href="/contact"
@@ -686,6 +702,9 @@ export default function Team() {
           </AnimatedElement>
         </div>
       </section>
+
+      {/* Modal Component */}
+      <SchedulePricingModal isOpen={isModalOpen} onClose={closeModal} />
     </Template>
   )
 }

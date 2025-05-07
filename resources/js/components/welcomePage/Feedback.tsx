@@ -1,11 +1,12 @@
 import { useEffect, useRef } from 'react';
+import { Link } from '@inertiajs/react'; // Using Inertia Link for navigation
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const Feedback = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const particlesRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const particlesRef = useRef<HTMLDivElement | null>(null);
+  const cardsRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -182,14 +183,18 @@ const Feedback = () => {
         </div>
 
         <div className="mt-16 text-center">
-          <button className="rounded-xl bg-gradient-to-r from-red-700 to-red-600 px-8 py-4 text-white hover:from-red-600 hover:to-red-500 transition-all duration-300 shadow-lg shadow-red-900/20 transform hover:scale-105 relative group overflow-hidden">
+          {/* Changed to Link component with href to success-stories */}
+          <Link 
+            href="/success-stories" 
+            className="rounded-xl bg-gradient-to-r from-red-700 to-red-600 px-8 py-4 text-white hover:from-red-600 hover:to-red-500 transition-all duration-300 shadow-lg shadow-red-900/20 transform hover:scale-105 relative group overflow-hidden inline-block"
+          >
             <span className="relative z-10 flex items-center justify-center">
               See More Reviews
               <svg className="w-5 h-5 ml-2 transform transition-transform duration-300 group-hover:translate-x-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
             </span>
-          </button>
+          </Link>
         </div>
       </div>
     </section>

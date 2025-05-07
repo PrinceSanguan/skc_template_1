@@ -5,6 +5,7 @@ import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { Award, MapPin, Users, Clock, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Link } from "@inertiajs/react" // Import Link from Inertia
 
 const About = () => {
   const sectionRef = useRef<HTMLElement>(null)
@@ -216,9 +217,10 @@ const About = () => {
             </div>
 
             <div className="pt-6">
-              <Button
-                variant="default"
-                className="bg-gradient-to-r from-red-700 to-red-500 hover:from-red-600 hover:to-red-400 px-8 py-6 text-white font-medium shadow-[0_8px_30px_rgb(225,29,72,0.3)] rounded-xl text-lg transition-all duration-300 relative overflow-hidden group"
+              {/* Replace Button with Link component to navigate to AboutIndex */}
+              <Link
+                href="/about"
+                className="bg-gradient-to-r from-red-700 to-red-500 hover:from-red-600 hover:to-red-400 px-8 py-6 text-white font-medium shadow-[0_8px_30px_rgb(225,29,72,0.3)] rounded-xl text-lg transition-all duration-300 relative overflow-hidden group inline-flex items-center"
               >
                 <span className="relative z-10 flex items-center">
                   Learn More About Our Story
@@ -227,7 +229,7 @@ const About = () => {
                     size={20}
                   />
                 </span>
-              </Button>
+              </Link>
             </div>
           </div>
         </div>

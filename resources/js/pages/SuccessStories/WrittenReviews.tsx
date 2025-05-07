@@ -171,7 +171,7 @@ export default function WrittenReviews() {
           </div>
         </div>
         <AnimatedElement type="fadeIn" delay={0.35}>
-          <div className="rounded-xl border border-red-900/30 bg-black/60 shadow-xl backdrop-blur-sm p-8 mb-16 relative overflow-hidden">
+          <div className="rounded-xl border border-red-900/30 bg-black/60 shadow-xl backdrop-blur-sm p-4 sm:p-6 md:p-8 mb-8 sm:mb-12 md:mb-16 relative overflow-hidden">
             <div className="absolute inset-0 bg-[url('/pattern-overlay.png')] opacity-5 mix-blend-overlay"></div>
             <div className="absolute -top-20 -right-20 w-80 h-80 bg-red-900/5 rounded-full blur-3xl"></div>
             <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-red-900/5 rounded-full blur-3xl"></div>
@@ -182,35 +182,35 @@ export default function WrittenReviews() {
                 <span className="text-red-400 uppercase tracking-wider text-sm font-semibold">Limited Time Offer</span>
                 <div className="h-px w-8 bg-red-500"></div>
               </div>
-              <h2 className="text-3xl font-bold text-white mb-4">Special Promotion Ending Soon!</h2>
-              <p className="text-xl text-gray-300 mb-6 max-w-3xl mx-auto">
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2 sm:mb-4">Special Promotion Ending Soon!</h2>
+              <p className="text-base sm:text-xl text-gray-300 mb-4 sm:mb-6 max-w-3xl mx-auto px-2">
                 Sign up now and receive 50% off your first month plus a free uniform! Don't miss this opportunity.
               </p>
 
               {/* Countdown Timer */}
-              <div className="flex justify-center gap-4 mb-8">
-                <div className="bg-red-900/50 backdrop-blur-sm p-4 rounded-lg w-20 border border-red-500/30">
-                  <div className="text-3xl font-bold text-white">{timeLeft.days}</div>
+              <div className="flex justify-center gap-2 sm:gap-4 mb-4 sm:mb-8">
+                <div className="bg-red-900/50 backdrop-blur-sm p-2 sm:p-4 rounded-lg w-16 sm:w-20 border border-red-500/30">
+                  <div className="text-2xl sm:text-3xl font-bold text-white">{timeLeft.days}</div>
                   <div className="text-xs text-gray-300 uppercase">Days</div>
                 </div>
-                <div className="bg-red-900/50 backdrop-blur-sm p-4 rounded-lg w-20 border border-red-500/30">
-                  <div className="text-3xl font-bold text-white">{timeLeft.hours}</div>
-                  <div className="text-xs text-gray-300 uppercase">Hours</div>
+                <div className="bg-red-900/50 backdrop-blur-sm p-2 sm:p-4 rounded-lg w-16 sm:w-20 border border-red-500/30">
+                  <div className="text-2xl sm:text-3xl font-bold text-white">{timeLeft.hours}</div>
+                  <div className="text-xs text-gray-300 uppercase">Hrs</div>
                 </div>
-                <div className="bg-red-900/50 backdrop-blur-sm p-4 rounded-lg w-20 border border-red-500/30">
-                  <div className="text-3xl font-bold text-white">{timeLeft.minutes}</div>
-                  <div className="text-xs text-gray-300 uppercase">Minutes</div>
+                <div className="bg-red-900/50 backdrop-blur-sm p-2 sm:p-4 rounded-lg w-16 sm:w-20 border border-red-500/30">
+                  <div className="text-2xl sm:text-3xl font-bold text-white">{timeLeft.minutes}</div>
+                  <div className="text-xs text-gray-300 uppercase">Mins</div>
                 </div>
-                <div className="bg-red-900/50 backdrop-blur-sm p-4 rounded-lg w-20 border border-red-500/30">
-                  <div className="text-3xl font-bold text-white">{timeLeft.seconds}</div>
-                  <div className="text-xs text-gray-300 uppercase">Seconds</div>
+                <div className="bg-red-900/50 backdrop-blur-sm p-2 sm:p-4 rounded-lg w-16 sm:w-20 border border-red-500/30">
+                  <div className="text-2xl sm:text-3xl font-bold text-white">{timeLeft.seconds}</div>
+                  <div className="text-xs text-gray-300 uppercase">Secs</div>
                 </div>
               </div>
 
               <Link
                 href="/contact"
                 onClick={openModal}
-                className="bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 text-white py-3 px-8 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center justify-center text-lg font-medium"
+                className="bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 text-white py-2 sm:py-3 px-6 sm:px-8 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center justify-center text-base sm:text-lg font-medium"
               >
                 View Our Schedule & Pricing Options
               </Link>
@@ -235,7 +235,7 @@ export default function WrittenReviews() {
                           <img
                             src={
                               review.imagePlaceholder ||
-                              `/focused-fighter.png?key=${review.id}&height=50&width=50&query=profile ${review.name}`
+                              `/focused-fighter.png?key=${review.id || "/placeholder.svg"}&height=50&width=50&query=profile ${review.name}`
                             }
                             alt={review.name}
                             className="w-16 h-16 rounded-full object-cover border-2 border-red-500/30"
@@ -284,6 +284,8 @@ export default function WrittenReviews() {
 
         {/* CTA - Enhanced */}
         <AnimatedElement type="fadeIn" delay={0.9}>
+          {/* Make the bottom CTA section more responsive */}
+          {/* Replace the bottom CTA div with this updated version */}
           <div className="rounded-2xl overflow-hidden relative mb-10">
             {/* Enhanced background with gradient only */}
             <div className="absolute inset-0 bg-gradient-to-r from-red-800 to-red-950 z-0"></div>
@@ -293,23 +295,25 @@ export default function WrittenReviews() {
             <div className="absolute bottom-0 right-0 w-60 h-60 bg-red-600/30 rounded-full filter blur-3xl"></div>
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-red-600/10 rounded-full filter blur-3xl"></div>
 
-            <div className="relative z-10 p-12 text-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Ready to Write Your Own Review?</h2>
-              <p className="text-white text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
+            <div className="relative z-10 p-6 sm:p-8 md:p-12 text-center">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
+                Ready to Write Your Own Review?
+              </h2>
+              <p className="text-white text-base sm:text-xl mb-6 sm:mb-10 max-w-2xl mx-auto leading-relaxed px-2">
                 Join the hundreds of students who have transformed their lives through martial arts training at
                 Seigler's Karate Center. Your journey begins with a single step.
               </p>
-              <div className="flex flex-col sm:flex-row justify-center gap-6">
+              <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
                 <Link
                   href="/contact"
                   onClick={openModal}
-                  className="bg-white text-red-700 hover:bg-gray-100 font-medium py-4 px-10 rounded-lg shadow-lg transition-all duration-300 text-lg border border-white/30 hover:scale-105 transform"
+                  className="bg-white text-red-700 hover:bg-gray-100 font-medium py-3 sm:py-4 px-6 sm:px-10 rounded-lg shadow-lg transition-all duration-300 text-base sm:text-lg border border-white/30 hover:scale-105 transform"
                 >
                   View Our Schedule & Pricing Options
                 </Link>
                 <Link
                   href="/success-stories"
-                  className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-medium py-4 px-10 rounded-lg shadow-lg transition-all duration-300 text-lg hover:scale-105 transform"
+                  className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-medium py-3 sm:py-4 px-6 sm:px-10 rounded-lg shadow-lg transition-all duration-300 text-base sm:text-lg hover:scale-105 transform"
                 >
                   Back to All Success Stories
                 </Link>

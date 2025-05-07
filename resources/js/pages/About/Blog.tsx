@@ -190,9 +190,9 @@ export default function Blog() {
 
   return (
     <Template title="Blog">
-      <div className="relative">
+      <div className="relative overflow-x-hidden">
         {/* Background decorative elements */}
-        <div className="absolute top-1/4 -right-10 w-40 h-40 bg-red-600/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/4 right-0 w-40 h-40 bg-red-600/10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-1/3 left-1/4 w-32 h-32 bg-red-600/15 rounded-full blur-2xl"></div>
         <div className="absolute right-0 top-1/2 w-24 h-24 bg-red-500/10 rounded-full blur-xl"></div>
 
@@ -243,7 +243,7 @@ export default function Blog() {
               <div className="bg-gradient-to-r from-red-900/80 to-red-700/80 rounded-lg p-4 max-w-2xl mx-auto mb-8 backdrop-blur-sm border border-red-500/30 shadow-lg">
                 <h3 className="text-white font-bold mb-2">Limited Time Offer - New Student Special</h3>
                 <p className="text-gray-200 mb-4">Sign up now and receive 50% off your first month of training!</p>
-                <div className="flex justify-center space-x-4">
+                <div className="flex flex-wrap justify-center gap-4">
                   <div className="flex flex-col items-center">
                     <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center">
                       {timeLeft.days}
@@ -309,7 +309,7 @@ export default function Blog() {
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
                         <div className="absolute inset-0 bg-[url('/pattern-overlay.png')] opacity-5 mix-blend-overlay"></div>
-                        <div className="absolute -bottom-8 -right-8 w-40 h-40 rounded-full bg-gradient-to-r from-red-600/10 to-yellow-500/5 blur-xl"></div>
+                        <div className="absolute bottom-0 right-0 w-40 h-40 rounded-full bg-gradient-to-r from-red-600/10 to-yellow-500/5 blur-xl"></div>
                       </div>
                     </div>
                   </Link>
@@ -393,7 +393,7 @@ export default function Blog() {
           <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="rounded-xl border border-red-900/30 bg-black/60 shadow-xl backdrop-blur-sm p-6 relative overflow-hidden">
               <div className="absolute inset-0 bg-[url('/pattern-overlay.png')] opacity-5 mix-blend-overlay"></div>
-              <div className="absolute -top-20 -right-20 w-40 h-40 bg-red-900/5 rounded-full blur-2xl"></div>
+              <div className="absolute top-0 right-0 w-40 h-40 bg-red-900/5 rounded-full blur-2xl"></div>
 
               <div className="relative z-10">
                 <h3 className="text-xl font-semibold text-white mb-4 pb-2 border-b border-red-900/30">Categories</h3>
@@ -415,7 +415,7 @@ export default function Blog() {
 
             <div className="rounded-xl border border-red-900/30 bg-black/60 shadow-xl backdrop-blur-sm p-6 relative overflow-hidden">
               <div className="absolute inset-0 bg-[url('/pattern-overlay.png')] opacity-5 mix-blend-overlay"></div>
-              <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-red-900/5 rounded-full blur-2xl"></div>
+              <div className="absolute bottom-0 left-0 w-40 h-40 bg-red-900/5 rounded-full blur-2xl"></div>
 
               <div className="relative z-10">
                 <h3 className="text-xl font-semibold text-white mb-4 pb-2 border-b border-red-900/30">Recent Posts</h3>
@@ -449,8 +449,8 @@ export default function Blog() {
                 <div className="absolute inset-0 bg-[url('/pattern-overlay.png')] opacity-10 mix-blend-overlay"></div>
 
                 {/* Decorative elements */}
-                <div className="absolute -top-20 -right-20 w-80 h-80 bg-red-600/20 rounded-full blur-3xl"></div>
-                <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-red-600/20 rounded-full blur-3xl"></div>
+                <div className="absolute top-0 right-0 w-80 h-80 bg-red-600/20 rounded-full blur-3xl"></div>
+                <div className="absolute bottom-0 left-0 w-80 h-80 bg-red-600/20 rounded-full blur-3xl"></div>
 
                 {/* Content */}
                 <div className="relative z-10 p-10 text-center">
@@ -459,11 +459,11 @@ export default function Blog() {
                     Join our community and discover the transformative power of martial arts training.
                   </p>
 
-                  <div className="flex flex-col sm:flex-row justify-center space-x-0 sm:space-x-4">
+                  <div className="flex flex-col sm:flex-row justify-center gap-4">
                     <a
                       href="#"
                       onClick={openModal}
-                      className="bg-white text-red-700 font-bold py-3 px-8 rounded-md text-lg shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center mx-0 sm:mr-3 mb-4 sm:mb-0"
+                      className="bg-white text-red-700 font-bold py-3 px-8 rounded-md text-lg shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center mb-4 sm:mb-0"
                     >
                       View Our Schedule & Pricing Options
                       <ChevronRight className="ml-2 h-5 w-5" />
@@ -471,7 +471,7 @@ export default function Blog() {
 
                     <Link
                       href="/contact"
-                      className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-bold py-3 px-8 rounded-md text-lg transition-all duration-300 flex items-center justify-center mx-0"
+                      className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-bold py-3 px-8 rounded-md text-lg transition-all duration-300 flex items-center justify-center"
                     >
                       Contact Us
                       <ChevronRight className="ml-2 h-5 w-5" />

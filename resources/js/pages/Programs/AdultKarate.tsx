@@ -369,18 +369,18 @@ export default function AdultKarate() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-red-600 text-white">
+      <section className="py-8 sm:py-12 md:py-16 bg-red-600 text-white">
         <div className="container mx-auto px-4 text-center">
           <AnimatedElement>
-            <h2 className="text-3xl font-bold mb-6">Start Your Martial Arts Journey Today</h2>
-            <p className="text-xl mb-8 max-w-2xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6">Start Your Martial Arts Journey Today</h2>
+            <p className="text-base sm:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto px-2">
               Join our community of dedicated martial artists and discover your potential.
             </p>
             <div>
               <a
                 href="#"
                 onClick={openModal}
-                className="bg-white text-red-600 hover:bg-gray-100 text-lg font-semibold py-3 px-8 rounded-full"
+                className="bg-white text-red-600 hover:bg-gray-100 text-base sm:text-lg font-semibold py-2 sm:py-3 px-6 sm:px-8 rounded-full inline-block transition-all duration-300 hover:shadow-lg"
               >
                 Try Your First Class FREE
               </a>

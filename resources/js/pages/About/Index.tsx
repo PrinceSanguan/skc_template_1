@@ -1,5 +1,7 @@
 "use client"
 
+import type React from "react"
+
 import Template from "./Template"
 import AnimatedElement from "@/components/ui/animated-element"
 import { Link } from "@inertiajs/react"
@@ -10,7 +12,7 @@ import SchedulePricingModal from "@/components/SchedulePricingModal" // Import t
 export default function AboutIndex() {
   const [imagesLoaded, setImagesLoaded] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false) // State to control modal visibility
-  
+
   // Countdown timer state
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
@@ -75,14 +77,14 @@ export default function AboutIndex() {
     historic4: "/Images/team/Copy of IMG_4976 (1).jpg",
     childrenPrograms: "/Images/team/Copy of IMG_4084 (1).jpg",
     expertInstruction: "/Images/team/Copy of IMG_4130 (1).jpg",
-    modernFacilities: "/Images/team/Copy of IMG_8656.jpg"
+    modernFacilities: "/Images/team/Copy of IMG_8656.jpg",
   }
 
   return (
     <Template title="About Us">
-      <div className="relative">
+      <div className="relative overflow-x-hidden">
         {/* Background decorative elements */}
-        <div className="absolute top-1/4 -right-10 w-40 h-40 bg-red-600/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/4 right-0 w-40 h-40 bg-red-600/10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-1/3 left-1/4 w-32 h-32 bg-red-600/15 rounded-full blur-2xl"></div>
         <div className="absolute right-0 top-1/2 w-24 h-24 bg-red-500/10 rounded-full blur-xl"></div>
 
@@ -130,7 +132,7 @@ export default function AboutIndex() {
               <div className="bg-gradient-to-r from-red-900/80 to-red-700/80 rounded-lg p-4 max-w-2xl mx-auto mb-12 backdrop-blur-sm border border-red-500/30 shadow-lg">
                 <h3 className="text-white font-bold mb-2">Limited Time Offer - New Student Special</h3>
                 <p className="text-gray-200 mb-4">Sign up now and receive 50% off your first month of training!</p>
-                <div className="flex justify-center space-x-4">
+                <div className="flex flex-wrap justify-center gap-4">
                   <div className="flex flex-col items-center">
                     <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center">
                       {timeLeft.days}
@@ -170,7 +172,7 @@ export default function AboutIndex() {
                     <div className="absolute -bottom-8 -right-8 w-40 h-40 rounded-full bg-gradient-to-r from-red-600/10 to-yellow-500/5 blur-xl"></div>
                     {imagesLoaded && (
                       <img
-                        src={imagePlaceholders.mission}
+                        src={imagePlaceholders.mission || "/placeholder.svg"}
                         alt="Our Mission"
                         className="w-full h-full object-cover absolute inset-0"
                         style={{ objectPosition: "center 35%" }} // This shifts the image down
@@ -203,7 +205,7 @@ export default function AboutIndex() {
                     <div className="absolute -top-8 -left-8 w-40 h-40 rounded-full bg-gradient-to-r from-red-600/10 to-yellow-500/5 blur-xl"></div>
                     {imagesLoaded && (
                       <img
-                        src={imagePlaceholders.philosophy}
+                        src={imagePlaceholders.philosophy || "/placeholder.svg"}
                         alt="Our Philosophy"
                         className="w-full h-full object-cover absolute inset-0"
                         onError={handleImageError}
@@ -261,12 +263,12 @@ export default function AboutIndex() {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-8">
                   <div className="h-32 rounded-lg border border-red-900/20 bg-black/40 flex items-center justify-center overflow-hidden relative group">
                     <div className="absolute inset-0 bg-gradient-to-br from-red-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     {imagesLoaded && (
                       <img
-                        src={imagePlaceholders.historic1}
+                        src={imagePlaceholders.historic1 || "/placeholder.svg"}
                         alt="Historic Image 1"
                         className="w-full h-full object-cover"
                         style={{ objectPosition: "center 25%" }} // This shifts the historic1 image down
@@ -278,7 +280,7 @@ export default function AboutIndex() {
                     <div className="absolute inset-0 bg-gradient-to-br from-red-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     {imagesLoaded && (
                       <img
-                        src={imagePlaceholders.historic2}
+                        src={imagePlaceholders.historic2 || "/placeholder.svg"}
                         alt="Historic Image 2"
                         className="w-full h-full object-cover"
                         onError={handleImageError}
@@ -289,7 +291,7 @@ export default function AboutIndex() {
                     <div className="absolute inset-0 bg-gradient-to-br from-red-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     {imagesLoaded && (
                       <img
-                        src={imagePlaceholders.historic3}
+                        src={imagePlaceholders.historic3 || "/placeholder.svg"}
                         alt="Historic Image 3"
                         className="w-full h-full object-cover"
                         onError={handleImageError}
@@ -300,7 +302,7 @@ export default function AboutIndex() {
                     <div className="absolute inset-0 bg-gradient-to-br from-red-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     {imagesLoaded && (
                       <img
-                        src={imagePlaceholders.historic4}
+                        src={imagePlaceholders.historic4 || "/placeholder.svg"}
                         alt="Historic Image 4"
                         className="w-full h-full object-cover"
                         onError={handleImageError}
@@ -327,7 +329,7 @@ export default function AboutIndex() {
                     <div className="absolute -bottom-8 -right-8 w-40 h-40 rounded-full bg-gradient-to-r from-red-600/10 to-yellow-500/5 blur-xl"></div>
                     {imagesLoaded && (
                       <img
-                        src={imagePlaceholders.childrenPrograms}
+                        src={imagePlaceholders.childrenPrograms || "/placeholder.svg"}
                         alt="Children's Programs"
                         className="w-full h-full object-cover absolute inset-0"
                         onError={handleImageError}
@@ -356,7 +358,7 @@ export default function AboutIndex() {
                     <div className="absolute -top-8 -left-8 w-40 h-40 rounded-full bg-gradient-to-r from-red-600/10 to-yellow-500/5 blur-xl"></div>
                     {imagesLoaded && (
                       <img
-                        src={imagePlaceholders.expertInstruction}
+                        src={imagePlaceholders.expertInstruction || "/placeholder.svg"}
                         alt="Expert Instruction"
                         className="w-full h-full object-cover absolute inset-0"
                         onError={handleImageError}
@@ -385,7 +387,7 @@ export default function AboutIndex() {
                     <div className="absolute -bottom-8 -right-8 w-40 h-40 rounded-full bg-gradient-to-r from-red-600/10 to-yellow-500/5 blur-xl"></div>
                     {imagesLoaded && (
                       <img
-                        src={imagePlaceholders.modernFacilities}
+                        src={imagePlaceholders.modernFacilities || "/placeholder.svg"}
                         alt="Modern Facilities"
                         className="w-full h-full object-cover absolute inset-0"
                         onError={handleImageError}
@@ -413,7 +415,7 @@ export default function AboutIndex() {
 
           {/* Stats Section */}
           <AnimatedElement type="fadeIn" delay={0.65}>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-16">
               <div className="rounded-xl border border-red-900/30 bg-black/60 p-6 text-center shadow-xl backdrop-blur-sm hover:border-red-600/50 transition-all duration-300 group">
                 <div className="flex flex-col items-center">
                   <Clock
@@ -499,7 +501,7 @@ export default function AboutIndex() {
                   Contact us to schedule your free introductory class.
                 </p>
                 <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <a
+                  <a
                     href="#"
                     onClick={openModal}
                     className="bg-white text-red-700 hover:bg-gray-100 font-medium py-3 px-8 rounded-md transition-colors shadow-lg hover:shadow-xl flex items-center justify-center"
@@ -518,7 +520,7 @@ export default function AboutIndex() {
           </AnimatedElement>
         </div>
       </div>
-      
+
       {/* Modal Component */}
       <SchedulePricingModal isOpen={isModalOpen} onClose={closeModal} />
     </Template>

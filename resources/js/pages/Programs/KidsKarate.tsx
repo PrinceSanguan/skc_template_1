@@ -253,44 +253,44 @@ export default function KidsKarate() {
           <div className="absolute top-0 left-0 w-60 h-60 bg-red-600/30 rounded-full filter blur-3xl"></div>
           <div className="absolute bottom-0 right-0 w-60 h-60 bg-red-600/30 rounded-full filter blur-3xl"></div>
 
-          <div className="relative z-10 p-8 text-center">
-            <h3 className="text-2xl font-bold text-white mb-4">Limited Time Offer!</h3>
-            <p className="text-white text-lg mb-6 max-w-2xl mx-auto">
+          <div className="relative z-10 p-4 sm:p-6 md:p-8 text-center">
+            <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 sm:mb-4">Limited Time Offer!</h3>
+            <p className="text-white text-base sm:text-lg mb-4 sm:mb-6 max-w-2xl mx-auto px-2">
               Sign up now and receive 50% off your first month of training!
             </p>
 
             {/* Countdown Timer */}
-            <div className="flex justify-center space-x-4 mb-6">
+            <div className="flex justify-center space-x-2 sm:space-x-4 mb-4 sm:mb-6">
               <div className="flex flex-col items-center">
-                <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center border border-red-500/30">
+                <div className="bg-black/50 text-white text-lg sm:text-2xl font-bold rounded-md w-10 h-10 sm:w-14 sm:h-14 flex items-center justify-center border border-red-500/30">
                   {timeLeft.days}
                 </div>
                 <span className="text-xs mt-1 text-gray-300">Days</span>
               </div>
               <div className="flex flex-col items-center">
-                <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center border border-red-500/30">
+                <div className="bg-black/50 text-white text-lg sm:text-2xl font-bold rounded-md w-10 h-10 sm:w-14 sm:h-14 flex items-center justify-center border border-red-500/30">
                   {timeLeft.hours}
                 </div>
                 <span className="text-xs mt-1 text-gray-300">Hours</span>
               </div>
               <div className="flex flex-col items-center">
-                <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center border border-red-500/30">
+                <div className="bg-black/50 text-white text-lg sm:text-2xl font-bold rounded-md w-10 h-10 sm:w-14 sm:h-14 flex items-center justify-center border border-red-500/30">
                   {timeLeft.minutes}
                 </div>
-                <span className="text-xs mt-1 text-gray-300">Minutes</span>
+                <span className="text-xs mt-1 text-gray-300">Mins</span>
               </div>
               <div className="flex flex-col items-center">
-                <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center border border-red-500/30">
+                <div className="bg-black/50 text-white text-lg sm:text-2xl font-bold rounded-md w-10 h-10 sm:w-14 sm:h-14 flex items-center justify-center border border-red-500/30">
                   {timeLeft.seconds}
                 </div>
-                <span className="text-xs mt-1 text-gray-300">Seconds</span>
+                <span className="text-xs mt-1 text-gray-300">Secs</span>
               </div>
             </div>
 
             <a
               href="#"
               onClick={openModal}
-              className="bg-white text-red-700 hover:bg-gray-100 font-medium py-3 px-8 rounded-lg shadow-lg transition-all duration-300 text-lg border border-white/30 hover:scale-105 transform"
+              className="bg-white text-red-700 hover:bg-gray-100 font-medium py-2 sm:py-3 px-4 sm:px-8 rounded-lg shadow-lg transition-all duration-300 text-sm sm:text-lg border border-white/30 hover:scale-105 transform inline-block"
             >
               View Our Schedule & Pricing Options
             </a>
@@ -548,11 +548,11 @@ export default function KidsKarate() {
             ></div>
 
             {/* Content */}
-            <div className="relative z-10 p-10 text-center">
-              <h2 className="text-3xl font-bold text-white mb-4">
+            <div className="relative z-10 p-6 sm:p-8 md:p-10 text-center">
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4">
                 Ready to Build Your Child's Confidence Through Martial Arts?
               </h2>
-              <p className="text-lg text-gray-100 mb-8 max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg text-gray-100 mb-6 sm:mb-8 max-w-2xl mx-auto px-2">
                 Begin your child's journey in martial arts with a free introductory class at Seigler's Karate Center.
                 See for yourself how our Kids Karate program can benefit your child's development.
               </p>
@@ -560,14 +560,14 @@ export default function KidsKarate() {
                 <a
                   href="#"
                   onClick={openModal}
-                  className="bg-white text-red-700 hover:bg-gray-100 font-bold py-3 px-8 rounded-md text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center mx-0 sm:mr-3"
+                  className="bg-white text-red-700 hover:bg-gray-100 font-bold py-2 sm:py-3 px-6 sm:px-8 rounded-md text-sm sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center mx-auto sm:mx-0"
                 >
                   View Our Schedule & Pricing Options
                   <ChevronRight className="ml-2 h-5 w-5" />
                 </a>
                 <Link
                   href="/programs"
-                  className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-bold py-3 px-8 rounded-md text-lg transition-all duration-300 flex items-center justify-center mx-0"
+                  className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-bold py-2 sm:py-3 px-6 sm:px-8 rounded-md text-sm sm:text-lg transition-all duration-300 flex items-center justify-center mx-auto sm:mx-0"
                 >
                   View All Programs
                   <ChevronRight className="ml-2 h-5 w-5" />

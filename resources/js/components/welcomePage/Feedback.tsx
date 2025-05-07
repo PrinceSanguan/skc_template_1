@@ -96,24 +96,30 @@ const Feedback = () => {
   const testimonials = [
     {
       id: 1,
-      content: "My son has been begging to take karate for two years. He was diagnosed with ADD, hyperactive type with sensory issue components. This summer I decided to try the intro 6 week class. We had our first class and the staff was wonderful. After one week, I can already tell his confidence is growing. So far we love Seigler's!",
-      name: "Shanna Nelson Greene",
-      position: "Parent",
-      avatar: "https://randomuser.me/api/portraits/women/1.jpg"
+      name: "Victoria Dickason",
+      via: "via Google",
+      achievement: "SKC Center Family",
+      quote:
+        "My son recently joined the SKC center family! He has enjoyed everything since day one. The administrative staff is so polite and accommodating! His instructors shows attention to every student and finds creative ways to teach the students the fundamentals. I look forward to my son continuing his training and lessons at SKC.",
+      imagePlaceholder: "/Images/team/Victoria-Dickason.png"
     },
     {
       id: 2,
-      content: "Accountability and an awesome workout! I had the knowledge of how to loose weight and get fit, but like so many of us, I needed that push to get me started! Having a scheduled class time and training with athletes at the top of their game has motivated me to crush my goals.",
-      name: "Rachel Kimbrough-Eugene",
-      position: "Member",
-      avatar: "https://randomuser.me/api/portraits/women/2.jpg"
+      name: "Omega Hammerling",
+      via: "via Google",
+      achievement: "Incredible Growth",
+      quote:
+        "The whole team at SKC has been incredible to work with for the past year, and we've seen such incredible growth in our daughter's confidence, discipline, focus, and respect since she started coming to SKC. She genuinely looks forward to her classes, and loves to tell everyone she knows just how great it is! She's on a quest for her black belt, and we're excited to have the team at SKC supporting and teaching her along the way.",
+      imagePlaceholder: "/Images/team/Omega-Hammerling.png"
     },
     {
       id: 3,
-      content: "Seigler's Karate Center is the BEST place to send your kids! A wonderful blend of Karate, leadership training and character building. Instructors know each child by name and are truly dedicated to their craft and the success of every child.",
-      name: "Obambi A",
-      position: "Parent",
-      avatar: "https://randomuser.me/api/portraits/men/1.jpg"
+      name: "Jodeva",
+      via: "via Google",
+      achievement: "Children's Interest",
+      quote:
+        "This place is awesome! The initial focus class really sparked my children's interest. Now that my children are actively participating in SKC they enjoy it very much! They look forward to practice days and SKC events. Also, the senseis and coaches at SKC are amazing! They have a special way to interact and teach kids of all ages! I highly recommend this place!",
+      imagePlaceholder: "/Images/team/Jodeva.png"
     }
   ];
 
@@ -156,19 +162,19 @@ const Feedback = () => {
                 ))}
               </div>
 
-              <p className="mb-6 text-gray-300">"{testimonial.content}"</p>
+              <p className="mb-6 text-gray-300">"{testimonial.quote}"</p>
 
               <div className="flex items-center">
                 <div className="mr-4 h-12 w-12 overflow-hidden rounded-full border-2 border-red-500 group-hover:border-red-400 transition-colors duration-300">
                   <img
-                    src={testimonial.avatar || "/placeholder.svg"}
+                    src={testimonial.imagePlaceholder || "/placeholder.svg"}
                     alt={testimonial.name}
                     className="h-full w-full object-cover"
                   />
                 </div>
                 <div>
                   <h4 className="font-semibold text-white">{testimonial.name}</h4>
-                  <p className="text-sm text-gray-400">{testimonial.position}</p>
+                  <p className="text-sm text-gray-400">{testimonial.via}</p>
                 </div>
               </div>
             </div>

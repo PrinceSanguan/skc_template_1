@@ -55,58 +55,52 @@ export default function WrittenReviews() {
     e.currentTarget.src = defaultProfilePicture
   }
 
-  // Written reviews data
+  // Updated reviews data with Google reviews content
   const reviews = [
     {
       id: 1,
-      name: "Michael Chen",
-      age: 15,
-      program: "Teens Karate",
-      years: 3,
-      achievement: "Black Belt Achievement",
+      name: "Victoria Dickason",
+      via: "via Google",
+      achievement: "SKC Center Family",
       quote:
-        "When I started at Seigler's, I was shy and struggled with confidence. The instructors believed in me when I didn't believe in myself. Now I'm a black belt and assistant instructor, helping others find their strength.",
+        "My son recently joined the SKC center family! He has enjoyed everything since day one. The administrative staff is so polite and accommodating! His instructors shows attention to every student and finds creative ways to teach the students the fundamentals. I look forward to my son continuing his training and lessons at SKC.",
+      imagePlaceholder: "/Images/team/Victoria-Dickason.png"
     },
     {
       id: 2,
-      name: "Sophia Williams",
-      age: 8,
-      program: "Kids Karate",
-      years: 2,
-      achievement: "Improved Focus & Confidence",
+      name: "Omega Hammerling",
+      via: "via Google",
+      achievement: "Incredible Growth",
       quote:
-        "Before karate, Sophia struggled with focus in school and was often anxious in new situations. Since joining Seigler's, her teachers have noticed dramatic improvements in her attention and confidence.",
-      parent: "Jennifer Williams, Sophia's mother",
+        "The whole team at SKC has been incredible to work with for the past year, and we've seen such incredible growth in our daughter's confidence, discipline, focus, and respect since she started coming to SKC. She genuinely looks forward to her classes, and loves to tell everyone she knows just how great it is! She's on a quest for her black belt, and we're excited to have the team at SKC supporting and teaching her along the way.",
+      imagePlaceholder: "/Images/team/Omega-Hammerling.png"
     },
     {
       id: 3,
-      name: "David Johnson",
-      age: 42,
-      program: "Adult Kempo",
-      years: 2,
-      achievement: "Physical Transformation",
+      name: "Jodeva",
+      via: "via Google",
+      achievement: "Children's Interest",
       quote:
-        "I joined Seigler's at 42 years old, thinking I was too old to start martial arts. Two years later, I'm in the best shape of my life and have skills I never thought possible. The instructors make everyone feel welcome regardless of age or fitness level.",
+        "This place is awesome! The initial focus class really sparked my children's interest. Now that my children are actively participating in SKC they enjoy it very much! They look forward to practice days and SKC events. Also, the senseis and coaches at SKC are amazing! They have a special way to interact and teach kids of all ages! I highly recommend this place!",
+      imagePlaceholder: "/Images/team/Jodeva.png"
     },
     {
       id: 4,
-      name: "Emma Rodriguez",
-      age: 13,
-      program: "Teens Karate",
-      years: 4,
-      achievement: "Competition Winner",
+      name: "Deborah Hayes",
+      via: "via Google",
+      achievement: "Proper Learning",
       quote:
-        "I've won three regional tournaments this year alone! The training at Seigler's is intense but always fun. My coaches know exactly how to push me to be my best while keeping my technique perfect. I've made so many friends here too.",
+        "We absolutely love this place everyone is amazing and friendly and makes sure all the kids learn to do karate correctly and teach the kids respect",
+      imagePlaceholder: "/Images/team/Deborah-Hayes.png"
     },
     {
       id: 5,
-      name: "Robert Smith",
-      age: 35,
-      program: "Kickboxing",
-      years: 1,
-      achievement: "Weight Loss Journey",
+      name: "Stephanie Skipper",
+      via: "via Google",
+      achievement: "Patient Teaching",
       quote:
-        "I've lost 35 pounds since joining the kickboxing program. The instructors push you to your limits but are incredibly supportive. The community here is what keeps me coming back, and I've never felt stronger or healthier in my life.",
+        "I love how patient they are with the children. Maddison loves her sensei and enjoys her classes.",
+      imagePlaceholder: "/Images/team/Stephanie-Skipper.png"
     },
   ]
 
@@ -227,49 +221,50 @@ export default function WrittenReviews() {
                 delay={0.4 + index * 0.1}
               >
                 <div className="rounded-2xl overflow-hidden mb-6 border border-red-900/50 bg-black/70 backdrop-blur-md shadow-[0_0_25px_rgba(0,0,0,0.7)] transition-all duration-500 hover:shadow-[0_0_35px_rgba(139,0,0,0.3)] transform hover:-translate-y-1">
-                  <div className="md:flex">
-                    <div className="md:w-1/3 relative bg-gradient-to-br from-red-900/40 to-black/60">
-                      {imagesLoaded && (
-                        <img
-                          src={`/focused-fighter.png?key=eidkq&height=400&width=300&query=martial arts student ${review.name}`}
-                          alt={review.name}
-                          className="w-full h-full object-cover absolute inset-0 opacity-70"
-                          style={{ minHeight: "300px" }}
-                          onError={handleImageError}
-                        />
-                      )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
-
-                      {/* Achievement badge - enhanced */}
-                      <div className="absolute bottom-4 left-4 right-4">
-                        <div className="bg-gradient-to-r from-red-700 to-red-900 text-white text-sm font-semibold px-4 py-2 rounded-lg inline-block mb-2 shadow-lg border border-red-600/30">
-                          {review.achievement}
+                  <div className="p-6">
+                    <div className="flex items-start mb-4">
+                      <div className="mr-4 flex-shrink-0">
+                        {imagesLoaded && (
+                          <img
+                            src={review.imagePlaceholder || `/focused-fighter.png?key=${review.id}&height=50&width=50&query=profile ${review.name}`}
+                            alt={review.name}
+                            className="w-16 h-16 rounded-full object-cover border-2 border-red-500/30"
+                            onError={handleImageError}
+                          />
+                        )}
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-bold mb-1 tracking-tight">{review.name}</h3>
+                        <div className="flex items-center mb-2">
+                          <p className="text-gray-400 text-sm">
+                            {review.via}
+                          </p>
+                        </div>
+                        <div className="flex mb-3">
+                          {[...Array(5)].map((_, i) => (
+                            <svg 
+                              key={i} 
+                              className="w-5 h-5 text-yellow-400 fill-current mr-1" 
+                              viewBox="0 0 24 24"
+                            >
+                              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                            </svg>
+                          ))}
                         </div>
                       </div>
                     </div>
-                    <div className="md:w-2/3 p-8 md:p-10 relative">
-                      {/* Decorative element */}
+                    
+                    <div className="bg-black/30 p-5 rounded-lg border border-red-900/20 mb-4">
                       <div className="absolute top-0 right-0 w-20 h-20 opacity-10">
                         <svg viewBox="0 0 100 100" className="w-full h-full fill-current text-red-600">
                           <path d="M50,0 C77.6,0 100,22.4 100,50 C100,77.6 77.6,100 50,100 C22.4,100 0,77.6 0,50 C0,22.4 22.4,0 50,0 Z M50,20 C33.4,20 20,33.4 20,50 C20,66.6 33.4,80 50,80 C66.6,80 80,66.6 80,50 C80,33.4 66.6,20 50,20 Z" />
                         </svg>
                       </div>
-
-                      <h3 className="text-3xl font-bold mb-3 tracking-tight">{review.name}</h3>
-                      <div className="flex items-center mb-6">
-                        <div className="h-px w-12 bg-red-600/70"></div>
-                        <p className="text-gray-400 px-3 text-sm">
-                          {review.age} years old | {review.program} | {review.years}{" "}
-                          {review.years === 1 ? "year" : "years"} of training
-                        </p>
-                      </div>
-                      <p className="text-gray-300 mb-8 italic text-lg leading-relaxed">"{review.quote}"</p>
-                      {review.parent && (
-                        <p className="text-gray-400 text-sm flex items-center">
-                          <span className="w-6 h-px bg-red-600/50 mr-3"></span>
-                          {review.parent}
-                        </p>
-                      )}
+                      <p className="text-gray-300 italic text-lg leading-relaxed relative z-10">"{review.quote}"</p>
+                    </div>
+                    
+                    <div className="bg-gradient-to-r from-red-700 to-red-900 text-white text-sm font-semibold px-4 py-2 rounded-lg inline-block shadow-lg border border-red-600/30">
+                      {review.achievement}
                     </div>
                   </div>
                 </div>

@@ -10,7 +10,7 @@ import { useState, useEffect, useRef } from "react"
 export default function SuccessStories() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [imagesLoaded, setImagesLoaded] = useState(false)
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false)
+  const [activeVideoId, setActiveVideoId] = useState<string | null>(null)
   const videoRef = useRef<HTMLIFrameElement>(null)
 
   // Countdown timer state
@@ -58,8 +58,8 @@ export default function SuccessStories() {
     return () => clearInterval(timer)
   }, [])
 
-  const handlePlayVideo = () => {
-    setIsVideoPlaying(true)
+  const handlePlayVideo = (videoId: string) => {
+    setActiveVideoId(videoId)
   }
 
   // Handle image error by using the default profile picture
@@ -67,30 +67,28 @@ export default function SuccessStories() {
     e.currentTarget.src = defaultProfilePicture
   }
 
-  // Featured success stories
+  // Featured success stories (updated with YouTube videos)
   const featuredStories = [
     {
       id: 1,
-      name: "Michael Chen",
-      age: 15,
-      program: "Teens Karate",
-      years: 3,
-      achievement: "Black Belt Achievement",
-      quote:
-        "When I started at Seigler's, I was shy and struggled with confidence. The instructors believed in me when I didn't believe in myself. Now I'm a black belt and assistant instructor, helping others find their strength.",
-      image: "/martial-arts-student-michael.jpg",
+      title: "Jiujitsu Black Belt Brenden Visits",
+      description: "Watch the inspiring story of Brenden, a Jiujitsu Black Belt who visited Seigler's Karate Center to share his expertise and journey with our students.",
+      videoId: "4U0jaooca4k",
+      thumbnailUrl: `https://img.youtube.com/vi/4U0jaooca4k/maxresdefault.jpg`,
     },
     {
       id: 2,
-      name: "Sophia Williams",
-      age: 8,
-      program: "Kids Karate",
-      years: 2,
-      achievement: "Improved Focus & Confidence",
-      quote:
-        "Before karate, Sophia struggled with focus in school and was often anxious in new situations. Since joining Seigler's, her teachers have noticed dramatic improvements in her attention and confidence.",
-      parent: "Jennifer Williams, Sophia's mother",
-      image: "/martial-arts-student-sophia.jpg",
+      title: "Parent Testimonial - Character Development",
+      description: "Hear from a parent about how SKC has helped develop their child's character, discipline, and confidence both in and out of the dojo.",
+      videoId: "zmM6JWcqLJ8",
+      thumbnailUrl: `https://img.youtube.com/vi/zmM6JWcqLJ8/maxresdefault.jpg`,
+    },
+    {
+      id: 3,
+      title: "Self-Defense Skills Transforming Lives",
+      description: "Discover how learning practical self-defense skills at Seigler's Karate Center has transformed our students' confidence and safety awareness.",
+      videoId: "lvRNBuRcDOU",
+      thumbnailUrl: `https://img.youtube.com/vi/lvRNBuRcDOU/maxresdefault.jpg`,
     },
   ]
 
@@ -285,7 +283,7 @@ export default function SuccessStories() {
           </div>
         </div>
 
-        {/* Featured Success Stories - Enhanced */}
+        {/* Featured Success Stories - YouTube Videos */}
         <div className="mb-24">
           <AnimatedElement type="fadeIn" delay={0.4}>
             <div className="flex items-center justify-center mb-6">
@@ -304,41 +302,51 @@ export default function SuccessStories() {
             >
               <div className="rounded-2xl overflow-hidden mb-16 border border-red-900/50 bg-black/70 backdrop-blur-md shadow-[0_0_25px_rgba(0,0,0,0.7)] transition-all duration-500 hover:shadow-[0_0_35px_rgba(139,0,0,0.3)] transform hover:-translate-y-1">
                 <div className="md:flex">
-                  <div className="md:w-1/3 relative bg-gradient-to-br from-red-900/40 to-black/60">
-                    {imagesLoaded && (
-                      <img
-                        src={story.image || defaultProfilePicture}
-                        alt={story.name}
-                        className="w-full h-full object-cover absolute inset-0 opacity-70"
-                        onError={handleImageError}
-                      />
-                    )}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-24 h-24 rounded-full bg-red-600/20 backdrop-blur-sm flex items-center justify-center border border-red-600/30">
-                        <svg
-                          className="w-12 h-12 text-red-600/70"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
-                            clipRule="evenodd"
+                  <div className="md:w-1/2 relative bg-gradient-to-br from-red-900/40 to-black/60" style={{ minHeight: "350px" }}>
+                    {activeVideoId === story.videoId ? (
+                      <iframe
+                        width="100%"
+                        height="100%"
+                        src={`https://www.youtube.com/embed/${story.videoId}?autoplay=1`}
+                        title={story.title}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        className="absolute inset-0"
+                      ></iframe>
+                    ) : (
+                      <>
+                        {imagesLoaded && (
+                          <img
+                            src={story.thumbnailUrl}
+                            alt={story.title}
+                            className="w-full h-full object-cover absolute inset-0"
+                            onError={handleImageError}
                           />
-                        </svg>
-                      </div>
-                    </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
-
-                    {/* Achievement badge - enhanced */}
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <div className="bg-gradient-to-r from-red-700 to-red-900 text-white text-sm font-semibold px-4 py-2 rounded-lg inline-block mb-2 shadow-lg border border-red-600/30">
-                        {story.achievement}
-                      </div>
-                    </div>
+                        )}
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div 
+                            className="w-24 h-24 rounded-full bg-red-600/30 backdrop-blur-sm flex items-center justify-center border border-red-600/50 cursor-pointer hover:bg-red-600/40 transition-all duration-300 shadow-[0_0_15px_rgba(220,38,38,0.3)] hover:shadow-[0_0_25px_rgba(220,38,38,0.5)] group"
+                            onClick={() => handlePlayVideo(story.videoId)}
+                          >
+                            <svg
+                              className="w-12 h-12 text-white group-hover:scale-110 transition-transform duration-300"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+                      </>
+                    )}
                   </div>
-                  <div className="md:w-2/3 p-8 md:p-10 relative">
+                  <div className="md:w-1/2 p-8 md:p-10 relative">
                     {/* Decorative element */}
                     <div className="absolute top-0 right-0 w-20 h-20 opacity-10">
                       <svg viewBox="0 0 100 100" className="w-full h-full fill-current text-red-600">
@@ -346,21 +354,20 @@ export default function SuccessStories() {
                       </svg>
                     </div>
 
-                    <h3 className="text-3xl font-bold mb-3 tracking-tight">{story.name}</h3>
-                    <div className="flex items-center mb-6">
-                      <div className="h-px w-12 bg-red-600/70"></div>
-                      <p className="text-gray-400 px-3 text-sm">
-                        {story.age} years old | {story.program} | {story.years} {story.years === 1 ? "year" : "years"}{" "}
-                        of training
-                      </p>
-                    </div>
-                    <p className="text-gray-300 mb-8 italic text-lg leading-relaxed">"{story.quote}"</p>
-                    {story.parent && (
-                      <p className="text-gray-400 text-sm flex items-center">
-                        <span className="w-6 h-px bg-red-600/50 mr-3"></span>
-                        {story.parent}
-                      </p>
-                    )}
+                    <h3 className="text-3xl font-bold mb-5 tracking-tight">{story.title}</h3>
+                    <div className="w-16 h-0.5 bg-gradient-to-r from-red-700 to-red-500 mb-6"></div>
+                    
+                    <p className="text-gray-300 mb-8 text-lg leading-relaxed">{story.description}</p>
+                    
+                    <button
+                      onClick={() => handlePlayVideo(story.videoId)}
+                      className="inline-flex items-center bg-gradient-to-r from-red-700 to-red-900 hover:from-red-600 hover:to-red-800 text-white py-3 px-6 rounded-lg transition-all duration-300 shadow-lg border border-red-600/30 transform hover:-translate-y-1"
+                    >
+                      <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+                      </svg>
+                      Watch Video
+                    </button>
                   </div>
                 </div>
               </div>
@@ -398,60 +405,117 @@ export default function SuccessStories() {
           </div>
         </AnimatedElement>
 
-        {/* Testimonials - Enhanced */}
+        {/* Google Reviews - Enhanced */}
         <div className="mb-24">
           <AnimatedElement type="fadeIn" delay={0.8}>
             <div className="flex items-center justify-center mb-6">
               <h2 className="text-3xl md:text-4xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 tracking-tight">
-                What Our Students Say
+                Google Reviews
               </h2>
             </div>
             <div className="w-32 h-1 bg-gradient-to-r from-red-700 to-red-500 mx-auto mb-16 rounded-full shadow-sm"></div>
           </AnimatedElement>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <AnimatedElement key={testimonial.id} type="fadeInUp" delay={0.9 + index * 0.1}>
-                <div className="rounded-2xl border border-red-900/50 bg-black/70 backdrop-blur-md p-8 shadow-[0_0_25px_rgba(0,0,0,0.7)] transition-all duration-500 hover:shadow-[0_0_35px_rgba(139,0,0,0.3)] relative overflow-hidden group">
-                  {/* Decorative corner accent */}
-                  <div className="absolute top-0 left-0 w-16 h-16 overflow-hidden">
-                    <div className="absolute top-0 left-0 w-24 h-24 bg-gradient-to-br from-red-700 to-red-900 transform -translate-x-12 -translate-y-12 rotate-45 group-hover:scale-110 transition-transform duration-500"></div>
-                  </div>
-
-                  <div className="flex items-center mb-6 relative">
-                    <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-red-600 mr-5 shadow-lg bg-gradient-to-br from-red-900/40 to-black/60 flex items-center justify-center">
-                      {imagesLoaded ? (
-                        <img
-                          src={testimonial.image || defaultProfilePicture}
-                          alt={testimonial.name}
-                          className="w-full h-full object-cover"
-                          onError={handleImageError}
-                        />
-                      ) : (
-                        <svg
-                          className="w-10 h-10 text-red-600/70"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 005 10a6 6 0 0012 0c0-.35-.035-.691-.1-1.021A5 5 0 0010 11z"
-                            clipRule="evenodd"
+          <div className="grid grid-cols-1 gap-10">
+            {[
+               {
+                id: 1,
+                name: "Victoria Dickason",
+                via: "via Google",
+                achievement: "SKC Center Family",
+                quote:
+                  "My son recently joined the SKC center family! He has enjoyed everything since day one. The administrative staff is so polite and accommodating! His instructors shows attention to every student and finds creative ways to teach the students the fundamentals. I look forward to my son continuing his training and lessons at SKC.",
+                imagePlaceholder: "/Images/team/Victoria-Dickason.png"
+              },
+              {
+                id: 2,
+                name: "Omega Hammerling",
+                via: "via Google",
+                achievement: "Incredible Growth",
+                quote:
+                  "The whole team at SKC has been incredible to work with for the past year, and we've seen such incredible growth in our daughter's confidence, discipline, focus, and respect since she started coming to SKC. She genuinely looks forward to her classes, and loves to tell everyone she knows just how great it is! She's on a quest for her black belt, and we're excited to have the team at SKC supporting and teaching her along the way.",
+                imagePlaceholder: "/Images/team/Omega-Hammerling.png"
+              },
+              {
+                id: 3,
+                name: "Jodeva",
+                via: "via Google",
+                achievement: "Children's Interest",
+                quote:
+                  "This place is awesome! The initial focus class really sparked my children's interest. Now that my children are actively participating in SKC they enjoy it very much! They look forward to practice days and SKC events. Also, the senseis and coaches at SKC are amazing! They have a special way to interact and teach kids of all ages! I highly recommend this place!",
+                imagePlaceholder: "/Images/team/Jodeva.png"
+              },
+              {
+                id: 4,
+                name: "Deborah Hayes",
+                via: "via Google",
+                achievement: "Proper Learning",
+                quote:
+                  "We absolutely love this place everyone is amazing and friendly and makes sure all the kids learn to do karate correctly and teach the kids respect",
+                imagePlaceholder: "/Images/team/Deborah-Hayes.png"
+              },
+              {
+                id: 5,
+                name: "Stephanie Skipper",
+                via: "via Google",
+                achievement: "Patient Teaching",
+                quote:
+                  "I love how patient they are with the children. Maddison loves her sensei and enjoys her classes.",
+                imagePlaceholder: "/Images/team/Stephanie-Skipper.png"
+              },
+            ].map((review, index) => (
+              <AnimatedElement
+                key={review.id}
+                type={index % 2 === 0 ? "slideInLeft" : "slideInRight"}
+                delay={0.9 + index * 0.1}
+              >
+                <div className="rounded-2xl overflow-hidden mb-6 border border-red-900/50 bg-black/70 backdrop-blur-md shadow-[0_0_25px_rgba(0,0,0,0.7)] transition-all duration-500 hover:shadow-[0_0_35px_rgba(139,0,0,0.3)] transform hover:-translate-y-1">
+                  <div className="p-6">
+                    <div className="flex items-start mb-4">
+                      <div className="mr-4 flex-shrink-0">
+                        {imagesLoaded && (
+                          <img
+                            src={review.imagePlaceholder || `/focused-fighter.png?key=${review.id}&height=50&width=50&query=profile ${review.name}`}
+                            alt={review.name}
+                            className="w-16 h-16 rounded-full object-cover border-2 border-red-500/30"
+                            onError={handleImageError}
                           />
-                        </svg>
-                      )}
+                        )}
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-bold mb-1 tracking-tight">{review.name}</h3>
+                        <div className="flex items-center mb-2">
+                          <p className="text-gray-400 text-sm">
+                            {review.via}
+                          </p>
+                        </div>
+                        <div className="flex mb-3">
+                          {[...Array(5)].map((_, i) => (
+                            <svg 
+                              key={i} 
+                              className="w-5 h-5 text-yellow-400 fill-current mr-1" 
+                              viewBox="0 0 24 24"
+                            >
+                              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                            </svg>
+                          ))}
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-bold text-xl">{testimonial.name}</h3>
-                      <p className="text-gray-400 text-sm">{testimonial.role}</p>
+                    
+                    <div className="bg-black/30 p-5 rounded-lg border border-red-900/20 mb-4">
+                      <div className="absolute top-0 right-0 w-20 h-20 opacity-10">
+                        <svg viewBox="0 0 100 100" className="w-full h-full fill-current text-red-600">
+                          <path d="M50,0 C77.6,0 100,22.4 100,50 C100,77.6 77.6,100 50,100 C22.4,100 0,77.6 0,50 C0,22.4 22.4,0 50,0 Z M50,20 C33.4,20 20,33.4 20,50 C20,66.6 33.4,80 50,80 C66.6,80 80,66.6 80,50 C80,33.4 66.6,20 50,20 Z" />
+                        </svg>
+                      </div>
+                      <p className="text-gray-300 italic text-lg leading-relaxed relative z-10">"{review.quote}"</p>
+                    </div>
+                    
+                    <div className="bg-gradient-to-r from-red-700 to-red-900 text-white text-sm font-semibold px-4 py-2 rounded-lg inline-block shadow-lg border border-red-600/30">
+                      {review.achievement}
                     </div>
                   </div>
-
-                  {/* Quote icon */}
-                  <div className="absolute top-6 right-6 text-red-600/20 text-5xl font-serif">"</div>
-
-                  <p className="text-gray-300 italic relative z-10 text-lg leading-relaxed">"{testimonial.quote}"</p>
                 </div>
               </AnimatedElement>
             ))}
@@ -462,98 +526,6 @@ export default function SuccessStories() {
         <div className="flex justify-center mb-16">
           <div className="w-32 h-1 bg-gradient-to-r from-transparent via-red-600 to-transparent"></div>
         </div>
-
-        {/* Video Testimonial Section - Enhanced */}
-        <AnimatedElement type="fadeIn" delay={1.1}>
-          <div className="rounded-2xl border border-red-900/50 bg-black/70 backdrop-blur-md overflow-hidden mb-24 shadow-[0_0_25px_rgba(0,0,0,0.7)] transition-all duration-500 hover:shadow-[0_0_35px_rgba(139,0,0,0.3)]">
-            <div className="md:flex">
-              <div
-                className="md:w-1/2 bg-black/60 flex items-center justify-center p-10 relative"
-                style={{ minHeight: "450px" }}
-              >
-                {/* Enhanced decorative elements */}
-                <div className="absolute top-0 left-0 w-full h-full overflow-hidden opacity-20">
-                  <div className="absolute top-0 left-0 w-40 h-40 bg-red-600/30 rounded-full filter blur-3xl"></div>
-                  <div className="absolute bottom-0 right-0 w-40 h-40 bg-red-600/30 rounded-full filter blur-3xl"></div>
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-red-600/10 rounded-full filter blur-3xl"></div>
-                </div>
-
-                {imagesLoaded && !isVideoPlaying && (
-                  <img
-                    src="https://img.youtube.com/vi/tAfJPan3ih0/maxresdefault.jpg"
-                    alt="How SKC Boosted This Child's Confidence and Leadership"
-                    className="absolute inset-0 w-full h-full object-cover opacity-70"
-                    onError={(e) => {
-                      e.currentTarget.src = defaultProfilePicture
-                      e.currentTarget.className = "absolute inset-0 w-full h-full object-contain opacity-40"
-                    }}
-                  />
-                )}
-
-                {!isVideoPlaying ? (
-                  <div className="text-center relative z-10">
-                    <div
-                      className="w-24 h-24 rounded-full bg-red-600/30 backdrop-blur-sm flex items-center justify-center mx-auto mb-6 cursor-pointer hover:bg-red-600/40 transition-all duration-300 border border-red-600/50 shadow-[0_0_15px_rgba(220,38,38,0.3)] hover:shadow-[0_0_25px_rgba(220,38,38,0.5)] group"
-                      onClick={handlePlayVideo}
-                    >
-                      <svg
-                        className="w-12 h-12 text-white group-hover:scale-110 transition-transform duration-300"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                    <p className="text-gray-300 text-lg">Click to watch this transformation story</p>
-                  </div>
-                ) : (
-                  <div className="relative z-10 w-full h-full">
-                    <iframe
-                      ref={videoRef}
-                      width="100%"
-                      height="100%"
-                      src="https://www.youtube.com/embed/tAfJPan3ih0?autoplay=1"
-                      title="James' Transformation Story"
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      className="absolute inset-0"
-                    ></iframe>
-                  </div>
-                )}
-              </div>
-              <div className="md:w-1/2 p-10">
-                <h3 className="text-3xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
-                  How SKC Boosted This Child's Confidence and Leadership
-                </h3>
-                <div className="w-24 h-1 bg-gradient-to-r from-red-700 to-red-500 mb-8 rounded-full"></div>
-
-                {/* Decorative Japanese character */}
-                <div className="absolute top-8 right-8 text-6xl text-red-600/10 font-serif">力</div>
-
-                <p className="text-gray-300 mb-6 text-lg leading-relaxed">
-                  In this powerful parent testimonial, you'll hear how SKC goes beyond teaching martial arts. It's about
-                  real growth—at home, at school, and in life.
-                </p>
-                <p className="text-gray-300 mb-8 text-lg leading-relaxed">
-                  From building confidence and discipline to encouraging leadership, see how our program has transformed
-                  this child's life both on and off the mat.
-                </p>
-                <Link
-                  href="/contact"
-                  className="inline-block bg-gradient-to-r from-red-700 to-red-900 hover:from-red-800 hover:to-red-950 text-white py-3 px-8 rounded-lg shadow-lg transition-all duration-300 font-medium border border-red-600/30"
-                >
-                  View Our Schedule & Pricing Options
-                </Link>
-              </div>
-            </div>
-          </div>
-        </AnimatedElement>
 
         {/* CTA - Enhanced - Removed background images */}
         <AnimatedElement type="fadeIn" delay={1.2}>

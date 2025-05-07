@@ -18,7 +18,7 @@ export default function ProgramsIndex() {
       description:
         "A fun and engaging program designed specifically for young children aged 4-5, focusing on basic motor skills, coordination, and social skills through martial arts activities.",
       image:
-        "https://images.unsplash.com/photo-1599586120429-48281b6f0ece?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        "/Images/team/TN-Lil-Dragons.jpg",
       link: "/programs/lil-dragons",
       icon: "dragon",
     },
@@ -28,7 +28,7 @@ export default function ProgramsIndex() {
       description:
         "Empowering children ages 6-10 with focus, discipline, and confidence while teaching practical self-defense techniques and traditional karate values.",
       image:
-        "https://images.unsplash.com/photo-1599586120252-4c0b2893abd1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        "/Images/team/TN-Kids-Karate.jpg",
       link: "/programs/kids-karate",
       icon: "child",
     },
@@ -38,7 +38,7 @@ export default function ProgramsIndex() {
       description:
         "A dynamic program tailored for teens that builds mental strength, physical fitness, and leadership skills while navigating the challenges of adolescence.",
       image:
-        "https://images.unsplash.com/photo-1599586120380-910c76c5f50b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        "/Images/team/TN-Teen-Karate.jpg",
       link: "/programs/teens-karate",
       icon: "teen",
     },
@@ -48,7 +48,7 @@ export default function ProgramsIndex() {
       description:
         "A comprehensive martial arts system for adults, teaching practical self-defense, traditional forms, and physical conditioning in a supportive environment.",
       image:
-        "https://images.unsplash.com/photo-1555597673-b21d5c3c8c9e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        "/Images/team/ADULTKEMPO.jpg",
       link: "/programs/adult-kempo",
       icon: "adult",
     },
@@ -58,7 +58,7 @@ export default function ProgramsIndex() {
       description:
         "High-energy cardio workouts combined with authentic martial arts techniques, providing an excellent way to improve fitness, reduce stress, and learn striking skills.",
       image:
-        "https://images.unsplash.com/photo-1549824506-bfeba95ef151?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        "/Images/team/88A5D580-B43D-4916-92F9-2B8037264B27-rotated-e1724873881945.jpg",
       link: "/programs/kickboxing",
       icon: "kick",
     },
@@ -68,7 +68,7 @@ export default function ProgramsIndex() {
       description:
         "Focused on ground fighting and submission techniques, our Jiu Jitsu program emphasizes leverage and technique over strength, making it an effective martial art for practitioners of all sizes.",
       image:
-        "https://images.unsplash.com/photo-1558304970-cb2878c1a42b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        "/Images/team/JIU JITSU.jpg",
       link: "/programs/jiu-jitsu",
       icon: "ground",
     },

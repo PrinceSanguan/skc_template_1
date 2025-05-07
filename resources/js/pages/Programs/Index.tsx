@@ -257,41 +257,43 @@ export default function ProgramsIndex() {
       {/* Promotional Banner with Countdown */}
       <div className="container mx-auto px-4 mb-12">
         <AnimatedElement type="fadeIn" delay={0.4}>
-          <div className="rounded-xl border border-red-500/30 bg-gradient-to-r from-red-900/40 to-black/40 shadow-xl backdrop-blur-sm p-6 relative overflow-hidden">
+          <div className="rounded-xl border border-red-500/30 bg-gradient-to-r from-red-900/40 to-black/40 shadow-xl backdrop-blur-sm p-4 sm:p-6 relative overflow-hidden">
             <div className="absolute inset-0 bg-[url('/pattern-overlay.png')] opacity-5 mix-blend-overlay"></div>
             <div className="absolute -top-20 -right-20 w-80 h-80 bg-red-600/10 rounded-full blur-3xl"></div>
             <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-red-600/10 rounded-full blur-3xl"></div>
 
             <div className="relative z-10 flex flex-col md:flex-row items-center justify-between">
               <div className="mb-6 md:mb-0 text-center md:text-left">
-                <h3 className="text-2xl font-bold text-white mb-2">Special Promotion Ending Soon!</h3>
-                <p className="text-gray-300">Sign up today and receive 50% off your first month and a free uniform.</p>
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">Special Promotion Ending Soon!</h3>
+                <p className="text-gray-300 text-sm sm:text-base">
+                  Sign up today and receive 50% off your first month and a free uniform.
+                </p>
               </div>
 
-              <div className="flex space-x-4">
+              <div className="flex space-x-2 sm:space-x-4">
                 <div className="flex flex-col items-center">
-                  <div className="w-16 h-16 rounded-lg bg-black/50 border border-red-500/30 flex items-center justify-center text-2xl font-bold text-white">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-lg bg-black/50 border border-red-500/30 flex items-center justify-center text-lg sm:text-2xl font-bold text-white">
                     {timeLeft.days}
                   </div>
-                  <span className="text-gray-400 text-sm mt-1">Days</span>
+                  <span className="text-gray-400 text-xs sm:text-sm mt-1">Days</span>
                 </div>
                 <div className="flex flex-col items-center">
-                  <div className="w-16 h-16 rounded-lg bg-black/50 border border-red-500/30 flex items-center justify-center text-2xl font-bold text-white">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-lg bg-black/50 border border-red-500/30 flex items-center justify-center text-lg sm:text-2xl font-bold text-white">
                     {timeLeft.hours}
                   </div>
-                  <span className="text-gray-400 text-sm mt-1">Hours</span>
+                  <span className="text-gray-400 text-xs sm:text-sm mt-1">Hrs</span>
                 </div>
                 <div className="flex flex-col items-center">
-                  <div className="w-16 h-16 rounded-lg bg-black/50 border border-red-500/30 flex items-center justify-center text-2xl font-bold text-white">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-lg bg-black/50 border border-red-500/30 flex items-center justify-center text-lg sm:text-2xl font-bold text-white">
                     {timeLeft.minutes}
                   </div>
-                  <span className="text-gray-400 text-sm mt-1">Minutes</span>
+                  <span className="text-gray-400 text-xs sm:text-sm mt-1">Mins</span>
                 </div>
                 <div className="flex flex-col items-center">
-                  <div className="w-16 h-16 rounded-lg bg-black/50 border border-red-500/30 flex items-center justify-center text-2xl font-bold text-white">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-lg bg-black/50 border border-red-500/30 flex items-center justify-center text-lg sm:text-2xl font-bold text-white">
                     {timeLeft.seconds}
                   </div>
-                  <span className="text-gray-400 text-sm mt-1">Seconds</span>
+                  <span className="text-gray-400 text-xs sm:text-sm mt-1">Secs</span>
                 </div>
               </div>
             </div>
@@ -437,24 +439,26 @@ export default function ProgramsIndex() {
             ></div>
 
             {/* Content */}
-            <div className="relative z-10 p-10 text-center">
-              <h2 className="text-3xl font-bold text-white mb-4">Not Sure Which Program Is Right for You?</h2>
-              <p className="text-lg text-gray-100 mb-8 max-w-2xl mx-auto">
+            <div className="relative z-10 p-6 sm:p-8 md:p-10 text-center">
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4">
+                Not Sure Which Program Is Right for You?
+              </h2>
+              <p className="text-base sm:text-lg text-gray-100 mb-6 sm:mb-8 max-w-2xl mx-auto px-2">
                 We invite you to visit one of our locations for a free trial class. Our instructors will help you find
                 the perfect program based on your age, experience, and goals.
               </p>
-              <div className="flex flex-col sm:flex-row justify-center space-x-0 sm:space-x-4">
+              <div className="flex flex-col sm:flex-row justify-center space-x-0 sm:space-x-4 gap-y-4 sm:gap-y-0">
                 <a
                   href="#"
                   onClick={openModal}
-                  className="bg-white text-red-700 hover:bg-gray-100 font-bold py-3 px-8 rounded-md text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center mx-0 sm:mr-3"
+                  className="bg-white text-red-700 hover:bg-gray-100 font-bold py-2 sm:py-3 px-6 sm:px-8 rounded-md text-sm sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center mx-auto sm:mx-0"
                 >
                   View Our Schedule & Pricing Options
                   <ChevronRight className="ml-2 h-5 w-5" />
                 </a>
                 <Link
                   href="/locations/evans"
-                  className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-bold py-3 px-8 rounded-md text-lg transition-all duration-300 flex items-center justify-center mx-0"
+                  className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-bold py-2 sm:py-3 px-6 sm:px-8 rounded-md text-sm sm:text-lg transition-all duration-300 flex items-center justify-center mx-auto sm:mx-0"
                 >
                   Visit a Location
                   <MapPin className="ml-2 h-5 w-5" />

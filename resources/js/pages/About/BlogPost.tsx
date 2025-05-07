@@ -310,44 +310,44 @@ export default function BlogPost({ id = "1" }: Props) {
               <div className="absolute top-0 left-0 w-60 h-60 bg-red-600/30 rounded-full filter blur-3xl"></div>
               <div className="absolute bottom-0 right-0 w-60 h-60 bg-red-600/30 rounded-full filter blur-3xl"></div>
 
-              <div className="relative z-10 p-8 text-center">
-                <h3 className="text-2xl font-bold text-white mb-4">Limited Time Offer!</h3>
-                <p className="text-white text-lg mb-6 max-w-2xl mx-auto">
+              <div className="relative z-10 p-4 sm:p-6 md:p-8 text-center">
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 sm:mb-4">Limited Time Offer!</h3>
+                <p className="text-white text-base sm:text-lg mb-4 sm:mb-6 max-w-2xl mx-auto px-2">
                   Sign up now and receive 50% off your first month of training!
                 </p>
 
                 {/* Countdown Timer */}
-                <div className="flex justify-center space-x-4 mb-6">
+                <div className="flex justify-center space-x-2 sm:space-x-4 mb-4 sm:mb-6">
                   <div className="flex flex-col items-center">
-                    <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center border border-red-500/30">
+                    <div className="bg-black/50 text-white text-lg sm:text-2xl font-bold rounded-md w-10 h-10 sm:w-14 sm:h-14 flex items-center justify-center border border-red-500/30">
                       {timeLeft.days}
                     </div>
                     <span className="text-xs mt-1 text-gray-300">Days</span>
                   </div>
                   <div className="flex flex-col items-center">
-                    <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center border border-red-500/30">
+                    <div className="bg-black/50 text-white text-lg sm:text-2xl font-bold rounded-md w-10 h-10 sm:w-14 sm:h-14 flex items-center justify-center border border-red-500/30">
                       {timeLeft.hours}
                     </div>
                     <span className="text-xs mt-1 text-gray-300">Hours</span>
                   </div>
                   <div className="flex flex-col items-center">
-                    <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center border border-red-500/30">
+                    <div className="bg-black/50 text-white text-lg sm:text-2xl font-bold rounded-md w-10 h-10 sm:w-14 sm:h-14 flex items-center justify-center border border-red-500/30">
                       {timeLeft.minutes}
                     </div>
-                    <span className="text-xs mt-1 text-gray-300">Minutes</span>
+                    <span className="text-xs mt-1 text-gray-300">Mins</span>
                   </div>
                   <div className="flex flex-col items-center">
-                    <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center border border-red-500/30">
+                    <div className="bg-black/50 text-white text-lg sm:text-2xl font-bold rounded-md w-10 h-10 sm:w-14 sm:h-14 flex items-center justify-center border border-red-500/30">
                       {timeLeft.seconds}
                     </div>
-                    <span className="text-xs mt-1 text-gray-300">Seconds</span>
+                    <span className="text-xs mt-1 text-gray-300">Secs</span>
                   </div>
                 </div>
 
                 <a
                   href="#"
                   onClick={openModal}
-                  className="bg-white text-red-700 hover:bg-gray-100 font-medium py-3 px-8 rounded-lg shadow-lg transition-all duration-300 text-lg border border-white/30 hover:scale-105 transform"
+                  className="bg-white text-red-700 hover:bg-gray-100 font-medium py-2 sm:py-3 px-4 sm:px-8 rounded-lg shadow-lg transition-all duration-300 text-sm sm:text-lg border border-white/30 hover:scale-105 transform inline-block"
                 >
                   View Our Schedule & Pricing Options
                 </a>
@@ -443,16 +443,16 @@ export default function BlogPost({ id = "1" }: Props) {
               <div className="absolute bottom-0 right-0 w-60 h-60 bg-red-600/30 rounded-full filter blur-3xl"></div>
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-red-600/10 rounded-full filter blur-3xl"></div>
 
-              <div className="relative z-10 p-12 text-center">
-                <h3 className="text-3xl font-bold text-white mb-6">Ready to Get Started?</h3>
-                <p className="text-white text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
+              <div className="relative z-10 p-6 sm:p-8 md:p-12 text-center">
+                <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4 sm:mb-6">Ready to Get Started?</h3>
+                <p className="text-white text-base sm:text-lg md:text-xl mb-6 sm:mb-8 md:mb-10 max-w-2xl mx-auto leading-relaxed px-2">
                   Give your child the gift of martial arts training at Seigler's Karate Center. Our programs are
                   designed for children of all ages and skill levels.
                 </p>
                 <a
                   href="#"
                   onClick={openModal}
-                  className="bg-white text-red-700 hover:bg-gray-100 font-medium py-4 px-10 rounded-lg shadow-lg transition-all duration-300 text-lg border border-white/30 hover:scale-105 transform"
+                  className="bg-white text-red-700 hover:bg-gray-100 font-medium py-2 sm:py-3 md:py-4 px-6 sm:px-8 md:px-10 rounded-lg shadow-lg transition-all duration-300 text-sm sm:text-base md:text-lg border border-white/30 hover:scale-105 transform inline-block"
                 >
                   View Our Schedule & Pricing Options
                 </a>

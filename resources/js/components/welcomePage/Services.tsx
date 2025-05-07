@@ -1,10 +1,11 @@
 import { useEffect, useRef } from 'react';
+import { Link } from '@inertiajs/react'; // Using Inertia Link for navigation
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const Services = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const particlesRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const particlesRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -92,7 +93,7 @@ const Services = () => {
 
   const services = [
     {
-      id: 1,
+      id: 'lil-dragons',
       title: 'Lil Dragons (4 – 5)',
       description: 'Empower your child with our Lil Dragons martial arts classes. Designed to channel their boundless curiosity and energy, our expert instructors provide vibrant, engaging lessons that are both educational and fun.',
       icon: (
@@ -102,9 +103,10 @@ const Services = () => {
       ),
       image: "Images/team/TN-Lil-Dragons.jpg",
       imageAlt: "Lil Dragons martial arts class",
+      link: "/programs/lil-dragons"
     },
     {
-      id: 2,
+      id: 'kids-karate',
       title: 'Kids Karate (6 – 10)',
       description: 'Our kids martial arts classes provide children with valuable benefits such as increased confidence, discipline, resilience, and self-defense skills.',
       icon: (
@@ -114,9 +116,10 @@ const Services = () => {
       ),
       image: "Images/team/TN-Kids-Karate.jpg",
       imageAlt: "Kids Karate class",
+      link: "/programs/kids-karate"
     },
     {
-      id: 3,
+      id: 'teens-karate',
       title: 'Teens Karate (11 – 13)',
       description: 'Ignite your teenager\'s journey from youth to adulthood with our martial arts classes. Enhance their emotional intelligence and empower them to unlock their full potential.',
       icon: (
@@ -126,9 +129,10 @@ const Services = () => {
       ),
       image: "Images/team/TN-Teen-Karate.jpg",
       imageAlt: "Teens Karate class",
+      link: "/programs/teens-karate"
     },
     {
-      id: 4,
+      id: 'adult-kempo',
       title: 'Adult Kempo Karate (14+)',
       description: 'Discover our adult martial arts classes—a dynamic fusion of fitness, self-defense, and fun. Join us to boost your health, learn practical self-defense skills, and enjoy every step of your journey.',
       icon: (
@@ -138,9 +142,10 @@ const Services = () => {
       ),
       image: "Images/team/ADULTKEMPO.jpg",
       imageAlt: "Adult Kempo Karate class",
+      link: "/programs/adult-kempo"
     },
     {
-      id: 5,
+      id: 'kickboxing',
       title: 'Kickboxing (14+)',
       description: 'Experience the transformative power of Kickboxing! Each class brings you closer to mastering techniques, building strength, and boosting confidence.',
       icon: (
@@ -150,9 +155,10 @@ const Services = () => {
       ),
       image: "Images/team/88A5D580-B43D-4916-92F9-2B8037264B27-rotated-e1724873881945.jpg",
       imageAlt: "Kickboxing class",
+      link: "/programs/kickboxing"
     },
     {
-      id: 6,
+      id: 'jiu-jitsu',
       title: 'Jiu Jitsu (14+)',
       description: 'Ready to enhance your life and well-being? Discover the physical, mental, and social benefits of Tetsu Shin Ryu Jiu-Jitsu and transform your fitness, resilience, and community connections.',
       icon: (
@@ -162,6 +168,7 @@ const Services = () => {
       ),
       image: "Images/team/JIU JITSU.jpg",
       imageAlt: "Jiu Jitsu class",
+      link: "/programs/jiu-jitsu"
     },
   ];
 
@@ -190,36 +197,41 @@ const Services = () => {
               key={service.id}
               className="program-card rounded-xl bg-black/60 p-6 shadow-xl transition-all duration-300 backdrop-blur-sm border border-red-900/20 hover:border-red-600/40 hover:shadow-red-900/5 group"
             >
-              {/* Image Placeholder - Using image path from service object */}
-              <div className="mb-6 overflow-hidden rounded-lg">
-                <img 
-                  src={service.image} 
-                  alt={service.imageAlt} 
-                  className="w-full h-48 object-cover transform transition-transform duration-500 group-hover:scale-110"
-                />
-              </div>
-              <div className="mb-5 transform transition-transform duration-300 group-hover:scale-110">{service.icon}</div>
-              <h3 className="mb-3 text-xl font-semibold text-white">{service.title}</h3>
-              <p className="text-gray-300">{service.description}</p>
-              <button className="mt-5 text-sm font-medium text-red-500 hover:text-red-400 transition-colors duration-300 flex items-center group">
-                View Program
-                <svg className="w-4 h-4 ml-1 transform transition-transform duration-300 group-hover:translate-x-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </button>
+              {/* Image Placeholder with Link - Make entire card clickable */}
+              <Link href={service.link} className="block">
+                <div className="mb-6 overflow-hidden rounded-lg">
+                  <img 
+                    src={service.image} 
+                    alt={service.imageAlt} 
+                    className="w-full h-48 object-cover transform transition-transform duration-500 group-hover:scale-110"
+                  />
+                </div>
+                <div className="mb-5 transform transition-transform duration-300 group-hover:scale-110">{service.icon}</div>
+                <h3 className="mb-3 text-xl font-semibold text-white">{service.title}</h3>
+                <p className="text-gray-300">{service.description}</p>
+                <div className="mt-5 text-sm font-medium text-red-500 hover:text-red-400 transition-colors duration-300 flex items-center group">
+                  View Program
+                  <svg className="w-4 h-4 ml-1 transform transition-transform duration-300 group-hover:translate-x-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </div>
+              </Link>
             </div>
           ))}
         </div>
 
         <div className="mt-16 text-center">
-          <button className="rounded-xl bg-gradient-to-r from-red-700 to-red-600 px-8 py-4 text-white hover:from-red-600 hover:to-red-500 transition-all duration-300 shadow-lg shadow-red-900/20 transform hover:scale-105 relative group overflow-hidden">
+          <Link 
+            href="/programs" 
+            className="rounded-xl bg-gradient-to-r from-red-700 to-red-600 px-8 py-4 text-white hover:from-red-600 hover:to-red-500 transition-all duration-300 shadow-lg shadow-red-900/20 transform hover:scale-105 relative group overflow-hidden inline-block"
+          >
             <span className="relative z-10 flex items-center justify-center">
               Browse All Programs
               <svg className="w-5 h-5 ml-2 transform transition-transform duration-300 group-hover:translate-x-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
             </span>
-          </button>
+          </Link>
         </div>
       </div>
     </section>

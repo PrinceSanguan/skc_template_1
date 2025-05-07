@@ -1,12 +1,12 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
 import { useEffect, useRef } from "react"
+import { Link } from "@inertiajs/react" // Import Link for navigation
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 const Location = () => {
-  const sectionRef = useRef<HTMLElement>(null)
+  const sectionRef = useRef<HTMLDivElement>(null)
   const cardsRef = useRef<HTMLDivElement>(null)
   const particlesRef = useRef<HTMLDivElement>(null)
 
@@ -208,7 +208,7 @@ const Location = () => {
                       d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                     />
                   </svg>
-                  {location.hours}
+                  {location.hours || "Coming Soon"}
                 </p>
               </div>
 
@@ -250,9 +250,10 @@ const Location = () => {
               </div>
 
               <div className="flex space-x-3">
-                <Button
-                  variant="default"
-                  className="flex-1 bg-gradient-to-r from-red-700 to-red-600 text-white hover:from-red-600 hover:to-red-500 hover:text-white transition-all duration-300 shadow-md"
+                {/* Visit Location button - links to Contact page */}
+                <Link
+                  href="/contact"
+                  className="flex-1 inline-flex justify-center items-center py-2 px-4 bg-gradient-to-r from-red-700 to-red-600 text-white hover:from-red-600 hover:to-red-500 hover:text-white transition-all duration-300 shadow-md rounded-md"
                 >
                   <span className="flex items-center">
                     <svg
@@ -277,10 +278,12 @@ const Location = () => {
                     </svg>
                     Visit Location
                   </span>
-                </Button>
-                <Button
-                  variant="outline"
-                  className="flex-1 border-red-600/30 text-red-500 hover:bg-red-900/20 hover:border-red-500/50 hover:text-red-400 transition-all duration-300"
+                </Link>
+                
+                {/* Get Directions button - links to Contact page */}
+                <Link
+                  href="/contact"
+                  className="flex-1 inline-flex justify-center items-center py-2 px-4 border border-red-600/30 text-red-500 hover:bg-red-900/20 hover:border-red-500/50 hover:text-red-400 transition-all duration-300 rounded-md"
                 >
                   <span className="flex items-center">
                     <svg
@@ -305,7 +308,7 @@ const Location = () => {
                     </svg>
                     Get Directions
                   </span>
-                </Button>
+                </Link>
               </div>
             </div>
           ))}
@@ -322,9 +325,11 @@ const Location = () => {
             </a>{" "}
             for more information or to schedule a tour.
           </p>
-          <Button
-            variant="outline"
-            className="rounded-xl border-red-600/30 px-8 py-4 text-red-400 hover:bg-red-900/20 hover:border-red-500/50 hover:text-red-300 transition-all duration-300 shadow-lg shadow-red-900/20 transform hover:scale-105 group"
+          
+          {/* Contact Us About Locations button - links to Contact page */}
+          <Link 
+            href="/contact"
+            className="inline-flex items-center justify-center rounded-xl border border-red-600/30 px-8 py-4 text-red-400 hover:bg-red-900/20 hover:border-red-500/50 hover:text-red-300 transition-all duration-300 shadow-lg shadow-red-900/20 transform hover:scale-105 group"
           >
             <span className="flex items-center">
               <svg
@@ -352,7 +357,7 @@ const Location = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
             </span>
-          </Button>
+          </Link>
         </div>
       </div>
     </section>

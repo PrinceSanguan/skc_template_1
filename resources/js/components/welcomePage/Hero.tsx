@@ -1,10 +1,11 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
-import { useEffect, useRef, type ReactNode, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { ChevronRight, Star, Calendar, Award, Users } from "lucide-react"
+import { Link } from "@inertiajs/react"
+import SchedulePricingModal from "@/components/SchedulePricingModal" // Import the modal component
 
 // Register GSAP plugins
 if (typeof window !== "undefined") {
@@ -12,15 +13,10 @@ if (typeof window !== "undefined") {
 }
 
 // Animated component wrapper
-interface AnimatedElementProps {
-  children: ReactNode
-  delay?: number
-  className?: string
-  animation?: "fadeIn" | "slideUp" | "slideRight"
-}
+import { ReactNode } from "react";
 
-const AnimatedElement = ({ children, delay = 0, className = "", animation = "fadeIn" }: AnimatedElementProps) => {
-  const ref = useRef<HTMLDivElement>(null)
+const AnimatedElement = ({ children, delay = 0, className = "", animation = "fadeIn" }: { children: ReactNode; delay?: number; className?: string; animation?: string }) => {
+  const ref = useRef(null)
 
   useEffect(() => {
     const el = ref.current
@@ -58,9 +54,10 @@ const AnimatedElement = ({ children, delay = 0, className = "", animation = "fad
 }
 
 const Hero = () => {
-  const heroRef = useRef<HTMLDivElement>(null)
-  const imageRef = useRef<HTMLDivElement>(null)
+  const heroRef = useRef(null)
+  const imageRef = useRef(null)
   const [isHovering, setIsHovering] = useState(false)
+  const [modalOpen, setModalOpen] = useState(false)
 
   useEffect(() => {
     // Fade in the hero section
@@ -102,11 +99,12 @@ const Hero = () => {
             </AnimatedElement>
 
             <AnimatedElement delay={0.6} animation="slideUp" className="flex flex-wrap gap-5">
-              <Button
+              {/* Link to Programs page */}
+              <Link
+                href="/programs" // Link to the programs page
                 onMouseEnter={() => setIsHovering(true)}
                 onMouseLeave={() => setIsHovering(false)}
-                variant="default"
-                className="bg-gradient-to-r from-red-700 to-red-500 hover:from-red-600 hover:to-red-400 px-8 py-6 text-white font-medium shadow-[0_8px_30px_rgb(225,29,72,0.3)] rounded-xl text-lg transition-all duration-300 relative overflow-hidden group"
+                className="bg-gradient-to-r from-red-700 to-red-500 hover:from-red-600 hover:to-red-400 px-8 py-6 text-white font-medium shadow-[0_8px_30px_rgb(225,29,72,0.3)] rounded-xl text-lg transition-all duration-300 relative overflow-hidden group inline-flex items-center"
               >
                 <span className="relative z-10 flex items-center">
                   Select a Program
@@ -115,14 +113,16 @@ const Hero = () => {
                     size={20}
                   />
                 </span>
-              </Button>
-              <Button
-                variant="outline"
-                className="border-red-500/30 px-8 py-6 text-lg text-white bg-black/30 backdrop-blur-sm hover:bg-red-600/20 hover:border-red-500/50 transition-all duration-300 rounded-xl"
+              </Link>
+              
+              {/* Button to open the registration modal */}
+              <button
+                onClick={() => setModalOpen(true)}
+                className="border-red-500/30 px-8 py-6 text-lg text-white bg-black/30 backdrop-blur-sm hover:bg-red-600/20 hover:border-red-500/50 transition-all duration-300 rounded-xl inline-flex items-center border-2"
               >
                 <Calendar className="mr-2" size={18} />
                 View Schedule & Pricing
-              </Button>
+              </button>
             </AnimatedElement>
 
             <AnimatedElement delay={0.8} animation="slideUp">
@@ -197,6 +197,9 @@ const Hero = () => {
           </div>
         </div>
       </div>
+
+      {/* Import and use the SchedulePricingModal component */}
+      <SchedulePricingModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
     </div>
   )
 }

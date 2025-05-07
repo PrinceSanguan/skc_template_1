@@ -6,6 +6,7 @@ import Template from "./Template"
 import AnimatedElement from "@/components/ui/animated-element"
 import { Link } from "@inertiajs/react"
 import { useEffect, useState } from "react"
+import SchedulePricingModal from "@/components/SchedulePricingModal" // Import the modal component
 
 // Blog post content interface
 interface BlogPostDetail {
@@ -39,6 +40,9 @@ interface Props {
 export default function BlogPost({ id = "1" }: Props) {
   const [imagesLoaded, setImagesLoaded] = useState(false)
   const defaultProfilePicture = "/images/team/Default-Profile-Picture-PNG-Image-Transparent-Background.png"
+
+  // Modal state
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   // Countdown timer state
   const [timeLeft, setTimeLeft] = useState({
@@ -79,6 +83,17 @@ export default function BlogPost({ id = "1" }: Props) {
     // Set images as loaded after component mounts to prevent hydration issues
     setImagesLoaded(true)
   }, [])
+
+  // Function to open the modal
+  const openModal = (e: React.MouseEvent) => {
+    e.preventDefault() // Prevent default link behavior
+    setIsModalOpen(true)
+  }
+
+  // Function to close the modal
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
 
   // Function to handle image error
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
@@ -329,12 +344,13 @@ export default function BlogPost({ id = "1" }: Props) {
                   </div>
                 </div>
 
-                <Link
-                  href="/schedule"
+                <a
+                  href="#"
+                  onClick={openModal}
                   className="bg-white text-red-700 hover:bg-gray-100 font-medium py-3 px-8 rounded-lg shadow-lg transition-all duration-300 text-lg border border-white/30 hover:scale-105 transform"
                 >
                   View Our Schedule & Pricing Options
-                </Link>
+                </a>
               </div>
             </div>
           </AnimatedElement>
@@ -433,12 +449,13 @@ export default function BlogPost({ id = "1" }: Props) {
                   Give your child the gift of martial arts training at Seigler's Karate Center. Our programs are
                   designed for children of all ages and skill levels.
                 </p>
-                <Link
-                  href="/schedule"
+                <a
+                  href="#"
+                  onClick={openModal}
                   className="bg-white text-red-700 hover:bg-gray-100 font-medium py-4 px-10 rounded-lg shadow-lg transition-all duration-300 text-lg border border-white/30 hover:scale-105 transform"
                 >
                   View Our Schedule & Pricing Options
-                </Link>
+                </a>
               </div>
             </div>
           </AnimatedElement>
@@ -515,6 +532,9 @@ export default function BlogPost({ id = "1" }: Props) {
           </AnimatedElement>
         </div>
       </div>
+
+      {/* Modal Component */}
+      <SchedulePricingModal isOpen={isModalOpen} onClose={closeModal} />
     </Template>
   )
 }

@@ -1,10 +1,13 @@
 "use client"
 
+import type React from "react"
+
 import { Link } from "@inertiajs/react"
 import AnimatedElement from "@/components/ui/animated-element"
 import Template from "./Template"
 import { useState, useEffect } from "react"
 import { ChevronRight } from "lucide-react"
+import SchedulePricingModal from "@/components/SchedulePricingModal" // Import the modal component
 
 interface TeamMemberData {
   name: string
@@ -27,6 +30,9 @@ export default function TeamMember({ teamMember }: TeamMemberProps) {
     minutes: 0,
     seconds: 0,
   })
+
+  // Modal state
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   // Set end date for promotion (example: 7 days from now)
   useEffect(() => {
@@ -52,6 +58,17 @@ export default function TeamMember({ teamMember }: TeamMemberProps) {
 
     return () => clearInterval(timer)
   }, [])
+
+  // Function to open the modal
+  const openModal = (e: React.MouseEvent) => {
+    e.preventDefault() // Prevent default link behavior
+    setIsModalOpen(true)
+  }
+
+  // Function to close the modal
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
 
   return (
     <Template title={teamMember.name}>
@@ -109,12 +126,13 @@ export default function TeamMember({ teamMember }: TeamMemberProps) {
 
             <AnimatedElement type="fadeIn" delay={0.35}>
               <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
-                <Link
-                  href="/schedule"
+                <a
+                  href="#"
+                  onClick={openModal}
                   className="bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 text-white font-medium py-3 px-8 rounded-md transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center"
                 >
                   View Our Schedule & Pricing Options <ChevronRight className="ml-2 h-4 w-4" />
-                </Link>
+                </a>
                 <Link
                   href="/contact"
                   className="bg-transparent border-2 border-red-600 text-white hover:bg-red-600/10 font-medium py-3 px-8 rounded-md transition-colors flex items-center justify-center"
@@ -317,19 +335,23 @@ export default function TeamMember({ teamMember }: TeamMemberProps) {
                   <p className="text-lg text-gray-300 mb-8">
                     Join our community and discover the transformative power of martial arts training.
                   </p>
-                  <Link
-                    href="/schedule"
+                  <a
+                    href="#"
+                    onClick={openModal}
                     className="flex bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 px-8 py-4 rounded-md text-lg font-semibold text-white transition-all duration-300 shadow-[0_4px_15px_rgba(220,38,38,0.4)] hover:shadow-[0_6px_20px_rgba(220,38,38,0.6)] hover:-translate-y-1 items-center justify-center mx-auto"
                   >
                     VIEW OUR SCHEDULE & PRICING OPTIONS
                     <ChevronRight className="ml-2 h-5 w-5" />
-                  </Link>
+                  </a>
                 </div>
               </div>
             </div>
           </AnimatedElement>
         </div>
       </section>
+
+      {/* Modal Component */}
+      <SchedulePricingModal isOpen={isModalOpen} onClose={closeModal} />
     </Template>
   )
 }

@@ -1,15 +1,32 @@
 "use client"
 
+import type React from "react"
+
 import Template from "../About/Template"
 import AnimatedElement from "@/components/ui/animated-element"
 import { Link } from "@inertiajs/react"
 import { useRef, useEffect, useState } from "react"
 import { ChevronRight } from "lucide-react"
 import gsap from "gsap"
+import SchedulePricingModal from "@/components/SchedulePricingModal" // Import the modal component
 
 export default function LilDragons() {
   const particlesRef = useRef<HTMLDivElement>(null)
   const heroRef = useRef(null)
+
+  // Modal state
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  // Function to open the modal
+  const openModal = (e: React.MouseEvent) => {
+    e.preventDefault() // Prevent default link behavior
+    setIsModalOpen(true)
+  }
+
+  // Function to close the modal
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
 
   // Program benefits
   const benefits = [
@@ -266,12 +283,13 @@ export default function LilDragons() {
               </div>
             </div>
 
-            <Link
-              href="/schedule"
+            <a
+              href="#"
+              onClick={openModal}
               className="bg-white text-red-700 hover:bg-gray-100 font-medium py-3 px-8 rounded-lg shadow-lg transition-all duration-300 text-lg border border-white/30 hover:scale-105 transform"
             >
               View Our Schedule & Pricing Options
-            </Link>
+            </a>
           </div>
         </div>
       </AnimatedElement>
@@ -532,13 +550,14 @@ export default function LilDragons() {
                 firsthand how our Lil Dragons program can benefit your child's development.
               </p>
               <div className="flex flex-col sm:flex-row justify-center space-x-0 sm:space-x-4 gap-y-4 sm:gap-y-0">
-                <Link
-                  href="/schedule"
+                <a
+                  href="#"
+                  onClick={openModal}
                   className="bg-white text-red-700 hover:bg-gray-100 font-bold py-3 px-8 rounded-md text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center mx-0 sm:mr-3"
                 >
                   View Our Schedule & Pricing Options
                   <ChevronRight className="ml-2 h-5 w-5" />
-                </Link>
+                </a>
                 <Link
                   href="/programs"
                   className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-bold py-3 px-8 rounded-md text-lg transition-all duration-300 flex items-center justify-center mx-0"
@@ -551,6 +570,9 @@ export default function LilDragons() {
           </div>
         </AnimatedElement>
       </div>
+
+      {/* Modal Component */}
+      <SchedulePricingModal isOpen={isModalOpen} onClose={closeModal} />
     </Template>
   )
 }

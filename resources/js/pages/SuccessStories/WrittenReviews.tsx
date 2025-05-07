@@ -6,10 +6,12 @@ import Template from "../Programs/Template"
 import AnimatedElement from "@/components/ui/animated-element"
 import { Link } from "@inertiajs/react"
 import { useState, useEffect } from "react"
+import SchedulePricingModal from "@/components/SchedulePricingModal"
 
 export default function WrittenReviews() {
   const [imagesLoaded, setImagesLoaded] = useState(false)
   const defaultProfilePicture = "/images/team/Default-Profile-Picture-PNG-Image-Transparent-Background.png"
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
     // Set images as loaded after component mounts to prevent hydration issues
@@ -64,7 +66,7 @@ export default function WrittenReviews() {
       achievement: "SKC Center Family",
       quote:
         "My son recently joined the SKC center family! He has enjoyed everything since day one. The administrative staff is so polite and accommodating! His instructors shows attention to every student and finds creative ways to teach the students the fundamentals. I look forward to my son continuing his training and lessons at SKC.",
-      imagePlaceholder: "/Images/team/Victoria-Dickason.png"
+      imagePlaceholder: "/Images/team/Victoria-Dickason.png",
     },
     {
       id: 2,
@@ -73,7 +75,7 @@ export default function WrittenReviews() {
       achievement: "Incredible Growth",
       quote:
         "The whole team at SKC has been incredible to work with for the past year, and we've seen such incredible growth in our daughter's confidence, discipline, focus, and respect since she started coming to SKC. She genuinely looks forward to her classes, and loves to tell everyone she knows just how great it is! She's on a quest for her black belt, and we're excited to have the team at SKC supporting and teaching her along the way.",
-      imagePlaceholder: "/Images/team/Omega-Hammerling.png"
+      imagePlaceholder: "/Images/team/Omega-Hammerling.png",
     },
     {
       id: 3,
@@ -82,7 +84,7 @@ export default function WrittenReviews() {
       achievement: "Children's Interest",
       quote:
         "This place is awesome! The initial focus class really sparked my children's interest. Now that my children are actively participating in SKC they enjoy it very much! They look forward to practice days and SKC events. Also, the senseis and coaches at SKC are amazing! They have a special way to interact and teach kids of all ages! I highly recommend this place!",
-      imagePlaceholder: "/Images/team/Jodeva.png"
+      imagePlaceholder: "/Images/team/Jodeva.png",
     },
     {
       id: 4,
@@ -91,18 +93,22 @@ export default function WrittenReviews() {
       achievement: "Proper Learning",
       quote:
         "We absolutely love this place everyone is amazing and friendly and makes sure all the kids learn to do karate correctly and teach the kids respect",
-      imagePlaceholder: "/Images/team/Deborah-Hayes.png"
+      imagePlaceholder: "/Images/team/Deborah-Hayes.png",
     },
     {
       id: 5,
       name: "Stephanie Skipper",
       via: "via Google",
       achievement: "Patient Teaching",
-      quote:
-        "I love how patient they are with the children. Maddison loves her sensei and enjoys her classes.",
-      imagePlaceholder: "/Images/team/Stephanie-Skipper.png"
+      quote: "I love how patient they are with the children. Maddison loves her sensei and enjoys her classes.",
+      imagePlaceholder: "/Images/team/Stephanie-Skipper.png",
     },
   ]
+
+  const openModal = (e: React.MouseEvent) => {
+    e.preventDefault()
+    setIsModalOpen(true)
+  }
 
   return (
     <Template title="Written Reviews">
@@ -203,6 +209,7 @@ export default function WrittenReviews() {
 
               <Link
                 href="/contact"
+                onClick={openModal}
                 className="bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 text-white py-3 px-8 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center justify-center text-lg font-medium"
               >
                 View Our Schedule & Pricing Options
@@ -226,7 +233,10 @@ export default function WrittenReviews() {
                       <div className="mr-4 flex-shrink-0">
                         {imagesLoaded && (
                           <img
-                            src={review.imagePlaceholder || `/focused-fighter.png?key=${review.id}&height=50&width=50&query=profile ${review.name}`}
+                            src={
+                              review.imagePlaceholder ||
+                              `/focused-fighter.png?key=${review.id}&height=50&width=50&query=profile ${review.name}`
+                            }
                             alt={review.name}
                             className="w-16 h-16 rounded-full object-cover border-2 border-red-500/30"
                             onError={handleImageError}
@@ -236,24 +246,18 @@ export default function WrittenReviews() {
                       <div>
                         <h3 className="text-2xl font-bold mb-1 tracking-tight">{review.name}</h3>
                         <div className="flex items-center mb-2">
-                          <p className="text-gray-400 text-sm">
-                            {review.via}
-                          </p>
+                          <p className="text-gray-400 text-sm">{review.via}</p>
                         </div>
                         <div className="flex mb-3">
                           {[...Array(5)].map((_, i) => (
-                            <svg 
-                              key={i} 
-                              className="w-5 h-5 text-yellow-400 fill-current mr-1" 
-                              viewBox="0 0 24 24"
-                            >
+                            <svg key={i} className="w-5 h-5 text-yellow-400 fill-current mr-1" viewBox="0 0 24 24">
                               <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
                             </svg>
                           ))}
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className="bg-black/30 p-5 rounded-lg border border-red-900/20 mb-4">
                       <div className="absolute top-0 right-0 w-20 h-20 opacity-10">
                         <svg viewBox="0 0 100 100" className="w-full h-full fill-current text-red-600">
@@ -262,7 +266,7 @@ export default function WrittenReviews() {
                       </div>
                       <p className="text-gray-300 italic text-lg leading-relaxed relative z-10">"{review.quote}"</p>
                     </div>
-                    
+
                     <div className="bg-gradient-to-r from-red-700 to-red-900 text-white text-sm font-semibold px-4 py-2 rounded-lg inline-block shadow-lg border border-red-600/30">
                       {review.achievement}
                     </div>
@@ -298,6 +302,7 @@ export default function WrittenReviews() {
               <div className="flex flex-col sm:flex-row justify-center gap-6">
                 <Link
                   href="/contact"
+                  onClick={openModal}
                   className="bg-white text-red-700 hover:bg-gray-100 font-medium py-4 px-10 rounded-lg shadow-lg transition-all duration-300 text-lg border border-white/30 hover:scale-105 transform"
                 >
                   View Our Schedule & Pricing Options
@@ -313,6 +318,7 @@ export default function WrittenReviews() {
           </div>
         </AnimatedElement>
       </div>
+      <SchedulePricingModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </Template>
   )
 }

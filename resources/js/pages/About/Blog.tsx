@@ -7,6 +7,7 @@ import Template from "./Template"
 import AnimatedElement from "@/components/ui/animated-element"
 import { Link } from "@inertiajs/react"
 import { ChevronRight, ChevronLeft, Calendar, User } from "lucide-react"
+import SchedulePricingModal from "@/components/SchedulePricingModal" // Import the modal component
 
 interface BlogPost {
   id: number
@@ -21,6 +22,9 @@ interface BlogPost {
 export default function Blog() {
   // State for active category filter
   const [activeCategory, setActiveCategory] = useState("All Posts")
+
+  // Modal state
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   // Countdown timer state
   const [timeLeft, setTimeLeft] = useState({
@@ -54,6 +58,17 @@ export default function Blog() {
 
     return () => clearInterval(timer)
   }, [])
+
+  // Function to open the modal
+  const openModal = (e: React.MouseEvent) => {
+    e.preventDefault() // Prevent default link behavior
+    setIsModalOpen(true)
+  }
+
+  // Function to close the modal
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
 
   // Actual blog data
   const blogPosts: BlogPost[] = [
@@ -207,12 +222,13 @@ export default function Blog() {
             {/* Top CTA with updated text */}
             <AnimatedElement type="fadeIn" delay={0.35}>
               <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
-                <Link
-                  href="/schedule"
+                <a
+                  href="#"
+                  onClick={openModal}
                   className="bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 text-white font-medium py-3 px-8 rounded-md transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center"
                 >
                   View Our Schedule & Pricing Options <ChevronRight className="ml-2 h-4 w-4" />
-                </Link>
+                </a>
                 <Link
                   href="/contact"
                   className="bg-transparent border-2 border-red-600 text-white hover:bg-red-600/10 font-medium py-3 px-8 rounded-md transition-colors flex items-center justify-center"
@@ -444,13 +460,14 @@ export default function Blog() {
                   </p>
 
                   <div className="flex flex-col sm:flex-row justify-center space-x-0 sm:space-x-4">
-                    <Link
-                      href="/schedule"
+                    <a
+                      href="#"
+                      onClick={openModal}
                       className="bg-white text-red-700 font-bold py-3 px-8 rounded-md text-lg shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center mx-0 sm:mr-3 mb-4 sm:mb-0"
                     >
                       View Our Schedule & Pricing Options
                       <ChevronRight className="ml-2 h-5 w-5" />
-                    </Link>
+                    </a>
 
                     <Link
                       href="/contact"
@@ -466,6 +483,9 @@ export default function Blog() {
           </div>
         </div>
       </div>
+
+      {/* Modal Component */}
+      <SchedulePricingModal isOpen={isModalOpen} onClose={closeModal} />
     </Template>
   )
 }

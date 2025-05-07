@@ -6,6 +6,7 @@ import Template from "../Programs/Template"
 import AnimatedElement from "@/components/ui/animated-element"
 import { Link } from "@inertiajs/react"
 import { useState, useEffect, useRef } from "react"
+import SchedulePricingModal from "@/components/SchedulePricingModal"
 
 export default function VideoTestimonials() {
   const [imagesLoaded, setImagesLoaded] = useState(false)
@@ -13,6 +14,7 @@ export default function VideoTestimonials() {
   const [activeVideoId, setActiveVideoId] = useState("")
   const videoRef = useRef<HTMLIFrameElement>(null)
   const defaultProfilePicture = "/images/team/Default-Profile-Picture-PNG-Image-Transparent-Background.png"
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   // Add countdown timer state
   const [timeLeft, setTimeLeft] = useState({
@@ -57,6 +59,11 @@ export default function VideoTestimonials() {
   const handlePlayVideo = (videoId: string) => {
     setIsVideoPlaying(true)
     setActiveVideoId(videoId)
+  }
+
+  const openModal = (e: React.MouseEvent) => {
+    e.preventDefault()
+    setIsModalOpen(true)
   }
 
   // Video testimonials data with actual YouTube video IDs
@@ -191,12 +198,12 @@ export default function VideoTestimonials() {
                 </div>
               </div>
 
-              <Link
-                href="/contact"
+              <button
+                onClick={openModal}
                 className="bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 text-white py-3 px-8 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center justify-center text-lg font-medium"
               >
                 View Our Schedule & Pricing Options
-              </Link>
+              </button>
             </div>
           </div>
         </AnimatedElement>
@@ -399,12 +406,12 @@ export default function VideoTestimonials() {
                 begins with a single step.
               </p>
               <div className="flex flex-col sm:flex-row justify-center gap-6">
-                <Link
-                  href="/contact"
+                <button
+                  onClick={openModal}
                   className="bg-white text-red-700 hover:bg-gray-100 font-medium py-4 px-10 rounded-lg shadow-lg transition-all duration-300 text-lg border border-white/30 hover:scale-105 transform"
                 >
                   View Our Schedule & Pricing Options
-                </Link>
+                </button>
                 <Link
                   href="/success-stories"
                   className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-medium py-4 px-10 rounded-lg shadow-lg transition-all duration-300 text-lg hover:scale-105 transform"
@@ -416,6 +423,7 @@ export default function VideoTestimonials() {
           </div>
         </AnimatedElement>
       </div>
+      <SchedulePricingModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </Template>
   )
 }

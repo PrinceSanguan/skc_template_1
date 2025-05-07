@@ -8,6 +8,7 @@ import { Link } from "@inertiajs/react"
 import { useState, useRef, useEffect } from "react"
 import { MapPin, Phone, ChevronRight, Calendar } from 'lucide-react'
 import gsap from "gsap"
+import SchedulePricingModal from "@/components/SchedulePricingModal" // Import the modal component
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -30,6 +31,20 @@ export default function Contact() {
     minutes: 0,
     seconds: 0,
   })
+
+  // Modal state
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  // Function to open the modal
+  const openModal = (e: React.MouseEvent) => {
+    e.preventDefault() // Prevent default link behavior
+    setIsModalOpen(true)
+  }
+
+  // Function to close the modal
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
 
   // Set end date for promotion (example: 7 days from now)
   useEffect(() => {
@@ -177,12 +192,13 @@ export default function Contact() {
           {/* Top CTA with updated text */}
           <AnimatedElement type="fadeIn" delay={0.35}>
             <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
-              <Link
-                href="/schedule"
+              <a
+                href="#"
+                onClick={openModal}
                 className="bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 text-white font-medium py-3 px-8 rounded-md transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center"
               >
                 View Our Schedule & Pricing Options <ChevronRight className="ml-2 h-4 w-4" />
-              </Link>
+              </a>
               <Link
                 href="/contact"
                 className="bg-transparent border-2 border-red-600 text-white hover:bg-red-600/10 font-medium py-3 px-8 rounded-md transition-colors flex items-center justify-center"
@@ -513,15 +529,6 @@ export default function Contact() {
                       href="#"
                       className="w-10 h-10 rounded-full bg-black/40 border border-red-900/30 flex items-center justify-center text-gray-300 hover:text-red-400 hover:border-red-600/50 transition-all duration-300 transform hover:scale-110"
                     >
-                      <span className="sr-only">Twitter</span>
-                      <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
-                      </svg>
-                    </a>
-                    <a
-                      href="#"
-                      className="w-10 h-10 rounded-full bg-black/40 border border-red-900/30 flex items-center justify-center text-gray-300 hover:text-red-400 hover:border-red-600/50 transition-all duration-300 transform hover:scale-110"
-                    >
                       <span className="sr-only">YouTube</span>
                       <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path
@@ -540,7 +547,7 @@ export default function Contact() {
 
         {/* Map Section */}
         <AnimatedElement type="fadeIn" delay={0.6}>
-          <div className="rounded-xl border border-red-900/30 bg-black/60 shadow-xl backdrop-blur-sm p-8 relative overflow-hidden mb-16">
+          <div className="rounded-xl border border-red-900/30 bg-black/60 shadow-xl backdrop-blur-sm p-6 relative overflow-hidden mb-16">
             <div className="absolute inset-0 bg-[url('/pattern-overlay.png')] opacity-5 mix-blend-overlay"></div>
             <div className="absolute -top-20 -right-20 w-80 h-80 bg-red-900/5 rounded-full blur-3xl"></div>
             <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-red-900/5 rounded-full blur-3xl"></div>
@@ -551,16 +558,15 @@ export default function Contact() {
                 <div className="absolute -bottom-2 left-0 w-12 h-0.5 bg-gradient-to-r from-red-600 to-red-400 rounded-full"></div>
               </h2>
 
-              <div className="aspect-w-16 aspect-h-7 rounded-lg overflow-hidden border border-red-900/30">
+              <div className="h-96 rounded-lg overflow-hidden border border-red-900/30">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3328.1752836863716!2d-82.1292234!3d33.5360199!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f9d6f1f3c9e2d5%3A0x5b3f5e9a2f5b8c7a!2sEvans%2C%20GA%2030809!5e0!3m2!1sen!2sus!4v1620123456789!5m2!1sen!2sus"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3328.1752836863326!2d-82.1292!3d33.5328!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f9d6c1a3d5d1d3%3A0x5b8b9c5e5c5c5c5c!2sEvans%2C%20GA%2030809!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus"
                   width="100%"
-                  height="450"
+                  height="100%"
                   style={{ border: 0 }}
-                  allowFullScreen={false}
+                  allowFullScreen={true}
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Seigler's Karate Center Location"
                 ></iframe>
               </div>
             </div>
@@ -569,7 +575,7 @@ export default function Contact() {
 
         {/* FAQ Section */}
         <AnimatedElement type="fadeIn" delay={0.7}>
-          <div className="rounded-xl border border-red-900/30 bg-black/60 shadow-xl backdrop-blur-sm p-8 relative overflow-hidden mb-16">
+          <div className="rounded-xl border border-red-900/30 bg-black/60 shadow-xl backdrop-blur-sm p-6 relative overflow-hidden mb-16">
             <div className="absolute inset-0 bg-[url('/pattern-overlay.png')] opacity-5 mix-blend-overlay"></div>
             <div className="absolute -top-20 -right-20 w-80 h-80 bg-red-900/5 rounded-full blur-3xl"></div>
             <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-red-900/5 rounded-full blur-3xl"></div>
@@ -580,38 +586,36 @@ export default function Contact() {
                 <div className="absolute -bottom-2 left-0 w-12 h-0.5 bg-gradient-to-r from-red-600 to-red-400 rounded-full"></div>
               </h2>
 
-              <div className="space-y-6">
-                <div className="bg-black/30 rounded-lg p-6 border border-red-900/20">
-                  <h3 className="text-lg font-semibold text-white mb-2">What age can my child start martial arts?</h3>
+              <div className="space-y-4">
+                <div className="bg-black/30 rounded-lg p-4 border border-red-900/20">
+                  <h3 className="font-medium text-white mb-2">What age can my child start martial arts?</h3>
                   <p className="text-gray-300">
-                    We offer programs for children as young as 4 years old with our Lil Dragons program. Each age group
-                    has a curriculum specifically designed for their physical and mental development stage.
+                    We offer programs for children as young as 4 years old. Our Little Dragons program is specifically
+                    designed for children ages 4-6, focusing on basic motor skills, discipline, and fun.
                   </p>
                 </div>
 
-                <div className="bg-black/30 rounded-lg p-6 border border-red-900/20">
-                  <h3 className="text-lg font-semibold text-white mb-2">Do I need to be in shape to start?</h3>
+                <div className="bg-black/30 rounded-lg p-4 border border-red-900/20">
+                  <h3 className="font-medium text-white mb-2">Do I need to be in shape to start martial arts?</h3>
                   <p className="text-gray-300">
-                    Not at all! Our programs are designed to meet you at your current fitness level and help you
-                    progress at your own pace. Many students find that their fitness improves naturally as they continue
-                    training.
+                    Not at all! Our programs are designed for all fitness levels. You'll get in shape as you train, and
+                    our instructors will help you progress at your own pace.
                   </p>
                 </div>
 
-                <div className="bg-black/30 rounded-lg p-6 border border-red-900/20">
-                  <h3 className="text-lg font-semibold text-white mb-2">How often should I train?</h3>
+                <div className="bg-black/30 rounded-lg p-4 border border-red-900/20">
+                  <h3 className="font-medium text-white mb-2">How often should I train?</h3>
                   <p className="text-gray-300">
-                    For beginners, we recommend 2-3 classes per week. This provides enough training to see progress
-                    while allowing your body to adjust to the new activities. As you advance, you may choose to train
-                    more frequently.
+                    For beginners, we recommend 2-3 classes per week. This provides enough training to see progress while
+                    allowing your body to recover between sessions.
                   </p>
                 </div>
 
-                <div className="bg-black/30 rounded-lg p-6 border border-red-900/20">
-                  <h3 className="text-lg font-semibold text-white mb-2">Do you offer trial classes?</h3>
+                <div className="bg-black/30 rounded-lg p-4 border border-red-900/20">
+                  <h3 className="font-medium text-white mb-2">Do you offer trial classes?</h3>
                   <p className="text-gray-300">
-                    Yes! We offer a free introductory class so you can experience our training environment before
-                    committing. Contact us to schedule your free trial class today.
+                    Yes! We offer a free trial class for all new students. This allows you to experience our teaching
+                    style and facility before making a commitment.
                   </p>
                 </div>
               </div>
@@ -619,7 +623,7 @@ export default function Contact() {
           </div>
         </AnimatedElement>
 
-        {/* Bottom CTA Section - Updated text */}
+        {/* CTA Section */}
         <AnimatedElement type="fadeIn" delay={0.8}>
           <div className="relative rounded-xl overflow-hidden">
             {/* Background with overlay */}
@@ -638,13 +642,14 @@ export default function Contact() {
               </p>
 
               <div className="flex flex-col sm:flex-row justify-center space-x-0 sm:space-x-4">
-                <Link
-                  href="/schedule"
+                <a
+                  href="#"
+                  onClick={openModal}
                   className="bg-white text-red-700 font-bold py-3 px-8 rounded-md text-lg shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center mx-0 sm:mr-3 mb-4 sm:mb-0"
                 >
                   View Our Schedule & Pricing Options
                   <ChevronRight className="ml-2 h-5 w-5" />
-                </Link>
+                </a>
 
                 <Link
                   href="/contact"
@@ -658,6 +663,9 @@ export default function Contact() {
           </div>
         </AnimatedElement>
       </div>
+
+      {/* Modal Component */}
+      <SchedulePricingModal isOpen={isModalOpen} onClose={closeModal} />
     </Template>
   )
-} 
+}

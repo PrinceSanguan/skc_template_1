@@ -10,6 +10,7 @@ import { initScrollAnimations } from "@/utils/animations"
 import AnimatedElement from "@/components/ui/animated-element"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import SchedulePricingModal from "@/components/SchedulePricingModal"
 
 // Register GSAP plugins
 if (typeof window !== "undefined") {
@@ -29,6 +30,7 @@ export default function Franchise() {
     message: "",
   })
   const [formFocus, setFormFocus] = useState<string | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   // Countdown timer state
   const [timeLeft, setTimeLeft] = useState({
@@ -39,6 +41,11 @@ export default function Franchise() {
   })
 
   const endDateRef = useRef(new Date())
+
+  const openModal = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault()
+    setIsModalOpen(true)
+  }
 
   // Replace the existing countdown timer useEffect with this corrected version
   useEffect(() => {
@@ -160,20 +167,20 @@ export default function Franchise() {
           {/* Hero Section */}
           <section className="relative h-screen min-h-[600px] flex items-center overflow-hidden">
             {/* Background image with minimal overlay */}
-<div className="absolute inset-0 z-0">
-  <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/30 z-10"></div>
-  {imagesLoaded && (
-  <img
-    src="/Images/team/63d03cc126d6cd7584f54e0c-1-1024x576.png"
-    alt="Martial arts training"
-    className="w-full h-full object-cover"
-    style={{ 
-      objectPosition: "center -45%", // Show the very top of the image
-      transform: "translateY(30px)" // Positive value pushes the image down
-    }}
-  />
-)}
-</div>
+            <div className="absolute inset-0 z-0">
+              <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/30 z-10"></div>
+              {imagesLoaded && (
+                <img
+                  src="/Images/team/63d03cc126d6cd7584f54e0c-1-1024x576.png"
+                  alt="Martial arts training"
+                  className="w-full h-full object-cover"
+                  style={{
+                    objectPosition: "center -45%", // Show the very top of the image
+                    transform: "translateY(30px)", // Positive value pushes the image down
+                  }}
+                />
+              )}
+            </div>
 
             {/* Decorative elements */}
             <div className="absolute inset-0 overflow-hidden">
@@ -233,7 +240,8 @@ export default function Franchise() {
                 </p>
                 <div className="text-center">
                   <a
-                    href="#download-brochure"
+                    href="#"
+                    onClick={openModal}
                     className="inline-block bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 px-8 py-4 rounded-md text-lg font-semibold text-white transition-all duration-300 shadow-[0_4px_15px_rgba(220,38,38,0.4)] hover:shadow-[0_6px_20px_rgba(220,38,38,0.6)] hover:-translate-y-1"
                   >
                     View Our Schedule & Pricing Options
@@ -370,7 +378,8 @@ export default function Franchise() {
                     </div>
                     <div className="mt-8 text-center">
                       <a
-                        href="#download-brochure"
+                        href="#"
+                        onClick={openModal}
                         className="inline-block bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 px-6 py-3 rounded-md font-semibold text-white transition-all duration-300 shadow-[0_4px_10px_rgba(220,38,38,0.3)] hover:shadow-[0_6px_15px_rgba(220,38,38,0.4)] hover:-translate-y-1"
                       >
                         View Our Schedule & Pricing Options
@@ -803,7 +812,8 @@ export default function Franchise() {
                   can help you achieve your goals, create success, and benefit your community.
                 </p>
                 <a
-                  href="#download-brochure"
+                  href="#"
+                  onClick={openModal}
                   className="inline-block bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 px-8 py-4 rounded-md text-lg font-semibold text-white transition-all duration-300 shadow-[0_4px_15px_rgba(220,38,38,0.4)] hover:shadow-[0_6px_20px_rgba(220,38,38,0.6)] hover:-translate-y-1"
                 >
                   View Our Schedule & Pricing Options
@@ -966,6 +976,10 @@ export default function Franchise() {
                       <div className="text-center">
                         <button
                           type="submit"
+                          onClick={(e) => {
+                            e.preventDefault()
+                            openModal(e as any)
+                          }}
                           className="relative inline-block bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 px-8 py-4 rounded-md text-lg font-semibold text-white transition-all duration-300 shadow-[0_4px_15px_rgba(220,38,38,0.4)] hover:shadow-[0_6px_20px_rgba(220,38,38,0.6)] w-full hover:-translate-y-1 overflow-hidden group"
                         >
                           <span className="relative z-10">View Our Schedule & Pricing Options</span>
@@ -981,6 +995,9 @@ export default function Franchise() {
         </main>
 
         <Footer />
+
+        {/* Schedule & Pricing Modal */}
+        <SchedulePricingModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       </div>
     </>
   )

@@ -1,15 +1,28 @@
 "use client"
 
+import type React from "react"
+
 import Template from "../About/Template"
 import AnimatedElement from "@/components/ui/animated-element"
 import { Link } from "@inertiajs/react"
 import { ChevronRight } from "lucide-react"
 import { useRef, useEffect, useState } from "react"
 import gsap from "gsap"
+import SchedulePricingModal from "@/components/SchedulePricingModal"
 
 export default function AdultKempo() {
   const particlesRef = useRef<HTMLDivElement>(null)
   const heroRef = useRef(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const openModal = (e: React.MouseEvent) => {
+    e.preventDefault()
+    setIsModalOpen(true)
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
 
   // Countdown timer state
   const [timeLeft, setTimeLeft] = useState({
@@ -266,12 +279,13 @@ export default function AdultKempo() {
               </div>
             </div>
 
-            <Link
-              href="/schedule"
+            <a
+              href="#"
+              onClick={openModal}
               className="bg-white text-red-700 hover:bg-gray-100 font-medium py-3 px-8 rounded-lg shadow-lg transition-all duration-300 text-lg border border-white/30 hover:scale-105 transform"
             >
               View Our Schedule & Pricing Options
-            </Link>
+            </a>
           </div>
         </div>
       </AnimatedElement>
@@ -544,13 +558,14 @@ export default function AdultKempo() {
                 offers something for everyone. Start with a free introductory class.
               </p>
               <div className="flex flex-col sm:flex-row justify-center space-x-0 sm:space-x-4 gap-y-4 sm:gap-y-0">
-                <Link
-                  href="/schedule"
+                <a
+                  href="#"
+                  onClick={openModal}
                   className="bg-white text-red-700 hover:bg-gray-100 font-bold py-3 px-8 rounded-md text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center mx-0 sm:mr-3"
                 >
                   View Our Schedule & Pricing Options
                   <ChevronRight className="ml-2 h-5 w-5" />
-                </Link>
+                </a>
                 <Link
                   href="/programs"
                   className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-bold py-3 px-8 rounded-md text-lg transition-all duration-300 flex items-center justify-center mx-0"
@@ -563,6 +578,9 @@ export default function AdultKempo() {
           </div>
         </AnimatedElement>
       </div>
+
+      {/* Schedule & Pricing Modal */}
+      <SchedulePricingModal isOpen={isModalOpen} onClose={closeModal} />
     </Template>
   )
 }

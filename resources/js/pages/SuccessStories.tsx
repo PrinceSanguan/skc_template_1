@@ -6,12 +6,16 @@ import Template from "@/pages/Programs/Template"
 import AnimatedElement from "@/components/ui/animated-element"
 import { Link } from "@inertiajs/react"
 import { useState, useEffect, useRef } from "react"
+import SchedulePricingModal from "@/components/SchedulePricingModal"
 
 export default function SuccessStories() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [imagesLoaded, setImagesLoaded] = useState(false)
   const [activeVideoId, setActiveVideoId] = useState<string | null>(null)
   const videoRef = useRef<HTMLIFrameElement>(null)
+
+  // Modal state
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   // Countdown timer state
   const [timeLeft, setTimeLeft] = useState({
@@ -67,26 +71,35 @@ export default function SuccessStories() {
     e.currentTarget.src = defaultProfilePicture
   }
 
+  // Open modal function
+  const openModal = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault()
+    setIsModalOpen(true)
+  }
+
   // Featured success stories (updated with YouTube videos)
   const featuredStories = [
     {
       id: 1,
       title: "Jiujitsu Black Belt Brenden Visits",
-      description: "Watch the inspiring story of Brenden, a Jiujitsu Black Belt who visited Seigler's Karate Center to share his expertise and journey with our students.",
+      description:
+        "Watch the inspiring story of Brenden, a Jiujitsu Black Belt who visited Seigler's Karate Center to share his expertise and journey with our students.",
       videoId: "4U0jaooca4k",
       thumbnailUrl: `https://img.youtube.com/vi/4U0jaooca4k/maxresdefault.jpg`,
     },
     {
       id: 2,
       title: "Parent Testimonial - Character Development",
-      description: "Hear from a parent about how SKC has helped develop their child's character, discipline, and confidence both in and out of the dojo.",
+      description:
+        "Hear from a parent about how SKC has helped develop their child's character, discipline, and confidence both in and out of the dojo.",
       videoId: "zmM6JWcqLJ8",
       thumbnailUrl: `https://img.youtube.com/vi/zmM6JWcqLJ8/maxresdefault.jpg`,
     },
     {
       id: 3,
       title: "Self-Defense Skills Transforming Lives",
-      description: "Discover how learning practical self-defense skills at Seigler's Karate Center has transformed our students' confidence and safety awareness.",
+      description:
+        "Discover how learning practical self-defense skills at Seigler's Karate Center has transformed our students' confidence and safety awareness.",
       videoId: "lvRNBuRcDOU",
       thumbnailUrl: `https://img.youtube.com/vi/lvRNBuRcDOU/maxresdefault.jpg`,
     },
@@ -138,6 +151,9 @@ export default function SuccessStories() {
 
   return (
     <Template title="Success Stories">
+      {/* Schedule & Pricing Modal */}
+      <SchedulePricingModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
       {/* Enhanced decorative elements - removed background images */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         {/* Particle animation with more particles and varied sizes */}
@@ -263,12 +279,13 @@ export default function SuccessStories() {
                 </div>
               </div>
 
-              <Link
-                href="/contact"
+              <a
+                href="#"
+                onClick={openModal}
                 className="inline-block bg-white text-red-700 hover:bg-gray-100 font-medium py-3 px-8 rounded-lg shadow-lg transition-all duration-300 text-lg border border-white/30 hover:scale-105 transform"
               >
                 View Our Schedule & Pricing Options
-              </Link>
+              </a>
             </div>
           </div>
         </AnimatedElement>
@@ -302,7 +319,10 @@ export default function SuccessStories() {
             >
               <div className="rounded-2xl overflow-hidden mb-16 border border-red-900/50 bg-black/70 backdrop-blur-md shadow-[0_0_25px_rgba(0,0,0,0.7)] transition-all duration-500 hover:shadow-[0_0_35px_rgba(139,0,0,0.3)] transform hover:-translate-y-1">
                 <div className="md:flex">
-                  <div className="md:w-1/2 relative bg-gradient-to-br from-red-900/40 to-black/60" style={{ minHeight: "350px" }}>
+                  <div
+                    className="md:w-1/2 relative bg-gradient-to-br from-red-900/40 to-black/60"
+                    style={{ minHeight: "350px" }}
+                  >
                     {activeVideoId === story.videoId ? (
                       <iframe
                         width="100%"
@@ -318,14 +338,14 @@ export default function SuccessStories() {
                       <>
                         {imagesLoaded && (
                           <img
-                            src={story.thumbnailUrl}
+                            src={story.thumbnailUrl || "/placeholder.svg"}
                             alt={story.title}
                             className="w-full h-full object-cover absolute inset-0"
                             onError={handleImageError}
                           />
                         )}
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <div 
+                          <div
                             className="w-24 h-24 rounded-full bg-red-600/30 backdrop-blur-sm flex items-center justify-center border border-red-600/50 cursor-pointer hover:bg-red-600/40 transition-all duration-300 shadow-[0_0_15px_rgba(220,38,38,0.3)] hover:shadow-[0_0_25px_rgba(220,38,38,0.5)] group"
                             onClick={() => handlePlayVideo(story.videoId)}
                           >
@@ -356,15 +376,19 @@ export default function SuccessStories() {
 
                     <h3 className="text-3xl font-bold mb-5 tracking-tight">{story.title}</h3>
                     <div className="w-16 h-0.5 bg-gradient-to-r from-red-700 to-red-500 mb-6"></div>
-                    
+
                     <p className="text-gray-300 mb-8 text-lg leading-relaxed">{story.description}</p>
-                    
+
                     <button
                       onClick={() => handlePlayVideo(story.videoId)}
                       className="inline-flex items-center bg-gradient-to-r from-red-700 to-red-900 hover:from-red-600 hover:to-red-800 text-white py-3 px-6 rounded-lg transition-all duration-300 shadow-lg border border-red-600/30 transform hover:-translate-y-1"
                     >
                       <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+                        <path
+                          fillRule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                          clipRule="evenodd"
+                        />
                       </svg>
                       Watch Video
                     </button>
@@ -418,14 +442,14 @@ export default function SuccessStories() {
 
           <div className="grid grid-cols-1 gap-10">
             {[
-               {
+              {
                 id: 1,
                 name: "Victoria Dickason",
                 via: "via Google",
                 achievement: "SKC Center Family",
                 quote:
                   "My son recently joined the SKC center family! He has enjoyed everything since day one. The administrative staff is so polite and accommodating! His instructors shows attention to every student and finds creative ways to teach the students the fundamentals. I look forward to my son continuing his training and lessons at SKC.",
-                imagePlaceholder: "/Images/team/Victoria-Dickason.png"
+                imagePlaceholder: "/Images/team/Victoria-Dickason.png",
               },
               {
                 id: 2,
@@ -434,7 +458,7 @@ export default function SuccessStories() {
                 achievement: "Incredible Growth",
                 quote:
                   "The whole team at SKC has been incredible to work with for the past year, and we've seen such incredible growth in our daughter's confidence, discipline, focus, and respect since she started coming to SKC. She genuinely looks forward to her classes, and loves to tell everyone she knows just how great it is! She's on a quest for her black belt, and we're excited to have the team at SKC supporting and teaching her along the way.",
-                imagePlaceholder: "/Images/team/Omega-Hammerling.png"
+                imagePlaceholder: "/Images/team/Omega-Hammerling.png",
               },
               {
                 id: 3,
@@ -443,7 +467,7 @@ export default function SuccessStories() {
                 achievement: "Children's Interest",
                 quote:
                   "This place is awesome! The initial focus class really sparked my children's interest. Now that my children are actively participating in SKC they enjoy it very much! They look forward to practice days and SKC events. Also, the senseis and coaches at SKC are amazing! They have a special way to interact and teach kids of all ages! I highly recommend this place!",
-                imagePlaceholder: "/Images/team/Jodeva.png"
+                imagePlaceholder: "/Images/team/Jodeva.png",
               },
               {
                 id: 4,
@@ -452,7 +476,7 @@ export default function SuccessStories() {
                 achievement: "Proper Learning",
                 quote:
                   "We absolutely love this place everyone is amazing and friendly and makes sure all the kids learn to do karate correctly and teach the kids respect",
-                imagePlaceholder: "/Images/team/Deborah-Hayes.png"
+                imagePlaceholder: "/Images/team/Deborah-Hayes.png",
               },
               {
                 id: 5,
@@ -461,7 +485,7 @@ export default function SuccessStories() {
                 achievement: "Patient Teaching",
                 quote:
                   "I love how patient they are with the children. Maddison loves her sensei and enjoys her classes.",
-                imagePlaceholder: "/Images/team/Stephanie-Skipper.png"
+                imagePlaceholder: "/Images/team/Stephanie-Skipper.png",
               },
             ].map((review, index) => (
               <AnimatedElement
@@ -475,7 +499,10 @@ export default function SuccessStories() {
                       <div className="mr-4 flex-shrink-0">
                         {imagesLoaded && (
                           <img
-                            src={review.imagePlaceholder || `/focused-fighter.png?key=${review.id}&height=50&width=50&query=profile ${review.name}`}
+                            src={
+                              review.imagePlaceholder ||
+                              `/focused-fighter.png?key=${review.id}&height=50&width=50&query=profile ${review.name}`
+                            }
                             alt={review.name}
                             className="w-16 h-16 rounded-full object-cover border-2 border-red-500/30"
                             onError={handleImageError}
@@ -485,24 +512,18 @@ export default function SuccessStories() {
                       <div>
                         <h3 className="text-2xl font-bold mb-1 tracking-tight">{review.name}</h3>
                         <div className="flex items-center mb-2">
-                          <p className="text-gray-400 text-sm">
-                            {review.via}
-                          </p>
+                          <p className="text-gray-400 text-sm">{review.via}</p>
                         </div>
                         <div className="flex mb-3">
                           {[...Array(5)].map((_, i) => (
-                            <svg 
-                              key={i} 
-                              className="w-5 h-5 text-yellow-400 fill-current mr-1" 
-                              viewBox="0 0 24 24"
-                            >
+                            <svg key={i} className="w-5 h-5 text-yellow-400 fill-current mr-1" viewBox="0 0 24 24">
                               <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
                             </svg>
                           ))}
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className="bg-black/30 p-5 rounded-lg border border-red-900/20 mb-4">
                       <div className="absolute top-0 right-0 w-20 h-20 opacity-10">
                         <svg viewBox="0 0 100 100" className="w-full h-full fill-current text-red-600">
@@ -511,7 +532,7 @@ export default function SuccessStories() {
                       </div>
                       <p className="text-gray-300 italic text-lg leading-relaxed relative z-10">"{review.quote}"</p>
                     </div>
-                    
+
                     <div className="bg-gradient-to-r from-red-700 to-red-900 text-white text-sm font-semibold px-4 py-2 rounded-lg inline-block shadow-lg border border-red-600/30">
                       {review.achievement}
                     </div>
@@ -545,12 +566,13 @@ export default function SuccessStories() {
                 Seigler's Karate Center. Your journey begins with a single step.
               </p>
               <div className="flex flex-col sm:flex-row justify-center gap-6">
-                <Link
-                  href="/contact"
+                <a
+                  href="#"
+                  onClick={openModal}
                   className="bg-white text-red-700 hover:bg-gray-100 font-medium py-4 px-10 rounded-lg shadow-lg transition-all duration-300 text-lg border border-white/30 hover:scale-105 transform"
                 >
                   View Our Schedule & Pricing Options
-                </Link>
+                </a>
                 <Link
                   href="/programs"
                   className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-medium py-4 px-10 rounded-lg shadow-lg transition-all duration-300 text-lg hover:scale-105 transform"

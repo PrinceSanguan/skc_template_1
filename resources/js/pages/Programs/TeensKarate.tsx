@@ -1,15 +1,32 @@
 "use client"
 
+import type React from "react"
+
 import Template from "../About/Template"
 import AnimatedElement from "@/components/ui/animated-element"
 import { Link } from "@inertiajs/react"
 import { useRef, useEffect, useState } from "react"
 import { ChevronRight } from "lucide-react"
 import gsap from "gsap"
+import SchedulePricingModal from "@/components/SchedulePricingModal" // Import the modal component
 
 export default function TeensKarate() {
   const particlesRef = useRef<HTMLDivElement>(null)
   const heroRef = useRef(null)
+
+  // Modal state
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  // Function to open the modal
+  const openModal = (e: React.MouseEvent) => {
+    e.preventDefault() // Prevent default link behavior
+    setIsModalOpen(true)
+  }
+
+  // Function to close the modal
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
 
   // Countdown timer state
   const [timeLeft, setTimeLeft] = useState({
@@ -184,7 +201,7 @@ export default function TeensKarate() {
         <div className="absolute right-0 top-1/2 w-24 h-24 bg-red-500/10 rounded-full blur-xl"></div>
 
         <div className="absolute inset-0 bg-[url('/pattern-overlay.png')] opacity-5 mix-blend-overlay"></div>
-        
+
         {/* Hero image - Overlay removed to see image more clearly */}
         <div className="absolute inset-0 z-0">
           <img
@@ -270,12 +287,13 @@ export default function TeensKarate() {
               </div>
             </div>
 
-            <Link
-              href="/schedule"
+            <a
+              href="#"
+              onClick={openModal}
               className="bg-white text-red-700 hover:bg-gray-100 font-medium py-3 px-8 rounded-lg shadow-lg transition-all duration-300 text-lg border border-white/30 hover:scale-105 transform"
             >
               View Our Schedule & Pricing Options
-            </Link>
+            </a>
           </div>
         </div>
       </AnimatedElement>
@@ -352,10 +370,9 @@ export default function TeensKarate() {
           </div>
         </AnimatedElement>
 
-        {/* What to Expect */}
+        {/* What to Expect - Fixed the structure issue */}
         <AnimatedElement type="fadeIn" delay={0.6}>
           <div className="rounded-xl border border-red-900/30 bg-black/60 shadow-xl backdrop-blur-sm p-8 mb-20 relative overflow-hidden">
-          </div>
             <div className="absolute inset-0 bg-[url('/pattern-overlay.png')] opacity-5 mix-blend-overlay"></div>
             <div className="absolute -top-20 -right-20 w-80 h-80 bg-red-900/5 rounded-full blur-3xl"></div>
             <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-red-900/5 rounded-full blur-3xl"></div>
@@ -521,7 +538,8 @@ export default function TeensKarate() {
                 </div>
               </div>
             </div>
-          </AnimatedElement>
+          </div>
+        </AnimatedElement>
 
         {/* CTA */}
         <AnimatedElement type="fadeIn" delay={0.7}>
@@ -548,13 +566,14 @@ export default function TeensKarate() {
                 firsthand how our Teens Karate program can help navigate the challenges of adolescence.
               </p>
               <div className="flex flex-col sm:flex-row justify-center space-x-0 sm:space-x-4 gap-y-4 sm:gap-y-0">
-                <Link
-                  href="/schedule"
+                <a
+                  href="#"
+                  onClick={openModal}
                   className="bg-white text-red-700 hover:bg-gray-100 font-bold py-3 px-8 rounded-md text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center mx-0 sm:mr-3"
                 >
                   View Our Schedule & Pricing Options
                   <ChevronRight className="ml-2 h-5 w-5" />
-                </Link>
+                </a>
                 <Link
                   href="/programs"
                   className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-bold py-3 px-8 rounded-md text-lg transition-all duration-300 flex items-center justify-center mx-0"
@@ -567,6 +586,9 @@ export default function TeensKarate() {
           </div>
         </AnimatedElement>
       </div>
+
+      {/* Modal Component */}
+      <SchedulePricingModal isOpen={isModalOpen} onClose={closeModal} />
     </Template>
   )
 }

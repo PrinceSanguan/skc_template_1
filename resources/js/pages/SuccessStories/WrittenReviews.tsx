@@ -16,6 +16,40 @@ export default function WrittenReviews() {
     setImagesLoaded(true)
   }, [])
 
+  // Add countdown timer state and logic
+  // Add this after the existing useState and useEffect hooks
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  })
+
+  useEffect(() => {
+    // Set promotion end date (7 days from now)
+    const promotionEndDate = new Date()
+    promotionEndDate.setDate(promotionEndDate.getDate() + 7)
+
+    const timer = setInterval(() => {
+      const now = new Date()
+      const difference = promotionEndDate.getTime() - now.getTime()
+
+      if (difference <= 0) {
+        clearInterval(timer)
+        return
+      }
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000)
+
+      setTimeLeft({ days, hours, minutes, seconds })
+    }, 1000)
+
+    return () => clearInterval(timer)
+  }, [])
+
   // Handle image error by replacing with default profile picture
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     e.currentTarget.src = defaultProfilePicture
@@ -136,6 +170,52 @@ export default function WrittenReviews() {
             <div className="absolute inset-6 border border-red-600/20 rounded-full"></div>
           </div>
         </div>
+        <AnimatedElement type="fadeIn" delay={0.35}>
+          <div className="rounded-xl border border-red-900/30 bg-black/60 shadow-xl backdrop-blur-sm p-8 mb-16 relative overflow-hidden">
+            <div className="absolute inset-0 bg-[url('/pattern-overlay.png')] opacity-5 mix-blend-overlay"></div>
+            <div className="absolute -top-20 -right-20 w-80 h-80 bg-red-900/5 rounded-full blur-3xl"></div>
+            <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-red-900/5 rounded-full blur-3xl"></div>
+
+            <div className="relative z-10 text-center">
+              <div className="inline-flex items-center space-x-2 mb-4 justify-center">
+                <div className="h-px w-8 bg-red-500"></div>
+                <span className="text-red-400 uppercase tracking-wider text-sm font-semibold">Limited Time Offer</span>
+                <div className="h-px w-8 bg-red-500"></div>
+              </div>
+              <h2 className="text-3xl font-bold text-white mb-4">Special Promotion Ending Soon!</h2>
+              <p className="text-xl text-gray-300 mb-6 max-w-3xl mx-auto">
+                Sign up now and receive 50% off your first month plus a free uniform! Don't miss this opportunity.
+              </p>
+
+              {/* Countdown Timer */}
+              <div className="flex justify-center gap-4 mb-8">
+                <div className="bg-red-900/50 backdrop-blur-sm p-4 rounded-lg w-20 border border-red-500/30">
+                  <div className="text-3xl font-bold text-white">{timeLeft.days}</div>
+                  <div className="text-xs text-gray-300 uppercase">Days</div>
+                </div>
+                <div className="bg-red-900/50 backdrop-blur-sm p-4 rounded-lg w-20 border border-red-500/30">
+                  <div className="text-3xl font-bold text-white">{timeLeft.hours}</div>
+                  <div className="text-xs text-gray-300 uppercase">Hours</div>
+                </div>
+                <div className="bg-red-900/50 backdrop-blur-sm p-4 rounded-lg w-20 border border-red-500/30">
+                  <div className="text-3xl font-bold text-white">{timeLeft.minutes}</div>
+                  <div className="text-xs text-gray-300 uppercase">Minutes</div>
+                </div>
+                <div className="bg-red-900/50 backdrop-blur-sm p-4 rounded-lg w-20 border border-red-500/30">
+                  <div className="text-3xl font-bold text-white">{timeLeft.seconds}</div>
+                  <div className="text-xs text-gray-300 uppercase">Seconds</div>
+                </div>
+              </div>
+
+              <Link
+                href="/contact"
+                className="bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 text-white py-3 px-8 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center justify-center text-lg font-medium"
+              >
+                View Our Schedule & Pricing Options
+              </Link>
+            </div>
+          </div>
+        </AnimatedElement>
 
         {/* Written Reviews Grid - Enhanced */}
         <div className="mb-24">
@@ -225,7 +305,7 @@ export default function WrittenReviews() {
                   href="/contact"
                   className="bg-white text-red-700 hover:bg-gray-100 font-medium py-4 px-10 rounded-lg shadow-lg transition-all duration-300 text-lg border border-white/30 hover:scale-105 transform"
                 >
-                  Start with a Free Class
+                  View Our Schedule & Pricing Options
                 </Link>
                 <Link
                   href="/success-stories"

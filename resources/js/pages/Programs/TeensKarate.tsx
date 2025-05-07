@@ -3,13 +3,46 @@
 import Template from "../About/Template"
 import AnimatedElement from "@/components/ui/animated-element"
 import { Link } from "@inertiajs/react"
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useState } from "react"
 import { ChevronRight } from "lucide-react"
 import gsap from "gsap"
 
 export default function TeensKarate() {
   const particlesRef = useRef<HTMLDivElement>(null)
   const heroRef = useRef(null)
+
+  // Countdown timer state
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  })
+
+  // Set end date for promotion (example: 7 days from now)
+  useEffect(() => {
+    const endDate = new Date()
+    endDate.setDate(endDate.getDate() + 7) // 7 days from now
+
+    const timer = setInterval(() => {
+      const now = new Date()
+      const difference = endDate.getTime() - now.getTime()
+
+      if (difference <= 0) {
+        clearInterval(timer)
+        return
+      }
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000)
+
+      setTimeLeft({ days, hours, minutes, seconds })
+    }, 1000)
+
+    return () => clearInterval(timer)
+  }, [])
 
   // Program benefits
   const benefits = [
@@ -194,6 +227,59 @@ export default function TeensKarate() {
         </div>
       </div>
 
+      {/* Top CTA with Countdown */}
+      <AnimatedElement type="fadeIn" delay={0.35}>
+        <div className="mb-16 rounded-xl overflow-hidden relative">
+          <div className="absolute inset-0 bg-gradient-to-r from-red-800 to-red-950 z-0"></div>
+
+          {/* Decorative elements */}
+          <div className="absolute top-0 left-0 w-60 h-60 bg-red-600/30 rounded-full filter blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-60 h-60 bg-red-600/30 rounded-full filter blur-3xl"></div>
+
+          <div className="relative z-10 p-8 text-center">
+            <h3 className="text-2xl font-bold text-white mb-4">Limited Time Offer!</h3>
+            <p className="text-white text-lg mb-6 max-w-2xl mx-auto">
+              Sign up now and receive 50% off your first month of training!
+            </p>
+
+            {/* Countdown Timer */}
+            <div className="flex justify-center space-x-4 mb-6">
+              <div className="flex flex-col items-center">
+                <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center border border-red-500/30">
+                  {timeLeft.days}
+                </div>
+                <span className="text-xs mt-1 text-gray-300">Days</span>
+              </div>
+              <div className="flex flex-col items-center">
+                <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center border border-red-500/30">
+                  {timeLeft.hours}
+                </div>
+                <span className="text-xs mt-1 text-gray-300">Hours</span>
+              </div>
+              <div className="flex flex-col items-center">
+                <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center border border-red-500/30">
+                  {timeLeft.minutes}
+                </div>
+                <span className="text-xs mt-1 text-gray-300">Minutes</span>
+              </div>
+              <div className="flex flex-col items-center">
+                <div className="bg-black/50 text-white text-2xl font-bold rounded-md w-14 h-14 flex items-center justify-center border border-red-500/30">
+                  {timeLeft.seconds}
+                </div>
+                <span className="text-xs mt-1 text-gray-300">Seconds</span>
+              </div>
+            </div>
+
+            <Link
+              href="/schedule"
+              className="bg-white text-red-700 hover:bg-gray-100 font-medium py-3 px-8 rounded-lg shadow-lg transition-all duration-300 text-lg border border-white/30 hover:scale-105 transform"
+            >
+              View Our Schedule & Pricing Options
+            </Link>
+          </div>
+        </div>
+      </AnimatedElement>
+
       <div className="container mx-auto px-4 py-16 relative z-10">
         {/* Program Description - Single column after removing schedule */}
         <div className="mb-20">
@@ -269,6 +355,7 @@ export default function TeensKarate() {
         {/* What to Expect */}
         <AnimatedElement type="fadeIn" delay={0.6}>
           <div className="rounded-xl border border-red-900/30 bg-black/60 shadow-xl backdrop-blur-sm p-8 mb-20 relative overflow-hidden">
+          </div>
             <div className="absolute inset-0 bg-[url('/pattern-overlay.png')] opacity-5 mix-blend-overlay"></div>
             <div className="absolute -top-20 -right-20 w-80 h-80 bg-red-900/5 rounded-full blur-3xl"></div>
             <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-red-900/5 rounded-full blur-3xl"></div>
@@ -434,8 +521,7 @@ export default function TeensKarate() {
                 </div>
               </div>
             </div>
-          </div>
-        </AnimatedElement>
+          </AnimatedElement>
 
         {/* CTA */}
         <AnimatedElement type="fadeIn" delay={0.7}>
@@ -463,10 +549,10 @@ export default function TeensKarate() {
               </p>
               <div className="flex flex-col sm:flex-row justify-center space-x-0 sm:space-x-4 gap-y-4 sm:gap-y-0">
                 <Link
-                  href="/contact"
+                  href="/schedule"
                   className="bg-white text-red-700 hover:bg-gray-100 font-bold py-3 px-8 rounded-md text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center mx-0 sm:mr-3"
                 >
-                  Schedule a Free Class
+                  View Our Schedule & Pricing Options
                   <ChevronRight className="ml-2 h-5 w-5" />
                 </Link>
                 <Link

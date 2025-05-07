@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { Facebook, Instagram, Twitter, Youtube, Mail, Phone, MapPin, ChevronRight } from "lucide-react"
+import { Facebook, Instagram, Twitter, Youtube, Mail, Phone, MapPin, ChevronRight } from 'lucide-react'
 
 const Footer = () => {
   const footerRef = useRef<HTMLElement>(null)
@@ -290,8 +290,8 @@ const Footer = () => {
                 </div>
                 <div className="flex items-center">
                   <Mail className="h-5 w-5 mr-3 text-red-600 flex-shrink-0" />
-                  <a href="mailto:skc@goskc.com" className="text-gray-300 hover:text-red-400 transition-colors">
-                    skc@goskc.com
+                  <a href="mailto:info@goskc.com" className="text-gray-300 hover:text-red-400 transition-colors">
+                    info@goskc.com
                   </a>
                 </div>
                 <div className="flex space-x-4 pt-2">
@@ -332,8 +332,8 @@ const Footer = () => {
                 </div>
                 <div className="flex items-center">
                   <Mail className="h-5 w-5 mr-3 text-red-600 flex-shrink-0" />
-                  <a href="mailto:skc@goskc.com" className="text-gray-300 hover:text-red-400 transition-colors">
-                    skc@goskc.com
+                  <a href="mailto:info@goskc.com" className="text-gray-300 hover:text-red-400 transition-colors">
+                    info@goskc.com
                   </a>
                 </div>
                 <div className="flex space-x-4 pt-2">
@@ -484,10 +484,10 @@ const Footer = () => {
                 <li className="flex items-center group">
                   <Mail className="h-5 w-5 mr-3 text-red-600 flex-shrink-0" />
                   <a
-                    href="mailto:info@seiglerskarate.com"
+                    href="mailto:info@goskc.com"
                     className="text-gray-300 hover:text-gray-200 transition-colors duration-300"
                   >
-                    info@seiglerskarate.com
+                    info@goskc.com
                   </a>
                 </li>
               </ul>

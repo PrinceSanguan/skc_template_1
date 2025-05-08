@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { ChevronRight, Star, Calendar, Award, Users } from "lucide-react"
+import { ChevronRight, Star, Calendar, Award } from "lucide-react"
 import { Link } from "@inertiajs/react"
 import SchedulePricingModal from "@/components/SchedulePricingModal" // Import the modal component
 
@@ -164,8 +164,8 @@ const Hero = () => {
 
           <div ref={imageRef} className="w-full max-w-xl">
             <div className="relative">
-              {/* YouTube Video */}
-              <div className="relative aspect-[16/9] overflow-hidden rounded-2xl shadow-2xl mb-8 md:mb-0">
+              {/* YouTube Video - Without overlapping elements */}
+              <div className="relative aspect-[16/9] overflow-hidden rounded-2xl shadow-2xl">
                 <iframe
                   src="https://www.youtube.com/embed/SYzrc5-bImM?autoplay=1&mute=1"
                   title="Come behind the scenes with us on Black Belt Testing Day!"
@@ -173,26 +173,32 @@ const Hero = () => {
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 ></iframe>
-
-                {/* Floating badge */}
-                <div className="absolute bottom-6 left-6 rounded-xl bg-red-600 px-4 py-2 text-sm font-medium text-white shadow-lg flex items-center">
-                  <span className="mr-2">🔥</span>
-                  WATCH NOW
-                </div>
-
-                {/* Floating info card */}
-                <div className="absolute right-2 sm:right-4 md:right-6 bottom-0 sm:bottom-2 md:bottom-4 bg-black/80 backdrop-blur-md rounded-xl p-4 shadow-xl border border-red-500/20 w-[200px] sm:w-[220px]">
-                  <div className="flex items-center mb-2">
-                    <Users className="text-red-500 mr-2 flex-shrink-0" size={16} />
-                    <h3 className="font-semibold truncate">Black Belt Testing</h3>
-                  </div>
-                  <p className="text-sm text-gray-300">Behind the scenes at our dojo</p>
-                </div>
               </div>
 
               {/* Decorative elements */}
               <div className="absolute -z-10 -top-6 -left-6 w-32 h-32 rounded-full bg-gradient-to-r from-red-600/20 to-red-500/5 blur-xl"></div>
               <div className="absolute -z-10 -bottom-8 -right-8 w-40 h-40 rounded-full bg-gradient-to-r from-red-600/10 to-yellow-500/5 blur-xl"></div>
+              
+              {/* ENHANCED & RESPONSIVE Video info section */}
+              <div className="mt-3">
+                <div className="bg-black/90 backdrop-blur-md rounded-xl border border-red-900/30 overflow-hidden">
+                  <div className="flex flex-col xs:flex-row items-start xs:items-center">
+                    {/* Watch Now Button - Full width on mobile, normal on larger screens */}
+                    <div className="bg-red-600 text-white p-3 xs:py-2.5 xs:px-4 font-bold tracking-wide flex items-center justify-center xs:justify-start w-full xs:w-auto">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" />
+                      </svg>
+                      WATCH NOW
+                    </div>
+                    
+                    {/* Video info - Centered on mobile, aligned left on larger screens */}
+                    <div className="p-3 xs:py-2.5 xs:px-4 text-center xs:text-left w-full xs:w-auto">
+                      <h3 className="font-bold text-white text-base xs:text-sm">Black Belt Testing</h3>
+                      <p className="text-xs text-gray-400">Behind the scenes at our dojo</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
